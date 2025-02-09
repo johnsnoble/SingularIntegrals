@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Cauchy Transform}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Orthogonal Polynomials}{3}{}%
+\contentsline {section}{\numberline {2}Log and Stieltjes Transform}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Transforms across Intervals}{3}{}%
+\contentsline {section}{\numberline {3}Polynomial Transforms}{4}{}%

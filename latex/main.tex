@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx} % Required for inserting images
+
+\title{FYP}
+\author{Johns Noble}
+\date{January 2025}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Cauchy Transform}
+\begin{equation} \label{cauchy transform}
+C_\Gamma f(z):=\frac{1}{2\pi i}\int_\Gamma \frac{f(t)}{t-z}dt
+\end{equation}
+This is analytic for $z \not\in \Gamma$. Define Hilbert Transform to be the limits from the right and the left.
+\subsection{Orthogonal Polynomials}
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+	Family & Notation & Interval & $w(x)$ \\ 
+ \hline
+	Legendre & $P_n(x)$ & [-1,1] & $1$ \\ 
+	Chebyshev (1st) & $T_n(x)$ & [-1,1] & $(1-x^2)^{-1/2}$ \\ 
+	Chebyshev (2nd) & $U_n(x)$ & [-1,1] & $(1-x^2)^{1/2}$ \\
+	Ultraspherical & $C_n^{(\lambda)}(x),\:\lambda>-\frac{1}{2}$ & [-1,1] & $(1-x^2)^{\lambda-1/2}$ \\
+	Jacobi & $P_n^{(\alpha,\beta)}(x),\:\alpha,\beta>-1$ & [-1,1] & $(1-x)^\alpha(1-x)^\beta$ \\
+ \hline
+\end{tabular}
+\end{center}
+\section{Log and Stieltjes Transform}
+In this section we will consider approaches to compute these weakly singular integrals
+$$ \int_Alog||z-t||f(t)dt \qquad \int_A\mathbf{\nabla}log||z-t||f(t)dt $$
+\begin{equation}\label{stieltjes transform}
+	\mathcal{S}_Af(z):= \int_A\frac{f(t)}{z-t}dt \\
+\end{equation}
+\begin{equation}\label{log transform}
+	\mathcal{L}_Af(z):= \int_Alog(z-t)f(t)dt
+\end{equation}
+Depending on the type of area which $A$ is we can begin by approximating $f$ using orthogonal polynomials.
+\subsection{Transforms across Intervals}
+We will try to formulate recurrence relations for these transforms across interval [-1, 1].
+We are looking for looking for $\mathcal{S}_{[-1,1]}f(z)$.
+Decomposing $f(z) \approx \Sigma_k f_kP_k(z)$ and writing $S_k(z):=\mathcal{S}_{[-1,1]}P_k(z)$ lets us write:
+$$\mathcal{S}_{[-1,1]}f(z) \approx \Sigma_k f_kS_k(z)$$
+This motivates finding fast methods to compute $S_k(z)$. Log kernels are approached similarly letting $L_k(z):=\mathcal{L}_{[-1,1]}P_k(z)$ and looking for recurrence relations.
+\subsubsection*{Stieltjes}
+Recall recurrence relation of Legendre Polynomials:
+\begin{equation}\label{legendre recurrence}
+	xP_k(x) = \frac{k}{2k+1}P_{k-1}(x) + \frac{k+1}{2k+1}P_{k+1}(x)
+\end{equation}
+Formulate three-term recurrence for their Stieltjes transforms.
+\begin{equation}
+\begin{split}
+	zS_k(z) &= \int_{-1}^{1}\frac{zP_k(t)}{z-t}dt \\
+	&= \int_{-1}^{1}\frac{z-t}{z-t}P_k(t)dt+\int_{-1}^{1}\frac{tP_k(t)}{z-t}dt \\
+	&= \int_{-1}^{1}P_k(t)dt+\frac{k}{2k+1}\int_{-1}^{1}\frac{P_{k-1}(t)}{z-t}dt+\frac{k+1}{2k+1}\int_{-1}^{1}\frac{P_{k+1}(t)}{z-t}dt \\
+	&= 2\delta_{k0}+\frac{k}{2k+1}S_{k-1}(z)+\frac{k+1}{2k+1}S_{k+1}(z) \\
+	S_0(z) &= \int_{-1}^{1}\frac{dt}{z-t} = log(z+1)-log(z-1)
+\end{split}
+\end{equation}
+\subsubsection*{Log}
+We can begin by connecting log kernel to the Stieltjes kernel. To do this we define:$$S_k^{(\lambda)}(z):=\int_{-1}^{1}\frac{C_k^{(\lambda)}(t)}{z-t}dt$$
+We let $F(x) = \int_{-1}^1f(s)ds$ and apply integration by parts on log transform:
+\begin{equation}
+\begin{split}
+	\int_{-1}^1f(t)log(z-t)dt &= [-F(t)log(z-t)]_{-1}^1-\int_{-1}^1\frac{F(t)}{z-t}dt \\
+	&= log(z+1)\int_{-1}^1f(t)dt-\int_{-1}^1\frac{F(t)}{z-t}dt
+\end{split}
+\end{equation}
+
+\section{Polynomial Transforms}
+We can begin to consider taking these transforms across different geometries.
+Currently we have a way to find these transforms across [-1,1] but we will be trying to use this to solve other geometries.
+The first type of geometry we should consider is one where we apply adegree $d$ polynomial transform to the interval:
+$$p:[-1,1]\rightarrow \Gamma$$
+We will show why the solution to a cauchy transform across this interval is as follows:
+\begin{equation}
+C_\Gamma f(z) = \Sigma_{j=0}^dC_{[-1,1]}[f\circ p](p_j^{-1}(z))
+\end{equation}
+Where $p_j^{-1}(z)$ are the $d$ pre-images of $p$.
+In order to solve this we will use plemelj.
+There are 3 properties that need to hold for a function $\psi: \Gamma \rightarrow \mathbb{C}$ to be a cauchy transform:
+\begin{equation}\label{cauchy_conditions}\begin{gathered}
+\underset{z\to\infty}{lim}= 0 \\
+\psi_+(z)-\psi_-(z)= f(z) \\
+\psi\;analytic\;on\;\Gamma 
+\end{gathered}\end{equation}
+
+Checking \eqref{cauchy_conditions}.1 we get that $\underset{z\to\infty}{p_j^{-1}(z)} = \infty \implies$
+\begin{equation}\begin{split}
+\underset{z\to\infty}{lim}C_\Gamma f(z) &= \Sigma_{j=1}^d \underset{z\to\infty}{lim}C_{[-1,1]}(f\circ p)(p_j^{-1}(z)) \\
+&= \Sigma_{j=1}^d C_{[-1,1]}(f\circ p)(\underset{z\to\infty}{lim} p_j^{-1}(z)) \\
+&= \Sigma_{j=1}^d 0 = 0
+\end{split}\end{equation}
+
+Checking \eqref{cauchy_conditions}.2 we need an expression for $\psi^+$ and $\psi^-$.
+Let us begin by saying that we are looking for cauchy transform of point $s$ which happens to lie on $\Gamma$.
+This means that there is a unique root of $t_k := p_k^{-1} \in [-1,1]$.
+Taking limits of $\psi_+, \psi_-$ gives us:
+\begin{equation}\begin{split}
+\psi_+(s)&=\underset{z\to s}{lim}C_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
+&+\Sigma_{j\neq k}C_{[-1,1]}(f\circ p)(p_j^{-1}(s))
+\end{split}\end{equation}
+\end{document}
