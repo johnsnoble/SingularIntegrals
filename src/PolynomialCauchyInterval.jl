@@ -1,4 +1,8 @@
+module PolynomialCauchyInterval
+
 using ClassicalOrthogonalPolynomials, Polynomials, AMRVW, SingularIntegrals, Test
+
+export poly_stieltjes
 
 P = Legendre()
 # c = [randn(5); Zeros(∞)]
@@ -47,3 +51,4 @@ p = Polynomial([0,0,0,1])
 p = Polynomial([0,0.5])
 @test stieltjes_interval(exp, z, -0.5, 0.5) ≈ test_poly(p)
 
+end
