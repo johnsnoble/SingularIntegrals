@@ -90,7 +90,7 @@ In order to solve this we will use plemelj.
 There are 3 properties that need to hold for a function $\psi: \Gamma \rightarrow \mathbb{C}$ to be a cauchy transform:
 \begin{equation}\label{cauchy_conditions}\begin{gathered}
 \underset{z\to\infty}{lim}= 0 \\
-\psi_+(z)-\psi_-(z)= f(z) \\
+\psi^+(z)-\psi^-(z)= f(z) \\
 \psi\;analytic\;on\;\Gamma 
 \end{gathered}\end{equation}
 
@@ -104,9 +104,20 @@ Checking \eqref{cauchy_conditions}.1 we get that $\underset{z\to\infty}{p_j^{-1}
 Checking \eqref{cauchy_conditions}.2 we need an expression for $\psi^+$ and $\psi^-$.
 Let us begin by saying that we are looking for cauchy transform of point $s$ which happens to lie on $\Gamma$.
 This means that there is a unique root of $t_k := p_k^{-1} \in [-1,1]$.
-Taking limits of $\psi_+, \psi_-$ gives us:
+TODO: Show that $\underset{z\to s^+}{lim} p_k^{-1}(s) =\underset{z\to p^{-1}(s)^+}{lim}$.
+Taking limits of $\psi^+, \psi^-$ gives us:
 \begin{equation}\begin{split}
-\psi_+(s)&=\underset{z\to s}{lim}C_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
-&+\Sigma_{j\neq k}C_{[-1,1]}(f\circ p)(p_j^{-1}(s))
+\psi^+(s)&=\underset{z\to s}{lim}C_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
+&+\Sigma_{j\neq k}C_{[-1,1]}(f\circ p)(p_j^{-1}(s)) \\
+&=C^+_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
+&+\Sigma_{j\neq k}C_{[-1,1]}(f\circ p)(p_j^{-1}(s)) \\
 \end{split}\end{equation}
+We can do a similar thing with $\psi^-$ and putting everything together:
+\begin{equation}\begin{split}
+\psi^+(s)-\psi^-(s)&=C_{[-1,1]}^+(f\circ p)(p_k^{-1}(s))-C_{[-1,1]}^-(f\circ p)(p_k^{-1}(s)) \\
+&= (f\circ p)(p_k^{-1}(s)) = f(s)
+\end{split}\end{equation}
+In the case where $z \notin \psi, \psi^+=\psi^-$ which is expected since the area in between is analytic
+
+TODO show that condition \eqref{cauchy_conditions}.3 holds
 \end{document}
