@@ -4,6 +4,8 @@ using ClassicalOrthogonalPolynomials, Polynomials, AMRVW, SingularIntegrals, Tes
 
 export poly_stieltjes, test_poly, stieltjes_interval
 
+P = Legendre()
+
 # Computes ∫_a^b f(x)/(z-x) dx
 function stieltjes_interval(f, z, a, b)
     @assert b-a>0
@@ -35,7 +37,6 @@ function test_poly(p)
     return poly_stieltjes(exp, z, p)
 end
 
-# P = Legendre()
 
 # z = 2
 # f = expand(P, exp)
