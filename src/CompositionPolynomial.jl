@@ -7,7 +7,7 @@ export poly_exponent, poly_compose
 function poly_exponent(qs, N)
     M = length(qs)
     il, jl = N+1, (N*(M-1)+1)
-    dp = fill(Complex{Int64}(0), il, jl)
+    dp = fill(Complex{Float64}(0), il, jl)
 
     dp[2,1:M] = qs
     dp[:,1] = qs[1] .^ (0:N)

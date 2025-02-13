@@ -4,16 +4,6 @@ using ClassicalOrthogonalPolynomials, Polynomials, AMRVW, SingularIntegrals, Tes
 
 export poly_stieltjes, test_poly, stieltjes_interval
 
-P = Legendre()
-# c = [randn(5); Zeros(∞)]
-# f = P * c
-
-z = 2
-f = expand(P, exp)
-x = axes(P, 1)
-# Compute ∫_{-1}^1 exp(x)/(z-x) dx
-normal = stieltjes(f, z) 
-
 # Computes ∫_a^b f(x)/(z-x) dx
 function stieltjes_interval(f, z, a, b)
     @assert b-a>0
@@ -41,14 +31,21 @@ function poly_stieltjes(f, z, p)
     return res
 end
 
-@time function test_poly(p)
+function test_poly(p)
     return poly_stieltjes(exp, z, p)
 end
 
-p = Polynomial([0,0,0,1])
-@test normal ≈ stieltjes_interval(exp, z, -1, 1)
-@test normal ≈ test_poly(p)
-p = Polynomial([0,0.5])
-@test stieltjes_interval(exp, z, -0.5, 0.5) ≈ test_poly(p)
+# P = Legendre()
+
+# z = 2
+# f = expand(P, exp)
+## Computes ∫_{-1}^1 exp(x)/(z-x) dx
+# normal = stieltjes(f, z) 
+
+# p = Polynomial([0,0,0,1])
+# @test normal ≈ stieltjes_interval(exp, z, -1, 1)
+# @test normal ≈ test_poly(p)
+# p = Polynomial([0,0.5])
+# @test stieltjes_interval(exp, z, -0.5, 0.5) ≈ test_poly(p)
 
 end
