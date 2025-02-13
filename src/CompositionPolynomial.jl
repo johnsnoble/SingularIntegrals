@@ -1,3 +1,9 @@
+module CompositionPolynomial
+
+using Polynomials
+
+export poly_exponent, poly_compose
+
 function poly_exponent(qs, N)
     M = length(qs)
     il, jl = N+1, (N*(M-1)+1)
@@ -16,15 +22,29 @@ function poly_exponent(qs, N)
     return dp
 end
 
-
-function poly_compose(ps, qs)
-    N = length(ps)
-    coeffs = poly_exponent(qs, N-1)
-    return ps'*coeffs
+function get_coeffs(p::Union{Array{<:Number},Polynomial})
+    if p isa Polynomial
+        return p.coeffs
+    else
+        return p
+    end
 end
 
-# Some test code
-# const N = 4
-# const M = 3
-# qs = [rand(0:5, M-1); 1]
-# ps = [rand(0:5, N-1); 1]
+function poly_compose(p::Union{Array{<:Number},Polynomial},
+        q::Union{Array{<:Number}, Polynomial})
+    ps = get_coeffs(p)
+    qs = get_coeffs(q)
+    N = length(ps)
+    coeffs = poly_exponent(qs, N-1)
+    return Polynomial(ps'*coeffs)
+end
+
+# function poly_compose(p, q)
+#     ps = p.coeffs
+#     qs = q.coeffs
+#     N = length(ps)
+#     coeffs = poly_exponent(qs, N-1)
+#     return Polynomial(ps'*coeffs)
+# end
+
+end
