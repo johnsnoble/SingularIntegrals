@@ -6,6 +6,9 @@ using .PolynomialCauchyInterval
 include("CompositionPolynomial.jl")
 using .CompositionPolynomial
 
+include("CauchySquare.jl")
+using .CauchySquare
+
 P = Legendre()
 p = Polynomial([0,0,1])
 z = 2
@@ -16,3 +19,7 @@ z = 2
 function offset_interval_(f, z, p, y)
     return poly_stieltjes(f, z, poly_compose(p,[y*im, 1]))
 end
+
+# function polynomial_square(f, z, p)
+#     
+# end

@@ -2,7 +2,7 @@ module PolynomialCauchyInterval
 
 using ClassicalOrthogonalPolynomials, Polynomials, AMRVW, SingularIntegrals, Test
 
-export poly_stieltjes, test_poly, stieltjes_interval
+export poly_stieltjes, test_poly, stieltjes_interval, fast_get_preimage
 
 P = Legendre()
 
@@ -24,11 +24,11 @@ function fast_get_preimage(p,z)
 end
 
 function poly_stieltjes(f, z, p)
-    f = expand(P, exp∘p)
+    fp = expand(P, f∘p)
     rs = fast_get_preimage(p, z)
     res = 0
     for r in rs
-        res += stieltjes(f, r)
+        res += stieltjes(fp, r)
     end
     return res
 end
