@@ -2,7 +2,7 @@ module CauchySquare
 
 using ClassicalOrthogonalPolynomials, Polynomials, QuadGK
 
-export cauchy_square
+export cauchy_square, lifted_interval_
 
 include("PolynomialCauchyInterval.jl")
 using .PolynomialCauchyInterval

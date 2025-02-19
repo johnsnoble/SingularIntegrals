@@ -11,6 +11,9 @@ function poly_exponent(qs, N)
 
     dp[2,1:M] = qs
     dp[:,1] = qs[1] .^ (0:N)
+    if N <= 2
+        return dp
+    end
     
     for j in 2:jl
         qt = qs[min(j, M):-1:2]
