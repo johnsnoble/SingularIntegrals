@@ -258,9 +258,9 @@ version = "0.3.27"
 
 [[deps.InfiniteArrays]]
 deps = ["ArrayLayouts", "FillArrays", "Infinities", "LazyArrays", "LinearAlgebra"]
-git-tree-sha1 = "2972d71c15117299d9b54d2e46be1c3edb3d401e"
+git-tree-sha1 = "7e3e697ea3d74435d7d396c75d1356f3bcc6e9cf"
 uuid = "4858937d-0d70-526a-a4dd-2d5cb5dd786c"
-version = "0.15.4"
+version = "0.15.5"
 weakdeps = ["BandedMatrices", "BlockArrays", "BlockBandedMatrices", "DSP", "Statistics"]
 
     [deps.InfiniteArrays.extensions]

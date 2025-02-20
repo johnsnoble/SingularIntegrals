@@ -103,11 +103,11 @@ Checking \eqref{cauchy_conditions}.1 we get that $\underset{z\to\infty}{p_j^{-1}
 
 Checking \eqref{cauchy_conditions}.2 we need an expression for $\psi^+$ and $\psi^-$.
 Let us begin by saying that we are looking for cauchy transform of point $s$ which happens to lie on $\Gamma$.
-This means that there is a unique root of $t_k := p_k^{-1} \in [-1,1]$.
+This means that there is a unique root of $t_k := p_k^{-1}(s) \in [-1,1]$.
 TODO: Show that $\underset{z\to s^+}{lim} p_k^{-1}(s) =\underset{z\to p^{-1}(s)^+}{lim}$.
 Taking limits of $\psi^+, \psi^-$ gives us:
 \begin{equation}\begin{split}
-\psi^+(s)&=\underset{z\to s}{lim}C_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
+\psi^+(s)&=\underset{z\to s}{lim}\:C_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
 &+\Sigma_{j\neq k}C_{[-1,1]}(f\circ p)(p_j^{-1}(s)) \\
 &=C^+_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
 &+\Sigma_{j\neq k}C_{[-1,1]}(f\circ p)(p_j^{-1}(s)) \\
