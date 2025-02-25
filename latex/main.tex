@@ -135,59 +135,5 @@ We can do a similar thing with $\psi^-$ and putting everything together:
 In the case where $z \notin \psi, \psi^+=\psi^-$ which is expected since the area in between is analytic
 
 TODO show that condition \eqref{cauchy_conditions}.3 holds
-\section{Affine Transformations}
-An affine transformation here is taken to be in the form:
-$$f(z) = \alpha z + \beta \bar{z} + \gamma$$
-We must understand what it means to take integrals across paths using parameterisation $z: \mathbb{R}\rightarrow\mathbb{C}$:
-$$\int_\gamma f(z)dz = \int_{-1}^1f(z(t))z'(t)dt$$
-Note this requires the existence of $z'(t)$ and is slightly delicate to use in the case of taking a conjugate.
-We can begin by making a few reparameterisations and by taking derivatives with respect to s:
-\begin{align}
-z(s) &= \alpha s + \beta\bar{s} + \gamma \notag\\
-z_t(s) &= z(s+it) = \alpha(s+it)+\beta(s-it)+\gamma \notag\\
-&= (\alpha+\beta)s+(\alpha-\beta)it+\gamma
-\label{ZtExpansion}\\
-z'_t(s) &= \alpha+\beta \notag
-\end{align}
-This lets us write the integral taken across $\gamma_t:\{z_t(s)|t\in [-1,1]\}$:
-$$\int_{\gamma_t} \frac{f(\zeta)}{z-\zeta}d\zeta
-= \int_{-1}^1\frac{f(z_t(s))}{z-z_t(s)}z'_t(s)ds
-= (\alpha+\beta)\int_{-1}^1\frac{f(z_t(s))}{z-z_t(s)}ds$$
-Putting this with the equation for 2d Stieltjes transform:
-\begin{align}\label{Stieltjes2dAffine}
-S_{k,j} &:= \int_{-1}^1P_j(t)(\alpha+\beta)\int_{-1}^1\frac{P_k(z_t(s))}{z-z_t(s)}dsdt \\
-z-z_t(s) &= z-(\alpha-\beta)it-\gamma-(\alpha+\beta)s \notag\\
-&= (\alpha+\beta)(\frac{z-\gamma-it(\alpha-\beta)}{\alpha+\beta}-s) \notag\\
-&=: (\alpha+\beta)(\tilde{z_t}-s), \:
-\tilde{z_t} = \frac{z-\gamma-it(\alpha-\beta)}{\alpha+\beta}
-\label{AffineDenominator}
-\end{align}
-Plugging \eqref{Stieltjes2dAffine} into \eqref{AffineDenominator}:
-\begin{align}
-zS_{k,j}&=\int_{-1}^1zP_j(t)\int_{-1}^1\frac{P_k(z_t(s))}{\tilde{z_t}-s}dsdt 
-\label{NormedStieltjes2dAffine}\\
-S_k(t)(z)&:=\int_{-1}^1\frac{P_k(z_t(s))}{z-s}ds
-\label{1dAffine}
-\end{align}
-It is useful to come with a 3-term recurrence for $S_k(t)$ for some fixed $t$:
-\begin{align}
-zS_k(t)(z) &= \int_{-1}^1\frac{zP_k(z_t(s))}{z-s}ds\\
-&= \int_{-1}^1P_k(z_t(s))ds+\int_{-1}^1\frac{sP_k(z_t(s))}{z-s}ds
-\label{3TermPartial}\\
-z_t(s)P_k(z_t(s))&=\frac{k}{2k+1}P_{k-1}(z_t(s))+\frac{k+1}{2k+1}P_{k+1}(z_t(s)) \\
-\eqref{ZtExpansion} \rightarrow \eqref{3TermPartial}&\\\:
-&= ((\alpha+\beta)s+(\alpha-\beta)it+\gamma)P_k(z_t(s))\\
-&=(\alpha+\beta)sP_k(z_t(s))+
-((\alpha-\beta)it+\gamma)P_k(z_t(s))\\
-\int_{-1}^1\frac{sP_k(z_t(s))}{z-s}ds &=
-\frac{1}{\alpha+\beta}\int_{-1}^1\frac{z_t(s)P_k(z_t(s))}{z-s}ds-
-\frac{(\alpha-\beta)it+\gamma}{\alpha+\beta}\int_{-1}^1\frac{P_k(z_t(s))}{z-s}ds \\
-&=\frac{1}{(\alpha+\beta)(2k+1)}(\int_{-1}^1\frac{kP_{k-1}(z_t(s))}{z-s}ds+
-\int_{-1}^1\frac{(k+1)P_{k+1}(z_t(s))}{z-s}ds) \\
-&-\frac{(\alpha-\beta)it+\gamma}{\alpha+\beta}\int_{-1}^1\frac{P_k(z_t(s))}{z-s}ds \label{Affine3TermExpansion} \\
-\eqref{Affine3TermExpansion}\rightarrow\eqref{3TermPartial}&\\
-zS_k(t)(z) &= 2\delta_{k0}+ \frac{kS_{k-1}(t)(z)+(k+1)S_{k+1}(t)(z)}{(\alpha+\beta)(2k+1)}
--\frac{(\alpha-\beta)it+\gamma}{\alpha+\beta}S_k(t)(z)
-\end{align}
 \end{document}
 

@@ -2,4 +2,5 @@ books/*
 notes.txt
 FastSingularIntegrals.jl/
 latex/abstract.txt
+latex/ignore.tex
 *.swp

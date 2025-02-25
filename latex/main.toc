@@ -4,4 +4,3 @@
 \contentsline {section}{\numberline {2}Log and Stieltjes Transform}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Transforms across Intervals}{3}{}%
 \contentsline {section}{\numberline {3}Polynomial Transforms}{5}{}%
-\contentsline {section}{\numberline {4}Affine Transformations}{6}{}%
