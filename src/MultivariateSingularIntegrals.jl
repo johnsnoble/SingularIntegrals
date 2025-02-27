@@ -72,7 +72,6 @@ end
 function get_m_vec(z, n)
 	M = Array{ComplexF64}(undef, n+1)
 	M[1] = M0(z)
-	print(M)
 	if n>=1
 		M[2] = M1(z)
 	end
@@ -84,6 +83,37 @@ function get_m_vec(z, n)
 		M[i+1] = m_recurrence(M[i-1], z*M[i], i-1)
 	end
 	M
+end
+
+# Solve for 5 point stencil for S
+# Could potentially generalise to solve for single stencil recurrence
+# but no need for now
+function s_matrix!(S, z)
+	n, m = size(S)
+	S[1,1] = S₀₀(z)
+	M = [get_m_vec(x, max(m-1, n-1)) for x=[z+1,z-1,1-im*z,-1-im*z]]
+	# Fill in first row
+	for i = 2:m
+		S[1,i] = M[1][i]-M[2][i]
+	end
+	# Fill in first col
+	for i = 2:n
+		S[i,1] = (-1)^(i-1)*im*(-M[3][i]+M[4][i])
+	end
+	# Fill in second row
+	for i = 2:m-1
+		S[2,i] = z*S[1,i] - im*((i-1)*S[1,i-1]+i*S[1,i+1])/(2*i-1)
+	end
+	# Fill in second col
+	for i = 2:n-1
+		S[i,2] = -im*z*S[i,1] + im*((i-1)*S[i-1,1]+i*S[i+1,1])/(2*i-1)
+	end
+	S
+end
+
+function s_matrix!(n, m, z)
+	S = Array{ComplexF64}(undef, n, m)
+	return s_matrix!(S, z)
 end
 
 function m_const_vec(n, z)
