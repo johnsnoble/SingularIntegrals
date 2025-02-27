@@ -63,6 +63,29 @@ function biforwardsub!(M, z, A, B, R1, R2)
     M
 end
 
+# Computed M_(k+1) from M_(k-1), zM_k
+function m_recurrence(m_, zm, k, c=0)
+	(zm-(im*(k-1)/(2k+1))*m_-c)*(-im*(2k+1)/(k+2))
+end
+
+# Returns values of Mᵢ(z) for 0≤i≤n
+function get_m_vec(z, n)
+	M = Array{ComplexF64}(undef, n+1)
+	M[1] = M0(z)
+	print(M)
+	if n>=1
+		M[2] = M1(z)
+	end
+	if n>=2
+		M[3] = m_recurrence(M[1], z*M[2], 1, -2*im/3)
+	end
+	print(M)
+	for i=3:n
+		M[i+1] = m_recurrence(M[i-1], z*M[i], i-1)
+	end
+	M
+end
+
 function m_const_vec(n, z)
     (x,y) = reim(z)
     T = float(real(typeof(z)))
@@ -148,8 +171,6 @@ function rec_rhs_j_offsquare!(R, z)
     end
     R
 end
-
-
 
 # averages the difference between M(k,z-s) and L(k,-im*(z-s))
 function m_const_square_0_vec(z, Wx)
