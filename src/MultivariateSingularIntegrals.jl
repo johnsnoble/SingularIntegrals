@@ -85,10 +85,11 @@ function get_m_vec(z, n)
 	M
 end
 
+
 # Solve for 5 point stencil for S
 # Could potentially generalise to solve for single stencil recurrence
 # but no need for now
-function s_matrix!(S, z)
+function s_square_matrix!(S, z)
 	n, m = size(S)
 	S[1,1] = S₀₀(z)
 	M = [get_m_vec(x, max(m-1, n-1)) for x=[z+1,z-1,1-im*z,-1-im*z]]
@@ -111,9 +112,9 @@ function s_matrix!(S, z)
 	S
 end
 
-function s_matrix!(n, m, z)
+function s_square_matrix!(n, m, z)
 	S = Array{ComplexF64}(undef, n, m)
-	return s_matrix!(S, z)
+	return s_square_matrix!(S, z)
 end
 
 function m_const_vec(n, z)
