@@ -1,3 +1,12 @@
-M0(z) = L0(-im*float(z)) + m_const(0, float(z))
+include("./BaseCases.jl")
 
-S₀₀_affine(
+using .BaseCases:S₀ⱼ_quad
+
+
+function s_matrix_quad(n, m, z, a, b)
+	S = Array{ComplexF64}(undef, n, m)
+    s0j = S₀ⱼ_quad(z, a, b, m)
+    S[1,:] = s0j
+	S[
+    S
+end
