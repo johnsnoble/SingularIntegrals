@@ -33,6 +33,16 @@ function approx_quad_skj(k,j,z,a,b)
 	res
 end
 
+function poly_integration(k,a,b,t)
+    res, err = quadgk(s->legendrep(k,(a+b*t)*(1+s)),-1,1)
+    res
+end
+
+function poly_quad_integration(k,a,b,j)
+    res, err = quadgk(t->legendrep(j,t)*(a+b*t)*poly_integration(k,a,b,t),-1,1)
+    res
+end
+
 function test(k,z,a,b)
     res, err = quadgk(s->legendrep(k,s)*(log((z-a*s)/(b+im)+1)-log((z-a*s)/(b+im)-1)),-1,1,rtol=1e-3)
     a*res/(b+im)

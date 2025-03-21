@@ -3,7 +3,9 @@ using ClassicalOrthogonalPolynomials
 # let parameterisation be done such that
 # (x,y) = (as+bt) where t,s ∈ [-1,1]
 
-# export S₀ⱼ_affine, S₀ⱼ_quad, S₁ⱼ_quad, M0, L0, zlog, m_const, get_m_vec, m_recurrence
+module BaseCases
+
+export S₀ⱼ_affine, S₀ⱼ_quad, S₁ⱼ_quad, M0, L0, zlog, m_const, get_m_vec, m_recurrence
 
 S₀₀_affine(z,a,b) = M0((z+a)*im/(b+im))-M0((z-a)*im/(b+im))
 S₀₀_quad(z,a,b) = M0(z)-M0(im*(z-2*a)/(2*b+im))-2*log(2*b+im)+im*pi
@@ -95,4 +97,5 @@ function get_m_vec(z, n)
     end
     M
 end 
-      
+
+end
