@@ -26,12 +26,36 @@ function approx_affine_skj(k,j,z,a,b)
 	res*a
 end
 
-function approx_quad_skj(k,j,z,a,b)
-    res, err = quadgk(t->legendrep(j,t)*(a+b*t)*
+function approx_quad_skj(k,j,z,a,b,type)
+    if type == 0
+        return approx_quad_skj_(k,j,z,a,b,(t->a+b*t))
+    else
+        return approx_quad_skj_(k,j,z,a,b,t->t)
+    end
+end
+
+function approx_quad_skj_(k,j,z,a,b,f)
+    res, err = quadgk(t->legendrep(j,t)*f(t)*
                       approx_s(k,z-im*t,t,(x,y)->(1+x)*(a+y*b)),
 					  -1,1,rtol=1e-3)
-	res
+    res
 end
+
+function S₀_(z)
+    return log(1+2/(z-1))
+end
+
+function approx_ik0(k,z,a,b)
+    res, err = quadgk(s->legendrep(k,s)*
+                      S₀_((z-(1+s)*a)/(b*(1+s)+im)),-1,1)
+    res
+end
+
+function ∫(f)
+    res, err = quadgk(f,-1,1)
+    res
+end
+
 
 function poly_integration(k,a,b,t)
     res, err = quadgk(s->legendrep(k,(a+b*t)*(1+s)),-1,1)
