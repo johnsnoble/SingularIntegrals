@@ -20,6 +20,12 @@ function approx_s(k,z,t=0,f=(s,t)->s)
     res
 end
 
+z̃ₛ(s) = (z-(1+s)*a)/(b*(1+s)+im)
+z̃ₜ(t) = (z-im*t)/(a+b*t)
+
+approx_s_s(j,z,s) = ∫(t->legendrep(j,t)/(z̃ₛ(s)-t))
+approx_s_t(k,z,t) = ∫(s->legendrep(k,s)/(z̃ₜ(t)-s))
+
 function approx_affine_skj(k,j,z,a,b)
 	res, err = quadgk(t->legendrep(j,t)*approx_s(k,z-im*t,t,(x,y)->a*x+y*b),
 					  -1,1,rtol=1e-3)
