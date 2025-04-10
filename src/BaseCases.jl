@@ -29,7 +29,7 @@ function m_recurrence(m_, zm, k, c=0)
     (zm-(im*(k-1)/(2k+1))*m_-c)*(-im*(2k+1)/(k+2))
 end
 
-function s̃_k(k,z,a,b)
+function s̃ₖ(k,z,a,b)
     M = [get_m_vec(x-im, k) for
     x = [im*(z+im)/(a-b), im*(z-im)/(a+b)]]
     res = M[1]-M[2]
@@ -42,11 +42,13 @@ end
 
 function s̃ₖ₀(k,z,a,b,s₀)
     S = Array{ComplexF64}(undef, k+1)
-    s_k = s̃_k(k-1,z,a,b)
+    s̃ = s̃ₖ(k-1,z,a,b)
     S[1] = s₀
-    S[2] = (s_k[1]-(b+im)*s₀)/b
+    S[2] = (s̃[1]-(b+im)*s₀)/b
+    # S[k+1] = s̃ₖ₀, s̃[k+1] = s̃ₖ
     for i=2:k
-        S[i+1] = ((2*i-1)*s_k[i]-(b+im)*(im-1)*S[i-1])/(b*i)
+#Sᵢ*(2i+1) = (b+im)*sᵢ+ibᵢsᵢ₋₁+
+        S[i+1] = ((2*i-1)*s̃[i]-(2*i-1)*(b+im)*S[i]-b*(i-1)*S[i-1])/(b*i)
     end
     S
 end
