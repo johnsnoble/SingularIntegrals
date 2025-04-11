@@ -48,8 +48,27 @@ function s̃ₖ₀(k,z,a,b,s₀)
     # S[k+1] = s̃ₖ₀, s̃[k+1] = s̃ₖ
     for i=2:k
 #Sᵢ*(2i+1) = (b+im)*sᵢ+ibᵢsᵢ₋₁+
-        S[i+1] = ((2*i-1)*s̃[i]-(2*i-1)*(b+im)*S[i]-b*(i-1)*S[i-1])/(b*i)
+        S[i+1] = ((2*i-1)*(s̃[i]-(b+im)*S[i])-b*(i-1)*S[i-1])/(b*i)
     end
+    S
+end
+
+function s̃₀ⱼ(j,z,a,b,s₀)
+    S = Array{ComplexF64}(undef, j+1)
+    s = s₀ⱼ(j-1,z,a,b)
+    S[1] = s₀
+    S[2] = (s[1]-a*s₀)/b
+    for i=2:j
+        S[i+1] = ((2*i-1)*(s[i]-a*S[i])-b*(i-1)*S[i-1])/(b*i)
+    end
+    S
+end
+
+function s₀ⱼ(j,z,a,b)
+    M = [get_m_vec(x, j) for
+         x = [z, (z-2*a)*im/(im+2*b)]]
+    S = M[1]-M[2]
+    S[1] -= 2*log(1+2*b/im)
     S
 end
 
