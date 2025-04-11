@@ -72,18 +72,25 @@ function s₀ⱼ(j,z,a,b)
     S
 end
 
-function s̃ₖ₁(k,z,a,b,s₀₀,s₀₁)
-    S = Array{ComplexF64}(undef,k+1,2)
+function s̃ₖⱼ_base(k,j,z,a,b,s₀₀)
+    S = Array{ComplexF64}(undef,k+1,j+1)
     sₖ₀ = s̃ₖ₀(k,z,a,b,s₀₀)
     S[:,1] = sₖ₀
-    S[1,2] = s₀₁
-    S[2,2] = ((z-a)*s₀₀-4-a*S[2,1]-(b+im)*s₀₁)/b
+    S[1,:] = s̃₀ⱼ(j,z,a,b,s₀₀)
+    S[2,2] = ((z-a)*s₀₀-4-a*S[2,1]-(b+im)*S[1,2])/b
     for i=2:k
         i₋ = (i-1)/(2*i-1)
         i₊ = i/(2*i-1)
         S[i+1,2] = (z*S[i,1] - im*S[i,2]
                     - a*(i₋*S[i-1,1]+i₊*S[i+1,1]+S[i,1])
                     - b*(i₋*S[i-1,2]+S[i,2]))/(b*i₊)
+    end
+    for i=2:j
+        i₋ = (i-1)/(2*i-1)
+        i₊ = i/(2*i-1)
+        S[2,i+1] = (z*S[1,i]-im*(i₋*S[1,i-1]+i₊*S[1,i+1])
+                    -a*(S[1,i]+S[2,i])
+                    -b*(i₋*(S[1,i-1]+S[2,i-1])+i₊*S[1,i+1]))/(b*i₊)
     end
     S
 end
