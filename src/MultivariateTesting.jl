@@ -26,7 +26,7 @@ z̃ₜ(t) = (z-im*t)/(a+b*t)-1
 approx_s_s(j,z,s) = ∫(t->legendrep(j,t)/(z̃ₛ(s)-t))
 approx_s_t(k,z,t) = ∫(s->legendrep(k,s)/(z̃ₜ(t)-s))
 
-s₀ = ∫(t->S₀_(z̃ₜ(t))/(a+b*t))
+s₀₀ = ∫(t->S₀_(z̃ₜ(t))/(a+b*t))
 
 function approx_affine_skj(k,j,z,a,b)
 	res, err = quadgk(t->legendrep(j,t)*approx_s(k,z-im*t,t,(x,y)->a*x+y*b),

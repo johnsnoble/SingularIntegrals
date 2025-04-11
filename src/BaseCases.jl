@@ -72,6 +72,22 @@ function s₀ⱼ(j,z,a,b)
     S
 end
 
+function s̃ₖ₁(k,z,a,b,s₀₀,s₀₁)
+    S = Array{ComplexF64}(undef,k+1,2)
+    sₖ₀ = s̃ₖ₀(k,z,a,b,s₀₀)
+    S[:,1] = sₖ₀
+    S[1,2] = s₀₁
+    S[2,2] = ((z-a)*s₀₀-4-a*S[2,1]-(b+im)*s₀₁)/b
+    for i=2:k
+        i₋ = (i-1)/(2*i-1)
+        i₊ = i/(2*i+1)
+        S[i+1,2] = (z*S[i,1] - im*S[i,1]
+                    - a*(i₋*S[i-1,1]+i₊*S[i+1,1]+S[i,1])
+                    - b*(i₋*S[i-1,2]+S[i,2]))/(b*i₊)
+    end
+    S
+end
+
 # Returns values of Mᵢ(z) for 0≤i≤n
 function get_m_vec(z, n)
     M = Array{ComplexF64}(undef, n+1)
