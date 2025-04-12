@@ -113,6 +113,18 @@ function s̃ₖⱼ_complete(S,z,a,b)
    S
 end
 
+function sₖⱼ(k,j,z,a,b,s₀₀)
+    S̃ = s̃ₖⱼ_base(k,j+1,z,a,b,s₀₀)
+    S̃ = s̃ₖⱼ_complete(S̃,z,a,b)
+    N, M = size(S̃)
+    S = Array{ComplexF64}(undef, N-1, M)
+    S[1,:] = a*S̃[1,:]+b*S̃[2,:]
+    for i=2:N-1
+        S[i,:] = a*S̃[i,:]+b*(S̃[i-1,:]+S̃[i+1,:])
+    end
+    S
+end
+
 # Returns values of Mᵢ(z) for 0≤i≤n
 function get_m_vec(z, n)
     M = Array{ComplexF64}(undef, n+1)
