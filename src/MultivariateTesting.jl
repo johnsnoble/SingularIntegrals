@@ -20,6 +20,19 @@ function approx_s(k,z,t=0,f=(s,t)->s)
     res
 end
 
+function ∫(f, tol)
+    res, err = quadgk(f,-1,1,rtol=tol)
+    res
+end
+
+∫(f) = ∫(f,1e-3)
+
+function S₀_(z)
+    return log(1+2/(z-1))
+end
+
+
+
 z̃ₛ(s) = (z-(1+s)*a)/(b*(1+s)+im)
 z̃ₜ(t) = (z-im*t)/(a+b*t)-1
 
@@ -49,20 +62,9 @@ function approx_quad_skj_(k,j,z,a,b,f)
     res
 end
 
-function S₀_(z)
-    return log(1+2/(z-1))
-end
-
 function approx_ik0(k,z,a,b)
     res, err = quadgk(s->legendrep(k,s)*
                       S₀_((z-(1+s)*a)/(b*(1+s)+im)),-1,1)
-    res
-end
-
-∫(f) = ∫(f,1e-3)
-
-function ∫(f, tol)
-    res, err = quadgk(f,-1,1,rtol=tol)
     res
 end
 

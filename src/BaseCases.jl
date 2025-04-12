@@ -33,7 +33,7 @@ function s̃ₖ(k,z,a,b)
     M = [get_m_vec(x-im, k) for
     x = [im*(z+im)/(a-b), im*(z-im)/(a+b)]]
     res = M[1]-M[2]
-    res[1] += 2*log((a-b)/(a+b))
+    res[1] += 2*log(Complex((a-b)/(a+b)))
     res
     #S = Array{ComplexF64}(undex, k)
     
@@ -93,6 +93,24 @@ function s̃ₖⱼ_base(k,j,z,a,b,s₀₀)
                     -b*(i₋*(S[1,i-1]+S[2,i-1])+i₊*S[1,i+1]))/(b*i₊)
     end
     S
+end
+
+# Given the base case fill in the rest
+function s̃ₖⱼ_complete(S,z,a,b)
+   N, M = size(S)
+   for k=2:N-1
+       k₋, k₊ = (k-1)/(2*k-1), k/(2*k-1)
+       for j=2:M-1
+           j₋, j₊ = (j-1)/(2*j-1), j/(2*j-1)
+           print(j₋,j₊,k₋,k₊)
+           S[k+1,j+1] = ((z-a)*S[k,j]
+                         -a*(k₋*S[k-1,j]+k₊*S[k+1,j])
+                         -(b+im)*(j₋*S[k,j-1]+j₊*S[k,j+1])
+                         -b*(j₋*k₋*S[k-1,j-1]+j₋*k₊*S[k+1,j-1]
+                         +j₊*k₋*S[k-1,j+1]))/(b*j₊*k₊)
+       end
+   end
+   S
 end
 
 # Returns values of Mᵢ(z) for 0≤i≤n
