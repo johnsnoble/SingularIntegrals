@@ -117,10 +117,10 @@ function sₖⱼ(k,j,z,a,b,s₀₀)
     S̃ = s̃ₖⱼ_base(k,j+1,z,a,b,s₀₀)
     S̃ = s̃ₖⱼ_complete(S̃,z,a,b)
     N, M = size(S̃)
-    S = Array{ComplexF64}(undef, N-1, M)
-    S[1,:] = a*S̃[1,:]+b*S̃[2,:]
-    for i=2:N-1
-        S[i,:] = a*S̃[i,:]+b*(S̃[i-1,:]+S̃[i+1,:])
+    S = Array{ComplexF64}(undef, N, M-1)
+    S[:,1] = a*S̃[:,1]+b*S̃[:,2]
+    for i=2:M-1
+        S[:,i] = a*S̃[:,i]+b*((i-1)*S̃[:,i-1]+i*S̃[:,i+1])/(2*i-1)
     end
     S
 end

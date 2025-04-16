@@ -51,7 +51,7 @@ function approx_quad_skj(k,j,z,a,b,type)
     if type == 0
         return approx_quad_skj_(k,j,z,a,b,(t->a+b*t))
     else
-        return approx_quad_skj_(k,j,z,a,b,t->t)
+        return approx_quad_skj_(k,j,z,a,b,t->1)
     end
 end
 
