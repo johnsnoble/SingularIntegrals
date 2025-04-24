@@ -2,7 +2,7 @@
 
 julia_version = "1.11.3"
 manifest_format = "2.0"
-project_hash = "050d690d3e335f4a17b2610c6e7dbc298edbc700"
+project_hash = "54aa6689dfeed64f0fa130e44b3e61f4a61374cf"
 
 [[deps.AMRVW]]
 deps = ["LinearAlgebra", "Random"]
@@ -482,6 +482,19 @@ version = "1.11.0"
 
     [deps.Pkg.weakdeps]
     REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
+[[deps.PolyLog]]
+git-tree-sha1 = "054c2c5fae829e0004960400721992c45c849a93"
+uuid = "85e3b03c-9856-11eb-0374-4dc1f8670e7f"
+version = "2.5.1"
+
+    [deps.PolyLog.extensions]
+    PolyLogChainRulesExt = "ChainRulesCore"
+    PolyLogForwardDiffExt = "ForwardDiff"
+
+    [deps.PolyLog.weakdeps]
+    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+    ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 
 [[deps.Polynomials]]
 deps = ["LinearAlgebra", "OrderedCollections", "RecipesBase", "Requires", "Setfield", "SparseArrays"]

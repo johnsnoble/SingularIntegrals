@@ -1,5 +1,6 @@
-using ClassicalOrthogonalPolynomials
+using ClassicalOrthogonalPolynomials, PolyLog
 
+clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
 L0(z) = zlog(1 + complex(z)) - zlog(complex(z)-1) - 2one(z)
 L1(z, r0=L0(z)) = (z+1)*r0/2 + 1 - zlog(complex(z)+1)
@@ -142,4 +143,69 @@ function get_m_vec(z, n)
     M
 end 
 
+# Solves of the form ln(a+t)/(b+t) between u,w
+function dilog(a,b,u,w)
+    clog(w)-clog(u)
+end
 
+function get_upper_lower(a,b)
+    d = 0
+    l, u = 0, 0
+    if (imag(a)<=0) & (imag(b)>0)
+        d = 1
+        l, u = a, b
+    end
+    if (imag(a)>0) & (imag(b)<=0)
+        d = -1
+        l, u = b, a
+    end
+    d, l, u
+end
+
+# Corrects for dilogarithm branch cut from [1,∞)
+# i.e x∈ℜ li2(x+0⁺)-li2(x-0⁻) = ln(x)
+function dilog_corrected(a,b)
+    d, l, u = get_upper_lower(a,b)
+    if d==0
+        return li2(b)-li2(a)
+    end
+    x_inter = (real(u)-real(l))*(-imag(l)/(imag(u)-imag(l))) + real(l)
+    if x_inter <= 1
+        return li2(b)-li2(a)
+    end
+    return li2(b)-li2(a)-d*2*pi*im*log(x_inter)
+end
+
+function ∫x⁻¹dx(a,b)
+    # Handle case where we are solving a hilbert integral
+    la, lb = clog(a), clog(b)
+    ϵ = 1e-5
+    if abs(abs(imag(la)-imag(lb))-pi) < ϵ
+        return real(lb)-real(la)
+    end
+    d, l, u = get_upper_lower(conj(a), conj(b))
+    d, u, l = -d, conj(l), conj(u)
+    if d==0
+        return lb - la
+    end
+    x_inter = (real(u)-real(l))*(-imag(l)/(imag(u)-imag(l))) + real(l)
+    if x_inter>0
+        return lb - la
+    end
+    return lb-la-d*2*pi*im
+end
+
+# Returns (∫(ln(1+u/(a-b))/u)du, ∫(1/u)du) u ∈ (b-t,b+t)
+function uncorrected(a,b,b₋,b₊)
+    dilog_corrected(b₊/(b-a), b₋/(b-a)), clog(b₊)-clog(b₋)
+#    li2(b₋/(b-a))-li2(b₊/(b-a)), clog(b₊)-clog(b₋)
+end
+
+# Given ṽ, w̃, to be given in u ∈ (b-t,b+t)
+function corrected(z,ṽ,w̃)
+    0
+end
+
+function s̃₀₀(z)
+    0
+end

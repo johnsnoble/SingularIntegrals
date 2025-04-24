@@ -143,5 +143,32 @@ $$\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
 It can be shown that any affine transformation in the form of $(x, y)^T \rightarrow A(x,y)^T$ can be done by taking the above translation and performing scaling and rotations.
 TODO: Show that this is indeed the case
 
+\section{Quad Transform}
+We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral. We can use the parameterisation: $$Q\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
+\begin{pmatrix}(1+x)(\alpha+\beta y)\\y\end{pmatrix}$$
+
+There are two approaches which were considered which vary in which functions we are using for our bases.
+The first approach that was attempted would be to take the function approximation as follows:
+$$f(x,y)=\Sigma_{j,k}c_{j,k}P_j(x)P_k(y), c_{j,k}\in \mathbb{R}$$
+This method is simpler but it can be seen that we would have to be evaluating integrals of orthogonal polynomials outside the
+$[-1,1]$ domain in which they are well behaved.
+This would result in instable results
+
+The approach we will focus on here is the approximation following taking an approximation using the function bases as follows:
+$$f\circ Q(x,y)= \Sigma_{j,k}c_{j,k}P_j(x)P_k(y), c_{j,k}\in \mathbb{R}$$
+In this approach we are need to be able to compute $$s_{kj}:=\int_{-1}^1 (\alpha+\beta t) \int_{-1}^1 \frac{P_j(t)P_k(s)}
+{z-it-(\alpha+\beta t)(1+s)} ds dt$$
+As you can see here there is a term in the denominator which is difficult to deal with as it is harder to seperate the $s$ and $t$ terms.
+In order to begin we come up with a few different rearrangements of this equation:
+\begin{align}
+\tilde s_{kj} :&= \int_{-1}^1 \int_{-1}^1 \frac{P_j(t)P_k(s)}
+{z-it-(\alpha+\beta t)(1+s)} ds dt\\
+&= \int_{-1}^1\frac{1}{\alpha+\beta t}\int_{-1}^1 \frac{P_j(t)P_k(s)}
+{\frac{z-it}{\alpha+\beta t}-1-s}dsdt\\
+&=: \int_{-1}^1P_j(t)\int_{-1}^1 \frac{P_k(s)}{z_t-s} \\
+\tilde s_{kj} &= \int_{-1}^1\int_{-1}^1
+\frac{P_j(t)P_k(s)}{z-\alpha(1+s)-(i+\beta(1+s))t}dsdt \\
+	&= w
+\end{align}
 \end{document}
 

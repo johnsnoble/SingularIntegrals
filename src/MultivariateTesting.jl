@@ -27,6 +27,11 @@ end
 
 ∫(f) = ∫(f,1e-3)
 
+function ∫(f,a,b)
+    res, err = quadgk(f,a,b,rtol=1e-3)
+    res
+end
+
 function S₀_(z)
     return log(1+2/(z-1))
 end

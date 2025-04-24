@@ -5,3 +5,4 @@
 \contentsline {subsection}{\numberline {2.1}Transforms across Intervals}{3}{}%
 \contentsline {section}{\numberline {3}Polynomial Transforms}{5}{}%
 \contentsline {section}{\numberline {4}Affine Transformations}{6}{}%
+\contentsline {section}{\numberline {5}Quad Transform}{6}{}%
