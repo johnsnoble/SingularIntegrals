@@ -197,13 +197,18 @@ end
 
 # Returns (∫(ln(1+u/(a-b))/u)du, ∫(1/u)du) u ∈ (b-t,b+t)
 function uncorrected(a,b,b₋,b₊)
-    dilog_corrected(b₊/(b-a), b₋/(b-a)), clog(b₊)-clog(b₋)
-#    li2(b₋/(b-a))-li2(b₊/(b-a)), clog(b₊)-clog(b₋)
+    dilog_corrected(b₊/(b-a), b₋/(b-a)), ∫x⁻¹dx(b₋,b₊)
 end
 
 # Given ṽ, w̃, to be given in u ∈ (b-t,b+t)
-function corrected(z,ṽ,w̃)
-    0
+function corrected(a,b,ṽ,w̃)
+    I11, I12 = uncorrected(a,b,b-1,ṽ)
+    I21, I22 = uncorrected(a,b,ṽ,w̃)
+    I31, I32 = uncorrected(a,b,w̃,b+1)
+    d = ln(a-b)
+    return (I11 + I12*(d-2*pi*im) +
+            I21 + I22*d +
+            I31 + I32*(d+2*pi*im))
 end
 
 function s̃₀₀(z)
