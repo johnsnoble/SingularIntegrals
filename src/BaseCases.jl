@@ -205,14 +205,51 @@ end
 function corrected(a,b,w̃,corr)
     I11, I12 = uncorrected(a,b,b-1,w̃)
     I21, I22 = uncorrected(a,b,w̃,b+1)
-    d = ln(a-b)
+    d = clog(a-b)
     return (I11 + I12*(d+corr*2*pi*im) +
             I21 + I22*d)
 end
 
 function get_cut_pos(a,b)
-
-    0
+    # a ≠ b
+    d = clog(a-b)
+    ϵ = 1e-5
+    if (abs(imag(a))<ϵ)
+        if real(a)>0
+            # Catch case where a,b ∈ (0,∞), a-b ∈ (-∞,0)
+            if abs(pi-imag(d))<ϵ
+                return b+1, -1
+            else
+                # Other cases do not need correction
+                return b-1, -1
+            end
+        elseif imag(d)<0
+                return b+1, 1
+        end
+            return b-1, -1
+    end
+    if abs(imag(d)) < ϵ
+        return b-1, -1
+    end
+    # a ∉ {-1, 1}
+    source = pi-abs(imag(d))
+    if imag(d) > 0
+        source *= -1
+    end
+    la₋, la₊, lb = clog(a-1), clog(a+1), clog(b)
+    # If arg(a-1) - arg(a+1) lies around the source, we have cut
+    # Check we do not have a cut
+    side = sign(imag(a))
+    if sign(source-imag(la₋))*side > 0
+        return b-1, -1
+    end
+    if sign(imag(la₊)-source)*side > 0
+        print(imag(la₊),source,side)
+        return b+1, side
+    end
+    # Given we have a cut find it
+    x = imag(a)*cot(source)
+    return x-a+b
 end
 
 function s̃₀₀(z)
