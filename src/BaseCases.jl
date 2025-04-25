@@ -201,14 +201,18 @@ function uncorrected(a,b,b₋,b₊)
 end
 
 # Given ṽ, w̃, to be given in u ∈ (b-t,b+t)
-function corrected(a,b,ṽ,w̃)
-    I11, I12 = uncorrected(a,b,b-1,ṽ)
-    I21, I22 = uncorrected(a,b,ṽ,w̃)
-    I31, I32 = uncorrected(a,b,w̃,b+1)
+# Corr = -1, if passes clockwise over branchcut, 1 otherwise
+function corrected(a,b,w̃,corr)
+    I11, I12 = uncorrected(a,b,b-1,w̃)
+    I21, I22 = uncorrected(a,b,w̃,b+1)
     d = ln(a-b)
-    return (I11 + I12*(d-2*pi*im) +
-            I21 + I22*d +
-            I31 + I32*(d+2*pi*im))
+    return (I11 + I12*(d+corr*2*pi*im) +
+            I21 + I22*d)
+end
+
+function get_cut_pos(a,b)
+
+    0
 end
 
 function s̃₀₀(z)
