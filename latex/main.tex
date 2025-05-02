@@ -174,6 +174,16 @@ In order to begin we come up with a few different rearrangements of this equatio
 \tilde{z_s}-t}dtds\\
 \end{align}
 
+Here, I've used $\tilde{z_t}$ and $\tilde{z_s}$ to denote different constants although rigorously both are actually two different functions.
+It is always the case where $\tilde{z_t}, \tilde{z_s}$ denotes
+$\frac{z-it}{\alpha+\beta t}-1,\frac{z-\alpha(1+s)}{\beta(1+2)+i}$ respectively
+
+It is also very useful to define function $s_k, s_j$:
+\begin{align}
+	s_k(z) :&= \int_{-1}^1\frac{P_k(s)}{z-s}ds \\ 
+	s_j(z) :&= \int_{-1}^1\frac{P_j(t)}{z-t}dt \\ 
+\end{align}
+
 This can be motivated by the tricky recurrent forms for $\tilde{s_{k0}}$.
 TODO: Show why tricky?
 
@@ -188,5 +198,15 @@ We can recreate $s_{kj}$ using values of $\tilde{s_{kj}}$ by doing the following
 	\int_{-1}^1\beta t\int_{-1}^1 I(k,0,s,t) dsdt \\
 	&= \alpha\tilde{s_{k0}} + \beta\tilde{s_{k1}}
 \end{align}
+
+\subsection{Recurrences}
+
+Now we can go about trying to construct these recurrences.
+It is easiest to begin with a case where:
+
+\subsubsection*{Case 1: $k,j>1$}
+
+$$z\tilde{s_{kj}}$$
+
 \end{document}
 
