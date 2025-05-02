@@ -206,7 +206,15 @@ It is easiest to begin with a case where:
 
 \subsubsection*{Case 1: $k,j>1$}
 
-$$z\tilde{s_{kj}}$$
+\begin{align}
+	z\tilde{s_{kj}}&=\int_{-1}^1z\frac{P_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
+	&=\int_{-1}^1P_j(t)\frac{z-it}{\alpha+\beta t}s_k(\tilde{z_t})dt
+	+\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
+	&=\int_{-1}^1P_j(t)\tilde{z_t}s_k(\tilde{z_t})dt
+	+\int_{-1}^1P_j(t)s_k(\tilde{z_t})
+	+\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
+	
+\end{align}
 
 \end{document}
 
