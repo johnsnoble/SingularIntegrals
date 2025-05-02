@@ -161,14 +161,32 @@ In this approach we are need to be able to compute $$s_{kj}:=\int_{-1}^1 (\alpha
 As you can see here there is a term in the denominator which is difficult to deal with as it is harder to seperate the $s$ and $t$ terms.
 In order to begin we come up with a few different rearrangements of this equation:
 \begin{align}
-\tilde s_{kj} :&= \int_{-1}^1 \int_{-1}^1 \frac{P_j(t)P_k(s)}
+\tilde{s_{kj}} :&= \int_{-1}^1 \int_{-1}^1 \frac{P_j(t)P_k(s)}
 {z-it-(\alpha+\beta t)(1+s)} ds dt\\
 &= \int_{-1}^1\frac{1}{\alpha+\beta t}\int_{-1}^1 \frac{P_j(t)P_k(s)}
 {\frac{z-it}{\alpha+\beta t}-1-s}dsdt\\
-&=: \int_{-1}^1P_j(t)\int_{-1}^1 \frac{P_k(s)}{z_t-s} \\
-\tilde s_{kj} &= \int_{-1}^1\int_{-1}^1
+&=: \int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}\int_{-1}^1 \frac{P_k(s)}{\tilde{z_t}-s} \\
+\tilde{s_{kj}} &= \int_{-1}^1\int_{-1}^1
 \frac{P_j(t)P_k(s)}{z-\alpha(1+s)-(i+\beta(1+s))t}dsdt \\
-	&= w
+&= \int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}\int_{-1}^1 \frac{P_j(t)}{
+	\frac{z-\alpha(1+s)}{\beta(1+s)+i}-t}dtds\\
+&= \int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}\int_{-1}^1 \frac{P_j(t)}{
+\tilde{z_s}-t}dtds\\
+\end{align}
+
+This can be motivated by the tricky recurrent forms for $\tilde{s_{k0}}$.
+TODO: Show why tricky?
+
+We can recreate $s_{kj}$ using values of $\tilde{s_{kj}}$ by doing the following:
+\begin{align}
+	let\; I(k,j,s,t) :&= \frac{P_j(t)P_k(s)}{z-it-(\alpha+\beta t)(1+s)}\\ 
+	s_{kj} &= \int_{-1}^1(\alpha+\beta t)\int_{-1}^1 I(k,j,s,t) dsdt\\
+	&= \int_{-1}^1\alpha\int_{-1}^1 I(k,j,s,t)dsdt +
+	\int_{-1}^1\beta t\int_{-1}^1 I(k,j,s,t) dsdt\\
+	&= \alpha\tilde{s_{kj}} + \beta\frac{j}{2j+1}\tilde{s_{kj-1}} + \beta\frac{j+1}{2j+1}\tilde{s_{kj+1}} \\
+	s_{k0} &= \int_{-1}^1\alpha\int_{-1}^1 I(k,0,s,t)dsdt +
+	\int_{-1}^1\beta t\int_{-1}^1 I(k,0,s,t) dsdt \\
+	&= \alpha\tilde{s_{k0}} + \beta\tilde{s_{k1}}
 \end{align}
 \end{document}
 

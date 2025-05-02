@@ -144,8 +144,8 @@ function get_m_vec(z, n)
 end 
 
 # Solves of the form ln(a+t)/(b+t) between u,w
-function dilog(a,b,u,w)
-    clog(w)-clog(u)
+function dilog(a,b)
+    0
 end
 
 function get_upper_lower(a,b)
@@ -251,6 +251,7 @@ function get_cut_pos(a,b)
     x = imag(a)*cot(source)
     return x-a+b
 end
+
 
 function s̃₀₀(z)
     0
