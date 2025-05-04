@@ -143,10 +143,6 @@ function get_m_vec(z, n)
     M
 end 
 
-# Solves of the form ln(a+t)/(b+t) between u,w
-function dilog(a,b)
-    0
-end
 
 function get_upper_lower(a,b)
     d = 0
@@ -249,10 +245,35 @@ function get_cut_pos(a,b)
     end
     # Given we have a cut find it
     x = imag(a)*cot(source)
-    return x-a+b
+    return x-a+b, side
 end
 
+# Fixes branch cut issue by splitting ln(z+ct)=ln(t+z/c)+ln(c)
+function correction_c(z, c)
+    lc = clog(c)
+    zc = imag(clog(z/c)) + imag(lc)
+    if zc <= -pi
+        return 1
+    elseif zc > pi
+        return -1
+    end
+    return 0
+end
 
-function s̃₀₀(z)
-    0
+# Solves in the form ∫ln(z+ct)/(b+t) t∈(-1,1)
+function dilog(z,c,b)
+    c_correct = correction_c(z,c)
+    lc = clog(c)
+    I2 = (2*pi*c_correct+lc)*∫x⁻¹dx(b-1,b+1)
+    # Solves of the form ln(a+t)/(b+t) between u,w
+    a = z/c
+    cut_pos, corr = get_cut_pos(a,b)
+    I1 = corrected(a,b,cut_pos,corr)
+    return I1 + I2
+end
+
+function s̃₀₀_(a,b,z)
+    # I₊ will be ln(z̃ₜ+1)/(a+bt) and same for I₋
+    I₊ = (dilog(z,-im,a/b)-dilog(a,b,a/b))/b
+    return I₊
 end
