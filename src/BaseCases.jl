@@ -191,6 +191,11 @@ function ∫x⁻¹dx(a,b)
     return lb-la-d*2*pi*im
 end
 
+function ∫x⁻¹lnxdx(b-1,b+1)
+    # TODO: Implement according to branch cuts
+    return 0
+end
+
 # Returns (∫(ln(1+u/(a-b))/u)du, ∫(1/u)du) u ∈ (b-t,b+t)
 function uncorrected(a,b,b₋,b₊)
     dilog_corrected(b₊/(b-a), b₋/(b-a)), ∫x⁻¹dx(b₋,b₊)
@@ -206,6 +211,9 @@ function corrected(a,b,w̃,corr)
             I21 + I22*d)
 end
 
+using Debugger
+
+# Returns cut position ∈ [b-1, b+1]
 function get_cut_pos(a,b)
     # a ≠ b
     d = clog(a-b)
@@ -240,7 +248,6 @@ function get_cut_pos(a,b)
         return b-1, -1
     end
     if sign(imag(la₊)-source)*side > 0
-        print(imag(la₊),source,side)
         return b+1, side
     end
     # Given we have a cut find it
@@ -267,8 +274,13 @@ function dilog(z,c,b)
     I2 = (2*pi*c_correct+lc)*∫x⁻¹dx(b-1,b+1)
     # Solves of the form ln(a+t)/(b+t) between u,w
     a = z/c
-    cut_pos, corr = get_cut_pos(a,b)
-    I1 = corrected(a,b,cut_pos,corr)
+    if a==b
+        # solving:ln(t)/t t∈[b-1,b+1]
+        I1 = ∫x⁻¹lnx(b-1,b+1)
+    else
+        cut_pos, corr = get_cut_pos(a,b)
+        I1 = corrected(a,b,cut_pos,corr)
+    end
     return I1 + I2
 end
 
