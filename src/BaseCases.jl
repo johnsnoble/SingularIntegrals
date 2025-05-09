@@ -191,9 +191,30 @@ function ∫x⁻¹dx(a,b)
     return lb-la-d*2*pi*im
 end
 
-function ∫x⁻¹lnxdx(b-1,b+1)
+function ∫x⁻¹lnxdx_(la,lb)
+    return (lb^2-la^2)/2
+end
+
+function ∫x⁻¹lnxdx(a,b)
     # TODO: Implement according to branch cuts
-    return 0
+    # Letting u = lnx -> du = dx/x
+    la, lb = clog(a), clog(b)
+    same_side = sign(imag(a))*sign(imag(b)) 
+    if same_side > 1
+        return ∫x⁻¹lnxdx_(la,lb)
+    elseif imag(a)==imag(b)
+        return ∫x⁻¹lnxdx_(la,lb)
+    end
+    x_inter = real(b)-(real(b)-real(a))*imag(b)/(imag(b)-imag(a))
+    if x_inter >= 0
+        return ∫x⁻¹lnxdx_(la,lb)
+    end
+
+
+    lx = log(-x_inter)
+    return (sign(imag(a))>0 ?
+            ∫x⁻¹lnxdx_(la, lx+pi) + ∫x⁻¹lnxdx_(lx-pi, lb) :
+            ∫x⁻¹lnxdx_(la, lx-pi) + ∫x⁻¹lnxdx_(lx+pi, la))
 end
 
 # Returns (∫(ln(1+u/(a-b))/u)du, ∫(1/u)du) u ∈ (b-t,b+t)
@@ -276,7 +297,7 @@ function dilog(z,c,b)
     a = z/c
     if a==b
         # solving:ln(t)/t t∈[b-1,b+1]
-        I1 = ∫x⁻¹lnx(b-1,b+1)
+        I1 = ∫x⁻¹lnxdx(b-1,b+1)
     else
         cut_pos, corr = get_cut_pos(a,b)
         I1 = corrected(a,b,cut_pos,corr)
