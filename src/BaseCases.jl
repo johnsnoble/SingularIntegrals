@@ -114,7 +114,10 @@ function s̃ₖⱼ_complete(S,z,a,b)
    S
 end
 
-function sₖⱼ(k,j,z,a,b,s₀₀)
+function sₖⱼ(k,j,z,a,b,s₀₀=nothing)
+    if s₀₀==nothing
+        s₀₀=s̃₀₀(a,b,z)
+    end
     S̃ = s̃ₖⱼ_base(k,j+1,z,a,b,s₀₀)
     S̃ = s̃ₖⱼ_complete(S̃,z,a,b)
     N, M = size(S̃)
@@ -303,8 +306,11 @@ function dilog(z,c,b)
     return I1 + I2
 end
 
-function s̃₀₀_(a,b,z)
+function s̃₀₀(a,b,z)
     # I₊ will be ln(z̃ₜ+1)/(a+bt) and same for I₋
-    I₊ = (dilog(z,-im,a/b)-dilog(a,b,a/b))/b
-    return I₊
+    # We do not have to consider the branch cut here because of the restrictions of z which cannot be in the domain:
+    # z ∉ {x+iy: x∈[0,2(a+by)], y∈[-1,1]}
+    I₊ = dilog(z,-im,a/b)
+    I₋ = dilog(z-2*a,-2*b-im,a/b)
+    return (I₊-I₋)/b
 end
