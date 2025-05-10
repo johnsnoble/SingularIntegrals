@@ -48,7 +48,7 @@ function s̃ₖ₀(k,z,a,b,s₀)
     S[2] = (s̃[1]-(b+im)*s₀)/b
     # S[k+1] = s̃ₖ₀, s̃[k+1] = s̃ₖ
     for i=2:k
-#Sᵢ*(2i+1) = (b+im)*sᵢ+ibᵢsᵢ₋₁+
+        # Sᵢ*(2i+1) = (b+im)*sᵢ+ibᵢsᵢ₋₁+
         S[i+1] = ((2*i-1)*(s̃[i]-(b+im)*S[i])-b*(i-1)*S[i-1])/(b*i)
     end
     S

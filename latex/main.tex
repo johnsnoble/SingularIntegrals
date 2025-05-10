@@ -202,6 +202,11 @@ We can recreate $s_{kj}$ using values of $\tilde{s_{kj}}$ by doing the following
 \subsection{Recurrences}
 
 Now we can go about trying to construct these recurrences.
+To make it easier notationally to represent these legendre recurrence relations, it is convenient to represent it as the following:
+\begin{align}
+    xP_j(x) &= \frac{j}{2j+1}P_{j-1}(x)+\frac{j+1}{2j+1}P_{j+1}(x) \\
+    &:= j_-P_{j-1}(x)+j_+P_{j+1}(x)
+\end{align}
 It is easiest to begin with a case where:
 
 \subsubsection*{Case 1: $k,j>1$}
@@ -213,8 +218,47 @@ It is easiest to begin with a case where:
 	&=\int_{-1}^1P_j(t)\tilde{z_t}s_k(\tilde{z_t})dt
 	+\int_{-1}^1P_j(t)s_k(\tilde{z_t})
 	+\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
-	
 \end{align}
 
+It is useful here to come up with an expression for:
+
+\begin{align}
+    \int_{-1}^1P_j(t)s_k(\tilde{z_t}) &= \int_{-1}^1(\alpha+\beta t)\frac{P_j(t)}{\alpha + \beta t} s_k(\tilde{z_t})dt\\
+    &= \int_{-1}^1\frac{\alpha P_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt+\int_{-1}^1\frac{\beta tP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
+    &= \alpha\tilde{s_{kj}} + \beta j_-\tilde{s_{kj-1}}+\beta j_+\tilde{s_{kj+1}}
+\end{align}
+
+Decomposing individual elements of the previous equation:
+
+\begin{align}
+	\int_{-1}^1P_j(t)\tilde{z_t}s_k(\tilde{z_t})dt&=\int_{-1}^1P_j(t)(k_-s_{k-1}(\tilde{z_t})+k_+s_{k+1}(\tilde{z_t}))dt\\
+	&= k_-(\alpha\tilde{s_{k-1j}}+\beta j_-\tilde{s_{k-1j-1}}+\beta j_+\tilde{s_{k-1j+1}})\\
+	&+ k_+(\alpha\tilde{s_{k+1j}}+\beta j_-\tilde{s_{k+1j-1}}+\beta j_+\tilde{s_{k+1j+1}})\\
+	\int_{-1}^1P_j(t)s_k(\tilde{z_t}) &= \alpha\tilde{s_{kj}} + \beta j_-\tilde{s_{kj-1}}+\beta j_+\tilde{s_{kj+1}}\\
+	\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt &= i(j_-\tilde{s_{kj-1}}+j_+\tilde{s_{kj+1}})
+\end{align}
+
+Returning back to our original equation:
+
+\begin{align}
+    z\tilde{s_{kj}}&=\int_{-1}^1P_j(t)\tilde{z_t}s_k(\tilde{z_t})dt
+    +\int_{-1}^1P_j(t)s_k(\tilde{z_t})
+    +\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
+    &=\beta(k_-j_-\tilde{s}_{k-1j-1}+k_-j_+\tilde{s}_{k-1j+1}+k_+j_-\tilde{s}_{k+1j-1}+k_+j_+\tilde{s}_{k+1j+1})\\
+    &+\alpha(\tilde{s}_{kj}+k_-\tilde{s}_{k-1j}+k_+\tilde{s}_{k+1j})\\
+    &+(\beta+i)(j_-\tilde{s}_{kj-1}+j_+\tilde{s}{kj+1})
+\end{align}
+
+And thus we have a 9 point stencil recurrence relation.
+Given any 8 points we are able to find the final point.
+Assuming we therefore for some $k,j\geq 2$ we have all $\tilde{s}_{nm}$ for all $n\leq k,m\leq j$,
+we can compute the value of $\tilde{s}_{k+1j+1}$ since we other values $mn$ centered around $kj$.
+Now we need a way of finding the base case, in particular, the case of the two initial rows and columns.
+
+\subsubsection*{Case 2: $k=1$}
+For this we are going to assume that we already have values of the following: $\tilde{s}_{kj}$ where both $k\leq1 \wedge j\leq1$ as well as for all $k=0$ and $j=0$.
+Computation of these will be another case outlined later.
+We are able to find a 6 point stencil relation by first beginning with the expansion for $z\tilde{s}_{0j}$
+$z\tilde{s}_{0j}$
 \end{document}
 
