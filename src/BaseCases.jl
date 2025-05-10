@@ -196,7 +196,6 @@ function ∫x⁻¹lnxdx_(la,lb)
 end
 
 function ∫x⁻¹lnxdx(a,b)
-    # TODO: Implement according to branch cuts
     # Letting u = lnx -> du = dx/x
     la, lb = clog(a), clog(b)
     same_side = sign(imag(a))*sign(imag(b)) 
@@ -213,8 +212,8 @@ function ∫x⁻¹lnxdx(a,b)
 
     lx = log(-x_inter)
     return (sign(imag(a))>0 ?
-            ∫x⁻¹lnxdx_(la, lx+pi) + ∫x⁻¹lnxdx_(lx-pi, lb) :
-            ∫x⁻¹lnxdx_(la, lx-pi) + ∫x⁻¹lnxdx_(lx+pi, la))
+            ∫x⁻¹lnxdx_(la, lx+pi*im) + ∫x⁻¹lnxdx_(lx-pi*im, lb) :
+            ∫x⁻¹lnxdx_(la, lx-pi*im) + ∫x⁻¹lnxdx_(lx+pi*im, la))
 end
 
 # Returns (∫(ln(1+u/(a-b))/u)du, ∫(1/u)du) u ∈ (b-t,b+t)
@@ -258,22 +257,21 @@ function get_cut_pos(a,b)
     end
     # a ∉ {-1, 1}
     source = pi-abs(imag(d))
-    if imag(d) > 0
-        source *= -1
-    end
+    rot = imag(d)>0 ? -1 : 1
+    source *= rot
     la₋, la₊, lb = clog(a-1), clog(a+1), clog(b)
     # If arg(a-1) - arg(a+1) lies around the source, we have cut
     # Check we do not have a cut
-    side = sign(imag(a))
-    if sign(source-imag(la₋))*side > 0
-        return b-1, -1
+    if sign(source-imag(la₋))*rot > 0
+        return b-1, 0
     end
-    if sign(imag(la₊)-source)*side > 0
-        return b+1, side
+    # This is the case where the whole interval is rotated over the branch cut
+    if sign(imag(la₊)-source)*rot > 0
+        return b+1, rot
     end
     # Given we have a cut find it
     x = imag(a)*cot(source)
-    return x-a+b, side
+    return x-a+b, rot
 end
 
 # Fixes branch cut issue by splitting ln(z+ct)=ln(t+z/c)+ln(c)
