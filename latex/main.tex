@@ -255,10 +255,30 @@ Assuming we therefore for some $k,j\geq 2$ we have all $\tilde{s}_{nm}$ for all 
 we can compute the value of $\tilde{s}_{k+1j+1}$ since we other values $mn$ centered around $kj$.
 Now we need a way of finding the base case, in particular, the case of the two initial rows and columns.
 
+To begin with the computations of the $k=1,j=1$ rows/cols, it is useful to prove the following:
+\begin{align}
+    zs_0(z)&=\int_{-1}^1\frac{z}{z-s}ds \\
+    &= \int_{-1}^11+\frac{s}{z-s}ds\\
+    &= 2+s_1(z)
+\end{align}
+
 \subsubsection*{Case 2: $k=1$}
 For this we are going to assume that we already have values of the following: $\tilde{s}_{kj}$ where both $k\leq1 \wedge j\leq1$ as well as for all $k=0$ and $j=0$.
 Computation of these will be another case outlined later.
 We are able to find a 6 point stencil relation by first beginning with the expansion for $z\tilde{s}_{0j}$
-$z\tilde{s}_{0j}$
+\begin{align}
+    z\tilde{s}_{0j}&=\int_{-1}^1\frac{zP_j(t)}{\alpha+\beta t}s_0(\tilde{z}_t)dt\\
+    &= \int_{-1}^1P_j(t)\frac{z-it}{\alpha+\beta t}s_0(\tilde{z}_t)dt
+    +\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_0(\tilde{z}_t)dt\\
+    &= \int_{-1}^1P_j(t)\tilde{z}_ts_0(\tilde{z}_t)dt
+    +\int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt
+    +\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_0(\tilde{z}_t)dt\\
+    &= \int_{-1}^1P_j(t)(2+s_1(\tilde{z}_t))dt
+    +\alpha \tilde{s}_{0j}+\beta j_-\tilde{s}_{0j-1}+\beta j_+\tilde{s}_{0j+1}
+    +i j_-\tilde{s}_{0j-1}+i j_+\tilde{s}_{0j+1}\\
+    &=4\delta_{0j}+\alpha(\tilde{s}_{0j}+\tilde{s}_{1j})
+    +\beta j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+\beta j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1})\\
+    &+i j_-\tilde{s}_{0j-1}+i j_+\tilde{s}_{0j+1}
+\end{align}
 \end{document}
 
