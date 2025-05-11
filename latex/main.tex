@@ -176,7 +176,7 @@ In order to begin we come up with a few different rearrangements of this equatio
 
 Here, I've used $\tilde{z_t}$ and $\tilde{z_s}$ to denote different constants although rigorously both are actually two different functions.
 It is always the case where $\tilde{z_t}, \tilde{z_s}$ denotes
-$\frac{z-it}{\alpha+\beta t}-1,\frac{z-\alpha(1+s)}{\beta(1+2)+i}$ respectively
+$\frac{z-it}{\alpha+\beta t}-1,\frac{z-\alpha(1+s)}{\beta(1+s)+i}$ respectively
 
 It is also very useful to define function $s_k, s_j$:
 \begin{align}
@@ -226,6 +226,13 @@ It is useful here to come up with an expression for:
     \int_{-1}^1P_j(t)s_k(\tilde{z_t}) &= \int_{-1}^1(\alpha+\beta t)\frac{P_j(t)}{\alpha + \beta t} s_k(\tilde{z_t})dt\\
     &= \int_{-1}^1\frac{\alpha P_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt+\int_{-1}^1\frac{\beta tP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
     &= \alpha\tilde{s_{kj}} + \beta j_-\tilde{s_{kj-1}}+\beta j_+\tilde{s_{kj+1}}
+\end{align}
+
+Similarly:
+\begin{align}
+    \int_{-1}^1P_k(s)s_j(\tilde{z}_s)ds &= \int_{-1}^1(\beta(1+s)+i)\frac{P_k(s)}{\beta(1+s)+i}s_j(\tilde{z}_s)ds\\
+    &=\int_{-1}^1(\beta+i+\beta s)\frac{P_k(s)}{\beta(1+s)+i}s_j(\tilde{z}_s)ds\\
+    &=(\beta+i)\tilde{s}_{kj}+\beta k_-\tilde{s}_{k-1j}+\beta k_+\tilde{s}_{k+1j}
 \end{align}
 
 Decomposing individual elements of the previous equation:
@@ -278,7 +285,25 @@ We are able to find a 6 point stencil relation by first beginning with the expan
     +i j_-\tilde{s}_{0j-1}+i j_+\tilde{s}_{0j+1}\\
     &=4\delta_{0j}+\alpha(\tilde{s}_{0j}+\tilde{s}_{1j})
     +\beta j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+\beta j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1})\\
-    &+i j_-\tilde{s}_{0j-1}+i j_+\tilde{s}_{0j+1}
+    &+i j_-\tilde{s}_{0j-1}+i j_+\tilde{s}_{0j+1} \\
+    &=4\delta_{0j}+\alpha(\tilde{s}_{0j}+\tilde{s}_{1j})
+    +(\beta+i)(j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1}))
 \end{align}
+
+\subsubsection*{Case 3: $j=1$}
+We can use a similar approach for expansion on $z\tilde{s}_{k0}$:
+\begin{align}
+    z\tilde{s}_{k0} &= \int_{-1}^1\int_{-1}^1\frac{zP_k(s)}{z-it-(\alpha+\beta t)(1+s)}dsdt\\
+    &=\int_{-1}^1\frac{zP_k(s)}{\beta(1+s)+i}\int_{-1}^1\frac{1}{\tilde{z}_s-t}dtds\\
+    &=\int_{-1}^1\frac{zP_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &=\int_{-1}^1\frac{(z-\alpha(1+s))P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds
+    +\int_{-1}^1\frac{\alpha(1+s)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &=\int_{-1}^1P_k(s)\tilde{z}_ss_0(\tilde{z}_s)ds
+    +\int_{-1}^1\frac{\alpha(1+s)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &=\int_{-1}^1P_k(s)(2+s_1(\tilde{z}_s))ds+\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
+    &=(\beta+i)\tilde{s}_{k1}+\beta k_-\tilde{s}_{k-11}+\beta k_+\tilde{s}_{k+11}
+    +\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
+\end{align}
+
 \end{document}
 
