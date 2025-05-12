@@ -290,6 +290,28 @@ We are able to find a 6 point stencil relation by first beginning with the expan
     +(\beta+i)(j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1}))
 \end{align}
 
+\subsubsection*{Issue with branch cuts}
+For the following cases we are forced to manipulate integral expressions involving logs.
+We will be using the log decomposition formula $log(ab)=log(a)+log(b)$.
+To highlight our issue lets imagine taking the integral:
+$$\int_{0}^1 f(x)log(abx)dx,\:arg(a)+arg(b)>\frac{\pi}{2}$$
+Here we see that if we try and decompose $log(abx)$ into $log(ax)+log(b)$,
+we will have to add a correction term since
+$$arg(abx)\neq (arg(ax)+arg(b)=arg(a)+arg(b)>\frac{\pi}{2})$$
+This is because of the branch cut at $\pm\pi$, $arg(abx)=arg(ab)<0$
+It is possible to easily fix this by removing a factor of $2\pi$:
+$$\int_{0}^1 f(x)log(abx)dx = \int_{0}^1 f(x)log(ax)dx+\int_{0}^1 f(x)(log(b)-2\pi)dx$$
+
+Although this is a very simple case which I am just using to illustrate the point we can get a much more complex case when the interval we are taking integrals over crosses over branch cuts.
+To solve this we find the value $w$ such that $arg(z)+arg(w)=\frac{\pi}{2}$:
+\begin{align}
+    \int_{c_-}^{c_+}f(x)log(zx)dx,&\:arg(z)+arg(c_-)>\frac{\pi}{2}\\
+    &arg(z)+arg(c_+)<\frac{-\pi}{2}\\
+    \int_{c_-}^{c_+}f(x)log(zx)dx=&\int_{c_-}^wf(x)(log(zx)-2\pi)dx
+    +\int_w^{c_+}f(x)log(zx)dx
+\end{align}
+
+
 \subsubsection*{Case 3: $j=1$}
 We can use a similar approach for expansion on $z\tilde{s}_{k0}$:
 \begin{align}
