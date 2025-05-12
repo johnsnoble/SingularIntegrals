@@ -290,6 +290,21 @@ We are able to find a 6 point stencil relation by first beginning with the expan
     +(\beta+i)(j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1}))
 \end{align}
 
+\subsubsection*{Case 3: $j=1$}
+We can use a similar approach for expansion on $z\tilde{s}_{k0}$:
+\begin{align}
+    z\tilde{s}_{k0} &= \int_{-1}^1\int_{-1}^1\frac{zP_k(s)}{z-it-(\alpha+\beta t)(1+s)}dsdt\\
+    &=\int_{-1}^1\frac{zP_k(s)}{\beta(1+s)+i}\int_{-1}^1\frac{1}{\tilde{z}_s-t}dtds\\
+    &=\int_{-1}^1\frac{zP_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &=\int_{-1}^1\frac{(z-\alpha(1+s))P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds
+    +\int_{-1}^1\frac{\alpha(1+s)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &=\int_{-1}^1P_k(s)\tilde{z}_ss_0(\tilde{z}_s)ds
+    +\int_{-1}^1\frac{\alpha(1+s)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &=\int_{-1}^1P_k(s)(2+s_1(\tilde{z}_s))ds+\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
+    &=(\beta+i)\tilde{s}_{k1}+\beta k_-\tilde{s}_{k-11}+\beta k_+\tilde{s}_{k+11}
+    +\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
+\end{align}
+
 \subsubsection*{Issue with branch cuts}
 For the following cases we are forced to manipulate integral expressions involving logs.
 We will be using the log decomposition formula $log(ab)=log(a)+log(b)$.
@@ -311,22 +326,6 @@ To solve this we find the value $w$ such that $arg(z)+arg(w)=\frac{\pi}{2}$:
     +\int_w^{c_+}f(x)log(zx)dx
 \end{align}
 
-
-\subsubsection*{Case 3: $j=1$}
-We can use a similar approach for expansion on $z\tilde{s}_{k0}$:
-\begin{align}
-    z\tilde{s}_{k0} &= \int_{-1}^1\int_{-1}^1\frac{zP_k(s)}{z-it-(\alpha+\beta t)(1+s)}dsdt\\
-    &=\int_{-1}^1\frac{zP_k(s)}{\beta(1+s)+i}\int_{-1}^1\frac{1}{\tilde{z}_s-t}dtds\\
-    &=\int_{-1}^1\frac{zP_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
-    &=\int_{-1}^1\frac{(z-\alpha(1+s))P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds
-    +\int_{-1}^1\frac{\alpha(1+s)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
-    &=\int_{-1}^1P_k(s)\tilde{z}_ss_0(\tilde{z}_s)ds
-    +\int_{-1}^1\frac{\alpha(1+s)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
-    &=\int_{-1}^1P_k(s)(2+s_1(\tilde{z}_s))ds+\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
-    &=(\beta+i)\tilde{s}_{k1}+\beta k_-\tilde{s}_{k-11}+\beta k_+\tilde{s}_{k+11}
-    +\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
-\end{align}
-
 Before moving to the next two cases we need closed form solutions to the following:
 
 First we define: $$r_k = \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt$$
@@ -342,7 +341,38 @@ It is easy to see here that $r_k = s_{k0}$; we are able to very easily find a re
 \end{align}
 
 We also need to show that it is valid to split up these logs and prove that there will not exist any branch cuts.
-TODO: Show that there are no branch cuts here
+When going through the cases $log(f(t)g(t))$ we are verifying such that for every $t$:
+$$|arg(f(t))+arg(g(t))|<\pi$$
+First we address:
+$$log(\frac{z-it}{z-2\alpha-(2\beta+i)t})$$
+This problem is potentially susceptible to strange branch cuts but this problem is simplified greatly if we only consider the feasible set of $z$.
+Since our problem is one of taking the stieltjes kernel across a trapezium domain, we are allowed to restrict values of z from not being inside this domain:
+$$z\notin \{z: im(z)\in [-1,1], re(z)\in [0,2\alpha+2\beta\cdot im(z)]\}$$
+We can now consider two cases.
+let:
+\begin{align}
+    z_1&=z-it\\
+    z_2&=z-2\alpha-2\beta-it\\
+    k&=2\alpha+2\beta\\
+    &\implies (re(z_1)-k, im(z_1))=(re(z_2), im(z_2))
+\end{align}
+From the fact that we require $z$ to be outside of the domain we can see that:
+$$re(z_1)<0 \implies re(z_2)<0,\: re(z_1)>0 \implies re(z_2)>0$$
+Case 1 ($im(z_1)=im(z_2)>0$):
+\begin{align}
+    arg(z_1)+arg(z_2^{-1})&=arg(z_1)-arg(z_2)\\
+    arg(z_1)-arg(z_2)&>\frac{-\pi}{2}\\
+    arg(z_1)<arg(z_2)&\implies arg(z_1)-arg(z_2)<0
+\end{align}
+Case 2 ($im(z_1)=im(z_2)<0$):
+\begin{align}
+    arg(z_1)+arg(z_2^{-1})&=arg(z_1)-arg(z_2)\\
+    arg(z_1)-arg(z_2)&<\frac{\pi}{2}\\
+    arg(z_1)>arg(z_2)&\implies arg(z_1)-arg(z_2)>0
+\end{align}
+
+Next we address:
+$$log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(\frac{(z-2\alpha)i}{2\beta+i}-it))$$
 
 Secondly we should also define:
 \begin{align}
