@@ -347,24 +347,24 @@ First we address:
 $$log(\frac{z-it}{z-2\alpha-(2\beta+i)t})$$
 This problem is potentially susceptible to strange branch cuts but this problem is simplified greatly if we only consider the feasible set of $z$.
 Since our problem is one of taking the stieltjes kernel across a trapezium domain, we are allowed to restrict values of z from not being inside this domain:
-$$z\notin \{z: im(z)\in [-1,1], re(z)\in [0,2\alpha+2\beta\cdot im(z)]\}$$
+$$z\notin \{z: Im(z)\in [-1,1],\:Re(z)\in [0,2\alpha+2\beta\cdot Im(z)],\:a\geq b>0\}$$
 We can now consider two cases.
 let:
 \begin{align}
     z_1&=z-it\\
-    z_2&=z-2\alpha-2\beta-it\\
-    k&=2\alpha+2\beta\\
-    &\implies (re(z_1)-k, im(z_1))=(re(z_2), im(z_2))
+    z_2&=z-2\alpha-2\beta t-it\\
+    k_t&=2\alpha+2\beta t\\
+    &\implies (Re(z_1)-k_t, Im(z_1))=(Re(z_2), Im(z_2))
 \end{align}
 From the fact that we require $z$ to be outside of the domain we can see that:
-$$re(z_1)<0 \implies re(z_2)<0,\: re(z_1)>0 \implies re(z_2)>0$$
-Case 1 ($im(z_1)=im(z_2)>0$):
+$$Re(z_1)<0 \implies Re(z_2)<0,\: Re(z_1)>0 \implies Re(z_2)>0$$
+Case 1 ($Im(z_1)=Im(z_2)>0$):
 \begin{align}
     arg(z_1)+arg(z_2^{-1})&=arg(z_1)-arg(z_2)\\
     arg(z_1)-arg(z_2)&>\frac{-\pi}{2}\\
     arg(z_1)<arg(z_2)&\implies arg(z_1)-arg(z_2)<0
 \end{align}
-Case 2 ($im(z_1)=im(z_2)<0$):
+Case 2 ($Im(z_1)=Im(z_2)<0$):
 \begin{align}
     arg(z_1)+arg(z_2^{-1})&=arg(z_1)-arg(z_2)\\
     arg(z_1)-arg(z_2)&<\frac{\pi}{2}\\
@@ -372,7 +372,37 @@ Case 2 ($im(z_1)=im(z_2)<0$):
 \end{align}
 
 Next we address:
-$$log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(\frac{(z-2\alpha)i}{2\beta+i}-it))$$
+$$log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(z_3)$$
+$$z_3:=\frac{(z-2\alpha)i}{2\beta+i}-it,\:c_1:=\frac{2\beta+i}{i}$$
+Case 1 ($Re(z)>0$):
+\begin{align}
+    Re(z)>0&\implies Re(z_2)>0\\
+    &\implies |arg(z_2)|<\frac{\pi}{2}\\
+    arg(c_1)\in(-\frac{\pi}{2},0)&\implies arg(z_3)\in(0,\pi)
+\end{align}
+Case 2 ($Re(z)<0,\:Im(z)<-1$):
+\begin{align}
+    \forall t, -\pi<arg(z_2)&<-\frac{\pi}{2}\\
+    arg(c_1)\in(-\frac{\pi}{2},0)&\implies arg(z_3)\in(-\pi,0)
+\end{align}
+Case 3 ($Re(z)<0,\:-1<Im(z)<1)$)
+
+With this case we have that for some values of $t$, $arg(z_2)=\pm \pi$.
+The issue is that the integral itself crosses a branch cut.
+We also have that rotating the values of $z_2$ which are immediately above the branch cut results in a section of this above and below the branch cut.
+Therefore we need to split this into 3 sections using $t_1<t_2$ where $t_1$ is where it crosses the branch cut and $t_2$ is where it crosses the branch cut when it is rotated over.
+\begin{align}
+    Im(z-2\alpha-(2\beta+i)t_1)&:=0\\
+    Im(z)-t_1=0 &\implies t_1 = Im(z)\\
+    t_2&=\underset{t\in[-1,1]}{sup}\{arg(z_3)+arg(c_1)<-\pi\}\\
+    &=\underset{t\in[-1,1]}{inf}\{arg(z_2)-arg(c_1)>\pi\}\\
+    arg(z_2)<\pi+arg(c_1) &\implies t_2=-1\\
+\end{align}
+We can search for values of $t_2$ by considering values to the solution of:
+\begin{align}
+    t_2&= max(t,-1) \: where\\
+    z-2\alpha-(\beta+i)t&=(\frac{1}{2\beta}+i)t
+\end{align}
 
 Secondly we should also define:
 \begin{align}
@@ -385,7 +415,6 @@ Secondly we should also define:
     &=M_k(\frac{i(z-i)}{\alpha-\beta}-i)-M_k(\frac{i(z-i)}{\alpha+\beta}-i)
     +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})
 \end{align}
-TODO: Prove there are no branch cuts here
 
 \subsubsection*{Case 4: $k=0$}
 For this case we are considering how to solve the following:
