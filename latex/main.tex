@@ -390,7 +390,7 @@ Case 3 ($Re(z)<0,\:-1<Im(z)<1)$)
 With this case we have that for some values of $t$, $arg(z_2)=\pm \pi$.
 The issue is that the integral itself crosses a branch cut.
 We also have that rotating the values of $z_2$ which are immediately above the branch cut results in a section of this above and below the branch cut.
-Therefore we need to split this into 3 sections using $t_1<t_2$ where $t_1$ is where it crosses the branch cut and $t_2$ is where it crosses the branch cut when it is rotated over.
+Therefore we need to split this into 3 sections using $t_1>t_2$ where $t_1$ is where it crosses the branch cut and $t_2$ is where it crosses the branch cut when it is rotated over.
 \begin{align}
     Im(z-2\alpha-(2\beta+i)t_1)&:=0\\
     Im(z)-t_1=0 &\implies t_1 = Im(z)\\
@@ -400,8 +400,18 @@ Therefore we need to split this into 3 sections using $t_1<t_2$ where $t_1$ is w
 \end{align}
 We can search for values of $t_2$ by considering values to the solution of:
 \begin{align}
-    t_2&= max(t,-1) \: where\\
-    z-2\alpha-(\beta+i)t&=(\frac{1}{2\beta}+i)t
+    t_2&= max\{t,-1\} \: where\\
+    z-2\alpha-(\beta+i)t&=(\frac{1}{2\beta}-i)t\\
+    z-2\alpha&=(\frac{1}{2\beta}+\beta)t\\
+    t&=\frac{2\beta(z-2\alpha)}{1+2\beta^2}
+\end{align}
+Once we have $t_2$ we can decompose the integral as the following:
+\begin{align}
+    \int_{-1}^1f(t)log(z_2)dt&=\int_{-1}^{t_2}f(t)(log(c_1)+log(z_3))dt+\int_{t_2}^{t_1}f(t)(log(c_1)+log(z_3))dt\\
+    &+\int_{t_1}^1f(t)(log(c_1)+log(z_3))dt\\
+    &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^{t_2}f(t)log(z_3)dt+\int_{t_2}^{t_1}f(t)(log(z_3)+2\pi)dt\\
+    &+\int_{t_1}^1f(t)log(z_3)dt\\
+    &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^1f(t)log(z_3)dt+2\pi\int_{t_2}^{t_1}f(t)dt
 \end{align}
 
 Secondly we should also define:
