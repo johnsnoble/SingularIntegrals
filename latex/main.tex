@@ -337,9 +337,10 @@ It is easy to see here that $r_k = s_{k0}$; we are able to very easily find a re
     &=\int_{-1}^1P_j(t)log(z-it)dt-\int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt\\
     &=\int_{-1}^1P_j(t)log(z-it)dt
     -\int_{-1}^1P_j(t)(log(\frac{2\beta+i}{i})+log(\frac{(z-2\alpha)i}{2\beta+i}-it)+C_1(t))dt\\
-    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})+\int_{-1}^1P_j(t)C_1(t)dt
+    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})+\int_{-1}^1P_j(t)C_1(t)dt\\
+    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})-2\pi i(C_{k+1}^{(-1/2)}(t_2)-C_{k+1}^{(-1/2)}(t_1))
 \end{align}
-Where $C_1(t)$ is a correction term as a result of branch cuts from splitting up logs which we will characterise later
+Where $C_1(t)$ is a correction term as a result of branch cuts from splitting up logs which we will derive later.
 
 We also need to show that it is valid to split up the other logs and prove that there will not exist any branch cuts.
 When going through the cases $log(f(t)g(t))$ we are verifying such that for every $t$:
@@ -411,16 +412,16 @@ Once we have $t_2$ we can decompose the integral as the following:
     \int_{-1}^1f(t)log(z_2)dt&=\int_{-1}^{t_2}f(t)(log(c_1)+log(z_3))dt\\
     &+\int_{t_2}^{t_1}f(t)(log(c_1)+log(z_3))dt+\int_{t_1}^1f(t)(log(c_1)+log(z_3))dt\\
     &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^{t_2}f(t)log(z_3)dt\\
-    &+\int_{t_2}^{t_1}f(t)(log(z_3)+2\pi)dt+\int_{t_1}^1f(t)log(z_3)dt\\
-    &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^1f(t)log(z_3)dt+2\pi\int_{t_2}^{t_1}f(t)dt
+    &+\int_{t_2}^{t_1}f(t)(log(z_3)+2\pi i)dt+\int_{t_1}^1f(t)log(z_3)dt\\
+    &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^1f(t)log(z_3)dt+2\pi i\int_{t_2}^{t_1}f(t)dt
 \end{align}
 Therefore we can write our earlier expression for the correction term as:
-$$C_1(t)=2\pi \mathbb{I}_{\{t_2<t<t_1\}}$$
+$$C_1(t)=2\pi i\mathbb{I}_{\{t_2<t<t_1\}}$$
 In our case we have our $f(t)$ to be $P_j(t)$ which means we should use ultrasperical polynomials to solve the closed form version of our correction:
 \begin{align}
     \int_x^1P_k(t)dt&=C_{k+1}^{(-1/2)}(x)\\
-    \implies \int_{-1}^1P_j(t)C_1(t)&=2\pi\int_{t_2}^{t_1}P_j(t)dt\\
-    &=2\pi(C_{k+1}^{(-1/2)}(t_2)-C_{k+1}^{(-1/2)}(t_1))
+    \implies \int_{-1}^1P_j(t)C_1(t)&=2\pi i\int_{t_2}^{t_1}P_j(t)dt\\
+    &=2\pi i(C_{k+1}^{(-1/2)}(t_2)-C_{k+1}^{(-1/2)}(t_1))
 \end{align}
 Secondly we should also define:
 \begin{align}
