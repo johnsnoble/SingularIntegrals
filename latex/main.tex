@@ -424,16 +424,20 @@ In our case we have our $f(t)$ to be $P_j(t)$ which means we should use ultraspe
     \implies \int_{-1}^1P_j(t)C_1(t)&=2\pi i\int_{t_2}^{t_1}P_j(t)dt\\
     &=2\pi i(C_{k+1}^{(-1/2)}(t_2)-C_{k+1}^{(-1/2)}(t_1))
 \end{align}
+It is important to remember this is for when $k>0$, when $k=0$, $C_1^{(-1/2)}(x)=\int_{x}^0 P_0(x)=-x$.
+This doesnt't matter for the above since we are taking differences.
+
 Secondly we should also define:
 \begin{align}
     q_k&=\int_{-1}^1P_k(s)s_0(\tilde{z}_s)ds\\
     &=\int_{-1}^1P_k(s)log(\frac{\tilde{z}_s+1}{\tilde{z}_s-1})ds
     =\int_{-1}^1P_k(s)log(\frac{z+i-(\alpha-\beta)(1+s)}{z-i-(\alpha+\beta)(1+s)})ds\\
-    &=\int_{-1}^1P_k(s)log(z+i-(\alpha-\beta)(1+s))ds-\int_{-1}^1P_k(s)log(z-i-(\alpha+\beta)(1+s))ds\\
-    &=\int_{-1}^1P_k(s)(log(\frac{\alpha-\beta}{i})+log(\frac{i(z-i)}{\alpha-\beta}-i+is))ds\\
-    &-\int_{-1}^1P_k(s)(log(\frac{\alpha+\beta}{i})+log(\frac{i(z-i)}{\alpha+\beta}-i+is))ds\\
+    &=\int_{-1}^1P_k(s)log(z+i-(\alpha-\beta)(1+s))ds\\
+    &-\int_{-1}^1P_k(s)log(z-i-(\alpha+\beta)(1+s))ds+\int_{-1}^1C_2(s)ds\\
+    &=\int_{-1}^1P_k(s)(log(\frac{\alpha-\beta}{i})+log(\frac{i(z+i)}{\alpha-\beta}-i-is))ds\\
+    &-\int_{-1}^1P_k(s)(log(\frac{\alpha+\beta}{i})+log(\frac{i(z-i)}{\alpha+\beta}-i-is))ds+\int_{-1}^1C_2(s)ds\\
     &=M_k(\frac{i(z-i)}{\alpha-\beta}-i)-M_k(\frac{i(z-i)}{\alpha+\beta}-i)
-    +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})
+    +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})+\int_{-1}^1C_2(s)ds
 \end{align}
 
 First we look for the correction term $C_2$ in the expression:
@@ -466,13 +470,41 @@ Moving the point $0$ along with the line towards the left gives us the point $-\
     s&=\frac{Re(\tilde{z})}{Im(\tilde{z})\beta-\alpha}-1
 \end{align}
 The usefulness of this formulation is that we are now able to take any arbritary point and find which region it belongs to in the above diagram.
+Also given an $s$ for a $z$, we can see that $arg(z_4)-arg(z_5)$ from $s$ onwards is greater than $\pi$ and passes over the branch cut whereas when it takes on values under $s$, we have no issues with branch cuts.
 We have the 3 different cases for where the origin can be relative to our value of z which we can go through one by one:
 
 Case 3 $(Re(z)<0)$:
+\begin{align}
+    arg(z-(\alpha-\beta)(1+s)+i)&>arg(z+i)\\
+    arg(z-(\alpha+\beta)(1+s)-i)&<arg(z-i)\\
+    \implies arg(z_4)-arg(z_5)&>arg(z+i)-arg(z-i)\\
+    &>\pi
+\end{align}
 
 Case 4 $(\frac{Re(0-z)}{Im(0-z)\beta-\alpha}>2\implies\frac{Re(z)}{\alpha+Im(z)\beta}>2)$:
+\begin{align}
+    arg(z-(\alpha-\beta)(1+s)+i)&<arg(z-2(\alpha-\beta)+i)\\
+    arg(z-(\alpha+\beta)(1+s)-i)&>arg(z-2(\alpha+\beta)-i)\\
+    \implies arg(z_4)-arg(z_5)&<arg(z-2(\alpha-\beta)+i)-arg(z-2(\alpha+\beta)-i)\\
+    &<\pi
+\end{align}
 
-Case 5 $(\frac{Re(z)}{\alpha+Im(z)\beta}\in[0,2])$
+Case 5 $(s+1:=\frac{Re(z)}{\alpha+Im(z)\beta}\in[0,2])$:
+\begin{align}
+    s\in[-1,1] &\implies\\
+    u\in[0,s+1] &\implies arg(z-(\alpha-\beta)u+i)-arg(z-(\alpha+\beta)u-i)\leq\pi\\
+    s+1<u\leq2 &\implies arg(z-(\alpha-\beta)u+i)-arg(z-(\alpha+\beta)u-i)>\pi
+\end{align}
+
+From these 3 cases, we can come up with a correction using the following:
+\begin{align}
+    s &= max\{0, min\{\frac{Re(z)}{\alpha+Im(z)\beta},2\}\}-1\\
+    \int_{-1}^1P_k(u)log(\frac{z_4}{z_5})du &=\int_{-1}^sP_k(u)(log(z_4)-log(z_5))du\\
+    &+\int_s^1P_k(u)(log(z_4)-log(z_5)-2\pi i)du\\
+    &=\int_{-1}^1P_k(u)(log(z_4)-log(z_5))du-2\pi i\int_s^1P_k(u)du\\
+    &=\int_{-1}^1P_k(u)(log(z_4)-log(z_5))du-2\pi iC_{k+1}^{(-1/2)}(s)\\
+    \int_{-1}^1C_2(s)ds &= -2\pi iC_{k+1}^{(-1/2)}(s)
+\end{align}
 
 \subsubsection*{Case 4: $k=0$}
 For this case we are considering how to solve the following:

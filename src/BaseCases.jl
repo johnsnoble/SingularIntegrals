@@ -65,6 +65,10 @@ function s̃₀ⱼ(j,z,a,b,s₀)
     S
 end
 
+function legendreInt(k,x)
+    return k==0 ? 1-x : ultrasphericalc(k+1,-0.5,x)
+end
+
 function s₀ⱼ(j,z,a,b)
     M = [get_m_vec(x, j) for
          x = [z, (z-2*a)*im/(im+2*b)]]
