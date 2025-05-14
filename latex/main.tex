@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{graphicx} % Required for inserting images
+\graphicspath{ {./images/} }
 \usepackage{mathtools}
 
 \mathtoolsset{showonlyrefs}
@@ -373,7 +374,7 @@ Case 2 ($Im(z_1)=Im(z_2)<0$):
     arg(z_1)>arg(z_2)&\implies arg(z_1)-arg(z_2)>0
 \end{align}
 
-Next we address:
+Next we address
 $$log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(z_3)$$
 $$z_3:=\frac{(z-2\alpha)i}{2\beta+i}-it,\:c_1:=\frac{2\beta+i}{i}$$
 Case 1 ($Re(z)>0$):
@@ -428,12 +429,33 @@ Secondly we should also define:
     q_k&=\int_{-1}^1P_k(s)s_0(\tilde{z}_s)ds\\
     &=\int_{-1}^1P_k(s)log(\frac{\tilde{z}_s+1}{\tilde{z}_s-1})ds
     =\int_{-1}^1P_k(s)log(\frac{z+i-(\alpha-\beta)(1+s)}{z-i-(\alpha+\beta)(1+s)})ds\\
-    &=\int_{-1}^1P_k(s)log(z+i-(\alpha-\beta)(1+s))ds+\int_{-1}^1P_k(s)log(z-i-(\alpha+\beta)(1+s))ds\\
+    &=\int_{-1}^1P_k(s)log(z+i-(\alpha-\beta)(1+s))ds-\int_{-1}^1P_k(s)log(z-i-(\alpha+\beta)(1+s))ds\\
     &=\int_{-1}^1P_k(s)(log(\frac{\alpha-\beta}{i})+log(\frac{i(z-i)}{\alpha-\beta}-i+is))ds\\
-    &+\int_{-1}^1P_k(s)(log(\frac{\alpha+\beta}{i})+log(\frac{i(z-i)}{\alpha+\beta}-i+is))ds\\
+    &-\int_{-1}^1P_k(s)(log(\frac{\alpha+\beta}{i})+log(\frac{i(z-i)}{\alpha+\beta}-i+is))ds\\
     &=M_k(\frac{i(z-i)}{\alpha-\beta}-i)-M_k(\frac{i(z-i)}{\alpha+\beta}-i)
     +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})
 \end{align}
+
+First we look for the correction term $C_2$ in the expression:
+$$log(\frac{z_4}{z_5})=log(z_4)-log(z_5)$$
+$$z_4=z+i-(\alpha-\beta)(1+s),\:z_5=z-i-(\alpha+\beta)(1+s)$$
+Case 1 $(Im(z)>1)$:
+\begin{align}
+    Im(z)>1 &\implies 0<arg(z_4),arg(z_5)<\pi\\
+    &\implies |arg(z_4)-arg(z_5)|<\pi
+\end{align}
+Case 2 $(Im(z)<1)$:
+\begin{align}
+    Im(z)<1 &\implies -\pi<arg(z_4),arg(z_5)<0\\
+    &\implies |arg(z_4)-arg(z_5)|<\pi
+\end{align}
+For the next 3 cases it is important to understand the geometry of these branch cuts
+
+\includegraphics[width=\textwidth]{branchcut}
+Here we have a representation of $z_4$ and $z_5$ parameterised by $s$.
+We have the 3 different cases for where the origin can be relative to our value of z which we can go through one by one:
+
+Case 3 $(\frac{Re(z)}{\alpha+Im(z)\beta}>2)$:
 
 \subsubsection*{Case 4: $k=0$}
 For this case we are considering how to solve the following:

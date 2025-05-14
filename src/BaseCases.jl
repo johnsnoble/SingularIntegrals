@@ -70,7 +70,15 @@ function s₀ⱼ(j,z,a,b)
          x = [z, (z-2*a)*im/(im+2*b)]]
     S = M[1]-M[2]
     S[1] -= 2*log(1+2*b/im)
-    S
+    if (real(z)<0) & (abs(imag(z))<1)
+        t₁ = imag(z)
+        t₂ = 2b*(z-2a)/(1+2b^2)
+        t₂ = max(t₂,-1)
+        Cs = [2pi*im*(ultrasphericalc(i+1,-0.5,t₂)-ultrasphericalc(i+1,-0.5,t₁)) for i=0:j]
+        return S - Cs
+    else
+        return S
+    end
 end
 
 function s̃ₖⱼ_base(k,j,z,a,b,s₀₀)
