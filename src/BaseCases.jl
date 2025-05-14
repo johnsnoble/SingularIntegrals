@@ -33,12 +33,16 @@ end
 function s̃ₖ(k,z,a,b)
     M = [get_m_vec(x-im, k) for
     x = [im*(z+im)/(a-b), im*(z-im)/(a+b)]]
+
     res = M[1]-M[2]
     res[1] += 2*log(Complex((a-b)/(a+b)))
+    if abs(imag(z))<1
+    # a≠-imag(z)*b if |image(z)|<1 and a>b
+        s_ = real(z)/(a+imag(z)*b)
+        s_ = max(0,min(s_,2))-1
+        C₂ = [2*pi*im*legendreInt(i, s_) for i=0:k]
+        res -= C₂
     res
-    #S = Array{ComplexF64}(undex, k)
-    
-    #if k==0:
 end
 
 function s̃ₖ₀(k,z,a,b,s₀)
