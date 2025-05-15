@@ -434,9 +434,9 @@ Secondly we should also define:
     =\int_{-1}^1P_k(s)log(\frac{z+i-(\alpha-\beta)(1+s)}{z-i-(\alpha+\beta)(1+s)})ds\\
     &=\int_{-1}^1P_k(s)log(z+i-(\alpha-\beta)(1+s))ds\\
     &-\int_{-1}^1P_k(s)log(z-i-(\alpha+\beta)(1+s))ds+\int_{-1}^1C_2(s)ds\\
-    &=\int_{-1}^1P_k(s)(log(\frac{\alpha-\beta}{i})+log(\frac{i(z+i)}{\alpha-\beta}-i-is))ds\\
-    &-\int_{-1}^1P_k(s)(log(\frac{\alpha+\beta}{i})+log(\frac{i(z-i)}{\alpha+\beta}-i-is))ds+\int_{-1}^1C_2(s)ds\\
-    &=M_k(\frac{i(z-i)}{\alpha-\beta}-i)-M_k(\frac{i(z-i)}{\alpha+\beta}-i)
+    &=\int_{-1}^1P_k(s)(log(\alpha-\beta)+log(\frac{z+i}{\alpha-\beta}-1-s))ds\\
+    &-\int_{-1}^1P_k(s)(log(\alpha+\beta)+log(\frac{z-i}{\alpha+\beta}-1-s))ds+\int_{-1}^1C_2(s)ds\\
+    &=L_k(\frac{z-i}{\alpha-\beta}-1)-L_k(\frac{z-i}{\alpha+\beta}-1)
     +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})+\int_{-1}^1C_2(s)ds
 \end{align}
 
@@ -506,26 +506,10 @@ From these 3 cases, we can come up with a correction using the following:
     \int_{-1}^1C_2(s)ds &= -2\pi iC_{k+1}^{(-1/2)}(s)
 \end{align}
 
-The next branch cut we need to correct is:
-$$log(z+i-(\alpha-\beta)(1+s)) \rightarrow log(\frac{\alpha-\beta}{i})+log(\frac{i(z+i)}{\alpha-\beta}-i-is)$$
-We can easily see that since $arg(\frac{\alpha-\beta}{i})=-\frac{\pi}{2}$ which means that there is only a branch crossing if $z+i-(\alpha-\beta)(1+s)$ gets within angle of $\frac{\pi}{2}$.
-This is not possible when $Im(z)<0$ or when $Re(z)>2(\alpha-\beta)$ and so we won't need to worry in this case.
-However solving for when $Im(z)>-1$, $Re(z)<2(\alpha-\beta)$ gives:
-\begin{align}
-    Re(z)-(\alpha-\beta)(1+s_1)&:=0\\
-    \frac{Re(z)}{\alpha-\beta}-1&=s_1\\
-    \int_{-1}^1f(s)log(z+i-(\alpha-\beta)(1+s))ds&=-2\pi i\int_{s_1}^1f(s)ds\\
-    +\int_{-1}^1f(s)(log(\frac{\alpha-\beta}{i})&+log(\frac{i(z+i)}{\alpha-\beta}-i-is))ds
-\end{align}
-The next branch cut we need to correct is:
-$$log(z-i-(\alpha+\beta)(1+s)) \rightarrow log(\frac{\alpha+\beta}{i})+log(\frac{i(z-i)}{\alpha+\beta}-i-is)$$
-Similarly with the logic of the last branch cut we can say because $arg(\frac{\alpha+\beta}{i})=-\frac{\pi}{2}$, we have that we only have a branch crossing when $Im(z)>1$, $Re(z)>2(\alpha+\beta)$:
-\begin{align}
-    Re(z)-(\alpha+\beta)(1+s_2)&:=0\\
-    \frac{Re(z)}{\alpha+\beta}-1&=s_2\\
-    \int_{-1}^1f(s)log(z-i-(\alpha+\beta)(1+s))ds&=-2\pi i\int_{s_2}^1f(s)ds\\
-    +\int_{-1}^1f(s)(log(\frac{\alpha+\beta}{i})&+log(\frac{i(z-i)}{\alpha+\beta}-i-is))ds
-\end{align}
+This gives our final expression for $q_k$:
+$$q_k=L_k(\frac{z-i}{\alpha-\beta}-1)-L_k(\frac{z-i}{\alpha+\beta}-1)
++2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})-2\pi i C_{k+1}^{(-1/2)}(s)$$
+
 \subsubsection*{Case 4: $k=0$}
 For this case we are considering how to solve the following:
 \begin{align}

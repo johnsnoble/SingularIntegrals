@@ -7,6 +7,24 @@ L1(z, r0=L0(z)) = (z+1)*r0/2 + 1 - zlog(complex(z)+1)
 M0(z) = L0(-im*float(z)) + m_const(0, float(z))
 M1(z, r0=L0(-im*z)) = L1(-im*float(z), r0) + m_const(1, float(z))
 
+# Returns values of Mᵢ(z) for 0≤i≤n
+function get_l_vec(z, n)
+    L = Array{ComplexF64}(undef, n+1)
+    L[1] = L0(z)
+    if n==0
+        return L
+    end
+    L[2] = L1(z)
+    if n==1
+        return L
+    end
+    L[3] = z*L[2]+2/3
+    for i=4:n+1
+        L[i] = ((2*i-3)*z*L[i-1]-(i-3)*L[i-2])/i
+    end
+    L
+end
+
 
 function m_const(k, z)
     (x,y) = reim(z)
@@ -31,17 +49,17 @@ function m_recurrence(m_, zm, k, c=0)
 end
 
 function s̃ₖ(k,z,a,b)
-    M = [get_m_vec(x-im, k) for
-    x = [im*(z+im)/(a-b), im*(z-im)/(a+b)]]
-
-    res = M[1]-M[2]
+    L = [get_l_vec(x-1,k) for
+         x = [(z+im)/(a-b), (z-im)/(a+b)]]
+    res = L[1]-L[2]
     res[1] += 2*log(Complex((a-b)/(a+b)))
     if abs(imag(z))<1
     # a≠-imag(z)*b if |image(z)|<1 and a>b
         s_ = real(z)/(a+imag(z)*b)
         s_ = max(0,min(s_,2))-1
-        C₂ = [2*pi*im*legendreInt(i, s_) for i=0:k]
+        C₂ = [2*pi*im*legendreInt(i,s_) for i=0:k]
         res -= C₂
+    end
     res
 end
 
