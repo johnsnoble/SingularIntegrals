@@ -329,17 +329,17 @@ To solve this we find the value $w$ such that $arg(z)+arg(w)=\frac{\pi}{2}$:
 
 Before moving to the next two cases we need closed form solutions to the following:
 
-First we define: $$r_k = \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt$$
-It is easy to see here that $r_k = s_{k0}$; we are able to very easily find a recurrence relation for $s_{k0}$:
+First we define: $$r_j = \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt$$
+It is easy to see here that $r_j = s_{0j}$; we are able to very easily find a recurrence relation for $s_{0j}$:
 \begin{align}
-    r_k &= \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt\\
+    r_j &= \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt\\
     &=\int_{-1}^1P_j(t)log(\frac{\tilde{z}_t+1}{\tilde{z}_t-1})dt\\
     &=\int_{-1}^1P_j(t)log(\frac{z-it}{z-2\alpha-(2\beta+i)t})dt\\
     &=\int_{-1}^1P_j(t)log(z-it)dt-\int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt\\
     &=\int_{-1}^1P_j(t)log(z-it)dt
     -\int_{-1}^1P_j(t)(log(\frac{2\beta+i}{i})+log(\frac{(z-2\alpha)i}{2\beta+i}-it)+C_1(t))dt\\
     &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})+\int_{-1}^1P_j(t)C_1(t)dt\\
-    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})-2\pi i(C_{k+1}^{(-1/2)}(t_2)-C_{k+1}^{(-1/2)}(t_1))
+    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})-2\pi i(C_{j+1}^{(-1/2)}(t_2)-C_{j+1}^{(-1/2)}(t_1))
 \end{align}
 Where $C_1(t)$ is a correction term as a result of branch cuts from splitting up logs which we will derive later.
 
@@ -514,17 +514,35 @@ $$q_k=L_k(\frac{z-i}{\alpha-\beta}-1)-L_k(\frac{z-i}{\alpha+\beta}-1)
 For this case we are considering how to solve the following:
 \begin{align}
     \tilde{s}_{0j} &= \int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}s_0(\tilde{z}_t)dt\\
-    &= \int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}\frac{log(\tilde{z}_t+1)}{log(\tilde{z}_t-1)}dt
+    &= \int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}log(\frac{\tilde{z}_t+1}{\tilde{z}_t-1})dt
 \end{align}
 This is difficult to find a closed form solution for, especially for all values of $j$.
 We will later be forced into solving this problem with the use of dilogarithms, but we can do it in a way where we only have to do this once rather than for every value of $j$.
 
-We can do the use the fact that we are able to compute all $r_k=s_{k0}$ to help us compute $\tilde{s}_{k0}$.
-It is easy to see the relation between $s_{k0}$ and $\tilde{s}_{k0}$ as:
+We can do the use the fact that we are able to compute all $r_j=s_{0j}$ to help us compute $\tilde{s}_{0j}$.
+It is easy to see the relation between $s_{0j}$ and $\tilde{s}_{0j}$ as:
 \begin{align}
-    s_{k0}&=\int_{-1}^1s_k(\tilde{z}_t)dt\\
-    &=\int_{-1}^1\frac{\alpha+\beta t}{\alpha+\beta t}s_k(\tilde{z}_t)dt\\
-    &=\alpha \tilde{s}_{k0} + \beta \tilde{s_{k1}}
+    j>0 : s_{0j}&=\int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt\\
+    &=\int_{-1}^1\frac{(\alpha+\beta t)P_j(t)}{\alpha+\beta t}s_0(\tilde{z}_t)dt\\
+    &=\alpha \tilde{s}_{0j} + \beta(j_-\tilde{s}_{0j-1}+j_+\tilde{s}_{0j+1})\\
+    j=0 : s_{00}&=\alpha\tilde{s}_{00}+\beta\tilde{s}_{01}
 \end{align}
-\end{document}
+Given a value for $\tilde{s}_{00}$ we are therefore easily able to compute all values of $\tilde{s}_{0j}$ recursively.
 
+\subsubsection*{Case 5: $j=0$}
+\begin{align}
+    \tilde{s}_{k0} &= \int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &= \int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}log(\frac{\tilde{z}_s+1}{\tilde{z}_s-1})ds
+\end{align}
+Again for the same reasons of not being able to find a closed form solution to this we look for a $q_k$ and use this to find $\tilde{s}_{k0}$.
+
+\begin{align}
+    k>0 : q_k &= \int_{-1}^1P_k(s)s_0(\tilde{z}_s)ds\\
+    &= \int_{-1}^1\frac{(\beta(1+s)+i)P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
+    &= (\beta+i)\tilde{s}_{k0} + \beta(k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
+    k=0 : q_0 &= (\beta+i)\tilde{s}_{00}+\beta\tilde{s}_{10}
+\end{align}
+
+Given a value of $\tilde{s}_{00}$ we are able to compute all values of $\tilde{s}_{k0}$ recursively.
+Now the challenge remains to find this $\tilde{s}_{00}$.
+\end{document}
