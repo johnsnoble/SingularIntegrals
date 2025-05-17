@@ -180,7 +180,7 @@ function get_m_vec(z, n)
     M
 end 
 
-
+# Returns upper lower on the complex plane and the direction
 function get_upper_lower(a,b)
     d = 0
     l, u = 0, 0
@@ -196,7 +196,7 @@ function get_upper_lower(a,b)
 end
 
 # Corrects for dilogarithm branch cut from [1,∞)
-# i.e x∈ℜ li2(x+0⁺)-li2(x-0⁻) = ln(x)
+# i.e x∈ℜ li2(x+0⁺)-li2(x+0⁻) = 2pi i ln(x)
 function dilog_corrected(a,b)
     d, l, u = get_upper_lower(a,b)
     if d==0

@@ -545,4 +545,68 @@ Again for the same reasons of not being able to find a closed form solution to t
 
 Given a value of $\tilde{s}_{00}$ we are able to compute all values of $\tilde{s}_{k0}$ recursively.
 Now the challenge remains to find this $\tilde{s}_{00}$.
+
+\subsubsection*{Case 6: $k,j=0,0$}
+We are looking for the following:
+\begin{align}
+    \tilde{s}_{00}&=\int_{-1}^1\frac{s_0(\tilde{z}_t)}{\alpha+\beta t}dt=\int_{-1}^1\frac{1}{\alpha+\beta t}log(\frac{\tilde{z}_t+1}{\tilde{z}_t-1})dt\\
+    &=\int_{-1}^1\frac{1}{\alpha+\beta t}log(\frac{z-it}{z-it-2(\alpha+\beta t)})dt\\
+    &=\int_{-1}^1\frac{1}{\alpha+\beta t}log(\frac{z-it}{z-2\alpha-(2\beta+i)t})dt\\
+    &=\int_{-1}^1\frac{log(z-it)}{\alpha+\beta t}-\int_{-1}^1\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t}dt\\
+    &=\frac{1}{\beta}(\int_{-1}^1\frac{log(z-it)}{\alpha/\beta+ t}-\int_{-1}^1\frac{z-2\alpha-(2\beta+i)t}{\alpha/\beta+t}dt)
+\end{align}
+
+We need to be able to solve solutions of the following from:
+$$\int_{-1}^1\frac{log(z+ct)}{b+t}dt$$
+Begin by considering decomposing $log(z+ct)\rightarrow log(\frac{z}{c}+t)+log(c)$.
+Rigorously we must show that we do not cross a branch cut for all values of $t$, however, we can notice that the values of $t$ in the decomposed form is along a horizontal line.
+We can assume that this interval does not cross over $0$ as our integral needs to be defined.
+Because of this we can say that the whole interval either stays or crosses over the cut.
+We can therefore add a correction term $(2\pi i)$ depending on $|arg(c)+arg(z/c)|$ and no correction term if this stays under $\pi$.
+We can move forward by denoting as $C_3$:
+\begin{align}
+    \int_{-1}^1\frac{log(z+ct)}{b+t}dt&=\int_{-1}^1\frac{log(z/c+t)}{b+t}+\frac{log(c)}{b+t}dt+C_3\\
+    &=\int_{-1}^1\frac{log(z/c+t)}{b+t}dt+log(c)(log(b+1)-log(b-1))+C_3
+\end{align}
+
+Now we have an integral in the form $\int_{-1}^1\frac{log(a+t)}{b+t}dt$.
+In the case where $a=b$:
+\begin{align}
+    \int_{-1}^1\frac{log(b+t)}{b+t}dt&=\int_{b-1}^{b+1}\frac{log(t)}{t}dt\\
+    u = log(t) \implies &= \int_{log(b-1)}^{log(b+1)}udu\\
+    &=(log(b+1)^2-log(b-1)^2)/2
+\end{align}
+Otherwise if $a\neq b$:
+$$\int_{-1}^1\frac{log(a+t)}{b+t}dt=\int_{b-1}^{b+1}\frac{log(a-b+t)}{t}dt$$
+We know go about finding correction terms for:$log(a-b+t)\rightarrow log(a-b)+log(1+\frac{t}{a-b})$ as $a-b\in\mathbb{C}$
+We have a branch crossing if for some $t\in[-1,1]$:
+$$|arg(a+t)-arg(a-b)|>\pi$$
+\begin{center}\includegraphics[width=\textwidth/2]{s00}\end{center}
+Above we can see an example of $a,b$ values which results in a branch crossing over the positive side.
+The red line denotes the angle at which we rotate when dividing by $a-b$.
+This means that anything on the left over this line crosses the branch cut whilst anything to the right does not.
+Same thing applies in the negative version where the interval of $a$ is in the negative case rotated clockwise over the branch cut.Therefore, we first have to check that a cut exists.
+There are many edge cases here which I will not delve into but the rough idea is to check through the args of $a-1,a+1,a-b$ and make comparisons to determine any crossings.
+With that we have handled cases where there are either no crossings or where the whole interval has crossed.
+It is possible to formulate a way using trig functions to find a value of $t$ where $arg(a+t)=\pi-arg(a-b)$ in the positive case and $arg(a+t)=-\pi+arg(a-b)$ in the negative case.
+let $a-b+w=a+t$ so that we have a $w$ which is a representation of the position of our intercept in the $[b-1,b+1]$ interval.
+In the case where either the whole interval crosses the branch cut or none of it does we can set it to be the appropriate edge $w\in{b-1,b+1}$. This is useful since we are then able to represent the integral as follows:
+\begin{align}
+    \int_{-1}^1\frac{log(a+t)}{b+t}dt&=\int_{b-1}^{b+1}\frac{log(a-b+t)}{t}dt=:\int_{b-1}^{b+1}\frac{log(d+t)}{t}dt\\
+    &=\int_{b-1}^{w}\frac{\pm2\pi i}{t}dt+\int_{b-1}^{b+1}\frac{log(d)+log(1+t/d)}{t}dt\\
+    -u=\frac{t}{d},du=-\frac{dt}{d}:\:&=\pm2\pi ilog(\frac{w}{b-1})+log(a-b)log(\frac{b+1}{b-1})\\
+    &+\int_{-\frac{b-1}{a-b}}^{-\frac{b+1}{a-b}}\frac{log(1-u)}{u}du
+\end{align}
+We can try to solve this using the dilogarithm function:
+$$Li_2(z) = -\int_0^z\frac{log(1-u)}{u}du,\:z\in\mathbb{C}$$
+We still have to be careful however since there is a branch cut for the dilogarithm function at $(1,\infty)$ at which $Li_2(z+i0^+)-Li_2(z+i0^-) = 2\pi ilog(z),\:z\in(1,\infty)$.
+Ignoring edge cases which are less interesting, this can be computed by finding the x-intercept of the interval $[-\frac{b+1}{a-b},-\frac{b-1}{a-b}]$ and checking is this x intercept is part of the branch cut.
+We can let $v$ denote the point at which the branch cut is crossed where $v=1$ if there is no crossing through this cut and then we can write:
+$$-\int_{-\frac{b-1}{a-b}}^{-\frac{b+1}{a-b}}\frac{log(1-u)}{u}du = Li_2(-\frac{b+1}{a-b})-Li_2(-\frac{b-1}{a-b})\pm2\pi ilog(v)$$
+Now that we have all the individual elements we can simply plug everything back in to compute a value for $\tilde{s}_{00}$
+
+\subsubsection{Recovery of $s_{kj}$}
+Now we have a situation where we have all values of $\tilde{s}_kj$ but no values for $s_{kj}$.
+The basic idea to recover all $s_{kj}$ was by adding consecutive rows together:
+$$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\alpha+\beta t}P_j(t)s_k(\tilde{z}_t)dt=\alpha\tilde{s}_{kj}+\beta\tilde{s}_{kj+1}$$
 \end{document}

@@ -7,3 +7,4 @@
 \contentsline {section}{\numberline {4}Affine Transformations}{6}{}%
 \contentsline {section}{\numberline {5}Quad Transform}{6}{}%
 \contentsline {subsection}{\numberline {5.1}Recurrences}{8}{}%
+\contentsline {subsubsection}{\numberline {5.1.1}Recovery of $s_{kj}$}{21}{}%
