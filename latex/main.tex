@@ -352,6 +352,14 @@ It is easy to see here that $r_j = s_{0j}$; we are able to very easily find a re
     &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})+\int_{-1}^1P_j(t)C_1(t)dt\\
     &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})-2\pi i(C_{j+1}^{(-1/2)}(t_2)-C_{j+1}^{(-1/2)}(t_1))
 \end{align}
+\begin{align}
+    r_j &= \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt\\
+    &=\int_{-1}^1P_j(t)log(\frac{\tilde{z}_t+1}{\tilde{z}_t-1})dt\\
+    &=\int_{-1}^1P_j(t)log(\frac{z-it}{z-2\alpha-(2\beta+i)t})dt\\
+    &=\int_{-1}^1P_j(t)log(z-it)dt-\int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt\\
+    &=\int_{-1}^1P_j(t)log(z-it)dt
+    -\int_{-1}^1P_j(t)(log(2\beta+i)+log(\frac{z-2\alpha}{2\beta+i}-t)+C_1(t))dt\\
+\end{align}
 Where $C_1(t)$ is a correction term as a result of branch cuts from splitting up logs which we will derive later.
 
 We also need to show that it is valid to split up the other logs and prove that there will not exist any branch cuts.
@@ -386,7 +394,29 @@ Case 2 ($Im(z_1)=Im(z_2)<0$):
 \end{align}
 
 Next we address
-$$log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(z_3)$$
+$$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(2\beta+i)+log(z_3)$$
+Case 1 ($Im(z)>1$):
+\begin{align}
+    Im(z)>1 &\implies Im(z_2)>1,\:arg(z_2)\in(0,\pi)\\
+    arg(2\beta+i)\in(0,\frac{\pi}{2}) &\implies arg(z_3) = arg(z_2)-arg(2\beta + i) \in (-\frac{\pi}{2},\pi)
+\end{align}
+Case 2 ($arg(z-2\alpha)>-\pi+arg(2\beta+i)$)
+Rough idea here is that it is never lifted clockwise over the branch cut.
+Again this will be shown using diagrams
+Case 3 ($arg(z-2\alpha)<-\pi+arg(2\beta+i)$)
+This means the whole interval is lifted over the branch cut.
+\begin{align}
+    t_1 :&= min\{\underset{t\in(-1,\infty)}{inf}arg(t)<0,1\}\\
+    \int_{-1}^1f(t)log(z_2)dt &= \int_{-1}^tf(t)(log(2\beta+i)+log(z_3))dt\\
+    &+\int_t^1f(t)(log(2\beta+i)+log(z_3)-2\pi i)dt
+\end{align}
+Case 4 ($z-2\alpha-2\beta Im(z)>0,\: |Im(z)|\leq 1$):
+This is just another way of saying that when parameterising $z_2$ with $t$, the intercept of this line with the real axis is greater than $0$ and so does not pass through the branch cut.
+This means we have a case of rotation that does not cross any branch cut (this is because the rotation will result in a flat line).
+TODO:Proof for these and diagrams.
+
+Next we address
+$$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(z_3)$$
 $$z_3:=\frac{(z-2\alpha)i}{2\beta+i}-it,\:c_1:=\frac{2\beta+i}{i}$$
 Case 1 ($Re(z)>0$):
 \begin{align}
