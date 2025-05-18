@@ -1,6 +1,6 @@
 module BaseTrap
 using ClassicalOrthogonalPolynomials, PolyLog
-export s̃ₖ₀, s̃ⱼ₀, s̃₀₀
+export s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
 
 clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
@@ -50,11 +50,16 @@ function m_recurrence(m_, zm, k, c=0)
     (zm-(im*(k-1)/(2k+1))*m_-c)*(-im*(2k+1)/(k+2))
 end
 
-function s̃ₖ(k,z,a,b)
-    L = [get_l_vec(x-1,k) for
-         x = [(z+im)/(a-b), (z-im)/(a+b)]]
-    res = L[1]-L[2]
-    res[1] += 2*log(Complex((a-b)/(a+b)))
+function qₖ(k,z,a,b)
+    if a==b
+        res = -get_l_vec((z-im)/(a+b)-1,k)
+        res[1] += 2*(log(Complex(z+im))-log(Complex(a+b)))
+    else
+        L = [get_l_vec(x-1,k) for
+             x = [(z+im)/(a-b), (z-im)/(a+b)]]
+        res = L[1]-L[2]
+        res[1] += 2*log(Complex((a-b)/(a+b)))
+    end
     if abs(imag(z))<1
     # a≠-imag(z)*b if |image(z)|<1 and a>b
         s_ = real(z)/(a+imag(z)*b)
@@ -67,10 +72,10 @@ end
 
 function s̃ₖ₀(k,z,a,b,s₀)
     S = Array{ComplexF64}(undef, k+1)
-    s̃ = s̃ₖ(k-1,z,a,b)
+    s̃ = qₖ(k-1,z,a,b)
     S[1] = s₀
     S[2] = (s̃[1]-(b+im)*s₀)/b
-    # S[k+1] = s̃ₖ₀, s̃[k+1] = s̃ₖ
+    # S[k+1] = s̃ₖ₀, s̃[k+1] = qₖ
     for i=2:k
         # Sᵢ*(2i+1) = (b+im)*sᵢ+ibᵢsᵢ₋₁+
         S[i+1] = ((2*i-1)*(s̃[i]-(b+im)*S[i])-b*(i-1)*S[i-1])/(b*i)
@@ -101,7 +106,7 @@ function s₀ⱼ(j,z,a,b)
     if (real(z)<0) & (abs(imag(z))<1)
         t₁ = imag(z)
         t₂ = 2b*(z-2a)/(1+2b^2)
-        t₂ = max(t₂,-1)
+        t₂ = max(Float64(t₂),Float64(-1))
         Cs = [2pi*im*(ultrasphericalc(i+1,-0.5,t₂)-ultrasphericalc(i+1,-0.5,t₁)) for i=0:j]
         return S - Cs
     else
@@ -213,8 +218,6 @@ function corrected(a,b,w̃,corr)
     return (I11 + I12*(d+corr*2*pi*im) +
             I21 + I22*d)
 end
-
-using Debugger
 
 # Returns cut position ∈ [b-1, b+1]
 function get_cut_pos(a,b)

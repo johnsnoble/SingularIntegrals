@@ -450,7 +450,15 @@ Secondly we should also define:
     &=L_k(\frac{z-i}{\alpha-\beta}-1)-L_k(\frac{z-i}{\alpha+\beta}-1)
     +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})+\int_{-1}^1C_2(s)ds
 \end{align}
-
+In the case where we are attempting to solve over a triangle i.e. $\alpha=\beta$ we have:
+\begin{align}
+    q_k&=\int_{-1}^1P_k(s)s_0(\tilde{z}_s)\\
+    &=\int_{-1}^1P_k(s)log(z+i-(\alpha-\beta)(1+s))ds\\
+    &-\int_{-1}^1P_k(s)log(z-i-(\alpha+\beta)(1+s))ds+\int_{-1}^1C_2(s)ds\\
+    &=\int_{-1}^1P_k(s)log(z+i)ds-\int_{-1}^1P_k(s)log(z-i-2\alpha(1+s))ds+\int_{-1}^1C_2(s)ds\\
+    &=2\delta_{k0}log(z+i)-\int_{-1}^1P_k(s)(log(2\alpha)+log(\frac{z-i}{2\alpha}-(1+s)))ds+\int_{-1}^1C_2(s)ds\\
+    &=2\delta_{k0}(log(z+i)-log(2\alpha))-L_k(\frac{z-i}{2\alpha}-1)+\int_{-1}^1C_2(s)ds
+\end{align}
 First we look for the correction term $C_2$ in the expression:
 $$log(\frac{z_4}{z_5})=log(z_4)-log(z_5)$$
 $$z_4=z+i-(\alpha-\beta)(1+s),\:z_5=z-i-(\alpha+\beta)(1+s)$$
