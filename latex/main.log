@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  17 MAY 2025 14:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  17 MAY 2025 16:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -207,43 +207,43 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [2] [3] [4] [5] [6] [7]
 [8] [9]
-Overfull \hbox (20.44183pt too wide) detected at line 292
+Overfull \hbox (20.44183pt too wide) detected at line 303
 []
  []
 
-[10]
-Overfull \hbox (20.18869pt too wide) detected at line 343
+[10] [11]
+Overfull \hbox (20.18869pt too wide) detected at line 354
 []
  []
 
-[11] [12] [13]
-Overfull \hbox (0.88464pt too wide) detected at line 418
+[12] [13]
+Overfull \hbox (0.88464pt too wide) detected at line 429
 []
  []
 
-[14]
-<./images//z45.png, id=61, 742.775pt x 404.51125pt>
+[14] [15]
+<./images//z45.png, id=64, 742.775pt x 404.51125pt>
 File: ./images//z45.png Graphic file (type png)
 <use ./images//z45.png>
-Package pdftex.def Info: ./images//z45.png  used on input line 458.
+Package pdftex.def Info: ./images//z45.png  used on input line 469.
 (pdftex.def)             Requested size: 345.0pt x 187.88593pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 458--465
+Overfull \hbox (15.0pt too wide) in paragraph at lines 469--476
 [][]
  []
 
-[15] [16 <./images//z45.png>] [17] [18] [19]
+[16 <./images//z45.png>] [17] [18] [19]
 <./images//s00.png, id=80, 355.3275pt x 347.2975pt>
 File: ./images//s00.png Graphic file (type png)
 <use ./images//s00.png>
-Package pdftex.def Info: ./images//s00.png  used on input line 584.
+Package pdftex.def Info: ./images//s00.png  used on input line 595.
 (pdftex.def)             Requested size: 172.5pt x 168.60336pt.
  [20 <./images//s00.png>] [21]
 (./main.aux) ) 
 Here is how much of TeX's memory you used:
  2741 strings out of 478287
  43903 string characters out of 5849289
- 355918 words of memory out of 5000000
+ 354925 words of memory out of 5000000
  20922 multiletter control sequences out of 15000+600000
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -262,7 +262,7 @@ fonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (21 pages, 274255 bytes).
+Output written on main.pdf (21 pages, 273270 bytes).
 PDF statistics:
  152 PDF objects out of 1000 (max. 8388607)
  94 compressed objects within 1 object stream

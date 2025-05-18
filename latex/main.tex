@@ -147,16 +147,27 @@ TODO: Show that this is indeed the case
 \section{Quad Transform}
 We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral. We can use the parameterisation: $$Q\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
 \begin{pmatrix}(1+x)(\alpha+\beta y)\\y\end{pmatrix}$$
+Since our $\alpha, \beta > 0$, our $Q$ is invertible:
+$$Q^{-1}\begin{pmatrix}s\\t\end{pmatrix}\rightarrow\begin{pmatrix}\frac{s}{\alpha+\beta t}-1\\t\end{pmatrix}$$
 
 There are two approaches which were considered which vary in which functions we are using for our bases.
 The first approach that was attempted would be to take the function approximation as follows:
-$$f(x,y)=\Sigma_{j,k}c_{j,k}P_j(x)P_k(y), c_{j,k}\in \mathbb{R}$$
+$$f(x,y)=\Sigma_{k,j}c_{k,j}P_k(x)P_j(y), c_{k,j}\in \mathbb{R}$$
 This method is simpler but it can be seen that we would have to be evaluating integrals of orthogonal polynomials outside the
 $[-1,1]$ domain in which they are well behaved.
 This would result in instable results
 
+It is possible to think of the function space here as the bases of functions which we can add together to approximate the function.
+In the approach above we can represent the bases to be $\{b_{kj}\}_{kj}$ where $b_{kj}(\textbf{x})=P_k(x)P_j(y)$
 The approach we will focus on here is the approximation following taking an approximation using the function bases as follows:
-$$f\circ Q(x,y)= \Sigma_{j,k}c_{j,k}P_j(x)P_k(y), c_{j,k}\in \mathbb{R}$$
+\begin{align}
+    f\circ Q(x,y) &= \Sigma_{k,j}c_{k,j}P_k(x)P_j(y),\:c_{k,j}\in \mathbb{R}\\
+    f\circ Q(\textbf{x})&=\Sigma_{k,j}c_{k,j}b_{kj}(\textbf{x})\\
+    Q\:invertible \implies
+    f(\textbf{x})&=\Sigma_{k,j}c_{k,j}b_{kj}(Q^{-1}(\textbf{x}))
+\end{align}
+This means we have an altered set of basis based on $\alpha,\beta$ where the new basis can be represented as:
+$$\{\tilde{b}_{kj}=b_{kj}\circ Q^{-1}\}_{kj}$$
 In this approach we are need to be able to compute $$s_{kj}:=\int_{-1}^1 (\alpha+\beta t) \int_{-1}^1 \frac{P_j(t)P_k(s)}
 {z-it-(\alpha+\beta t)(1+s)} ds dt$$
 As you can see here there is a term in the denominator which is difficult to deal with as it is harder to seperate the $s$ and $t$ terms.
