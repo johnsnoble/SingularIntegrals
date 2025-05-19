@@ -358,8 +358,14 @@ $$|arg(f(t))+arg(g(t))|<\pi$$
 First we address:
 $$log(\frac{z-it}{z-2\alpha-(2\beta+i)t})$$
 This problem is potentially susceptible to strange branch cuts but this problem is simplified greatly if we only consider the feasible set of $z$.
+
+\includegraphics[width=\textwidth]{z12}
+In this diagram we can see various trapeziums drawn around the main trapezium we are integrating over.
+The right edge and the slanted left edge of each trapezium around the main trapezium are the intervals $z-it,z-2\alpha-(2\beta+i)t,t\in[-1,1]$ respectively.
+Each trapezium represents what happens if we take our $z$ to be a different corner of the main trapezium.
 Since our problem is one of taking the stieltjes kernel across a trapezium domain, we are allowed to restrict values of z from not being inside this domain:
 $$z\notin \{z: Im(z)\in [-1,1],\:Re(z)\in [0,2\alpha+2\beta\cdot Im(z)],\:a\geq b>0\}$$
+Going back to our diagram this helps us see that not taking $z$ from within the triangle ensures that the origin is always "outside" which saves us a few cases of branch cut proofs.
 We can now consider two cases.
 let:
 \begin{align}
@@ -368,23 +374,29 @@ let:
     k_t&=2\alpha+2\beta t\\
     &\implies (Re(z_1)-k_t, Im(z_1))=(Re(z_2), Im(z_2))
 \end{align}
-From the fact that we require $z$ to be outside of the domain we can see that:
-$$Re(z_1)<0 \implies Re(z_2)<0,\: Re(z_1)>0 \implies Re(z_2)>0$$
-Case 1 ($Im(z_1)=Im(z_2)>0$):
+Case 1 ($Im(z_1)=Im(z_2)>0$ - Origin lies below):
 \begin{align}
     arg(z_1)+arg(z_2^{-1})&=arg(z_1)-arg(z_2)\\
-    arg(z_1)-arg(z_2)&>\frac{-\pi}{2}\\
+    arg(z_1)>0,\:arg(z_2)<\pi&\implies arg(z_1)-arg(z_2)>-\pi\\
     arg(z_1)<arg(z_2)&\implies arg(z_1)-arg(z_2)<0
 \end{align}
-Case 2 ($Im(z_1)=Im(z_2)<0$):
+Case 2 ($Im(z_1)=Im(z_2)<0$ - Origin lies above):
 \begin{align}
     arg(z_1)+arg(z_2^{-1})&=arg(z_1)-arg(z_2)\\
-    arg(z_1)-arg(z_2)&<\frac{\pi}{2}\\
+    arg(z_1)<0,\:arg(z_2)>-\pi&\implies arg(z_1)-arg(z_2)<\frac{\pi}{2}\\
     arg(z_1)>arg(z_2)&\implies arg(z_1)-arg(z_2)>0
 \end{align}
 
 Next we address
-$$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(2\beta+i)+log(z_3)$$
+$$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(2\beta+i)+log(\frac{z-2\alpha}{2\beta+i}-t):=log(c_1)+log(z_3)$$
+
+\includegraphics[width=\textwidth]{z23}
+The image above helps illustrate how different intervals of $z_2$ look like for various values of $2\beta+i$.
+As $b>0$, the $arg(2\beta+i)\in(0,\frac{\pi}{2})$.
+Also we note that in $z_3$ the interval is flat.
+This should make sense as we have an interval of angle $2\beta+i$ and we are rotating this interval by the same angle.
+Therefore the question of branch crossing is reduced down to wether or not the whole interval crosses the line.
+
 Case 1 ($Im(z)>1$):
 \begin{align}
     Im(z)>1 &\implies Im(z_2)>1,\:arg(z_2)\in(0,\pi)\\

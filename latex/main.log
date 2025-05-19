@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  19 MAY 2025 15:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  19 MAY 2025 21:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -216,35 +216,56 @@ Overfull \hbox (3.12064pt too wide) detected at line 352
 []
  []
 
-[12] [13]
-Overfull \hbox (4.17912pt too wide) detected at line 428
-[]
- []
+<./images//z12.png, id=51, 1133.23375pt x 729.72626pt>
+File: ./images//z12.png Graphic file (type png)
+<use ./images//z12.png>
+Package pdftex.def Info: ./images//z12.png  used on input line 362.
+(pdftex.def)             Requested size: 345.0pt x 222.14864pt.
 
-[14]
-<./images//z45.png, id=61, 742.775pt x 404.51125pt>
-File: ./images//z45.png Graphic file (type png)
-<use ./images//z45.png>
-Package pdftex.def Info: ./images//z45.png  used on input line 444.
-(pdftex.def)             Requested size: 345.0pt x 187.88593pt.
-
-Overfull \hbox (15.0pt too wide) in paragraph at lines 444--451
+Overfull \hbox (15.0pt too wide) in paragraph at lines 362--367
 [][]
  []
 
-[15 <./images//z45.png>] [16] [17] [18]
-<./images//s00.png, id=76, 355.3275pt x 347.2975pt>
+[12] [13 <./images//z12.png>]
+<./images//z23.png, id=61, 965.6075pt x 513.92pt>
+File: ./images//z23.png Graphic file (type png)
+<use ./images//z23.png>
+Package pdftex.def Info: ./images//z23.png  used on input line 393.
+(pdftex.def)             Requested size: 345.0pt x 183.61522pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 393--397
+[][]
+ []
+
+[14 <./images//z23.png>]
+Overfull \hbox (4.17912pt too wide) detected at line 438
+[]
+ []
+
+[15]
+<./images//z45.png, id=69, 742.775pt x 404.51125pt>
+File: ./images//z45.png Graphic file (type png)
+<use ./images//z45.png>
+Package pdftex.def Info: ./images//z45.png  used on input line 454.
+(pdftex.def)             Requested size: 345.0pt x 187.88593pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 454--461
+[][]
+ []
+
+[16 <./images//z45.png>] [17] [18] [19]
+<./images//s00.png, id=84, 355.3275pt x 347.2975pt>
 File: ./images//s00.png Graphic file (type png)
 <use ./images//s00.png>
-Package pdftex.def Info: ./images//s00.png  used on input line 570.
+Package pdftex.def Info: ./images//s00.png  used on input line 580.
 (pdftex.def)             Requested size: 172.5pt x 168.60336pt.
- [19 <./images//s00.png>] [20]
+ [20 <./images//s00.png>] [21]
 (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2741 strings out of 478287
- 43903 string characters out of 5849289
+ 2763 strings out of 478287
+ 44303 string characters out of 5849289
  354918 words of memory out of 5000000
- 20922 multiletter control sequences out of 15000+600000
+ 20944 multiletter control sequences out of 15000+600000
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,17n,62p,230b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -262,10 +283,10 @@ fonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (20 pages, 271232 bytes).
+Output written on main.pdf (21 pages, 344241 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
+ 156 PDF objects out of 1000 (max. 8388607)
+ 94 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
