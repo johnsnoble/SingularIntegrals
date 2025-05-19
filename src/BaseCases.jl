@@ -7,7 +7,8 @@ zlog(z) = iszero(z) ? zero(z) : z*log(z)
 L0(z) = zlog(1 + complex(z)) - zlog(complex(z)-1) - 2one(z)
 L1(z, r0=L0(z)) = (z+1)*r0/2 + 1 - zlog(complex(z)+1)
 M0(z) = L0(-im*float(z)) + m_const(0, float(z))
-M1(z, r0=L0(-im*z)) = L1(-im*float(z), r0) + m_const(1, float(z))
+# M1(z, r0=L0(-im*z)) = L1(-im*float(z), r0) + m_const(1, float(z))
+M1(z) = L1(-im*float(z)) + m_const(1, float(z))
 
 # Returns values of Mᵢ(z) for 0≤i≤n
 function get_l_vec(z, n)
@@ -116,18 +117,20 @@ end
 
 function s₀ⱼ_(j,z,a,b)
     M = get_m_vec(z, j)
-    L = get_l_vec(z, j)
+    L = get_l_vec((z-2a)/(2b+im), j)
     S = M-L
-    S[1] -= 2*log(1+2*b/im)
-    if (real(z)<0) & (abs(imag(z))<1)
-        t₁ = imag(z)
-        t₂ = (2b*(real(z)-2a)+imag(z))/(1+2b^2)
-        t₂ = max(Float64(t₂),Float64(-1))
-        Cs = [2pi*im*(ultrasphericalc(i+1,-0.5,t₂)-ultrasphericalc(i+1,-0.5,t₁)) for i=0:j]
-        return S - Cs
-    else
+    S[1] -= 2*log(2b+im)
+    # z≠2a
+    lz = clog(z-2a)
+    lc = clog(2b+im)
+    # Compute x intercept
+    t = imag(z)
+    x = real(z)-2a-2b*t
+    t = max(t,-1)
+    if (t>1) | (x>=0)
         return S
     end
+    return S+[2pi*im*legendreInt(i,t) for i=0:j]
 end
 
 # Returns values of Mᵢ(z) for 0≤i≤n
@@ -137,7 +140,11 @@ function get_m_vec(z, n)
     if n>=1
         M[2] = M1(z)
     end
+    x,y = real(z), imag(z)
+    μ = ((x<0)&(-1<y)&(y<1)) ? 2pi*x*im : 0
     if n>=2
+        μ = -(2im/3)
+        μ += ()
         M[3] = m_recurrence(M[1], z*M[2], 1, -2*im/3)
     end
     print(M)
