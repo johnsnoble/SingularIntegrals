@@ -141,15 +141,14 @@ function get_m_vec(z, n)
         M[2] = M1(z)
     end
     x,y = real(z), imag(z)
-    μ = ((x<0)&(-1<y)&(y<1)) ? 2pi*x*im : 0
+    μ_ = ((x<0)&(-1<y)&(y<1)) ? 2pi*x*im : 0
     if n>=2
-        μ = -(2im/3)
-        μ += ()
-        M[3] = m_recurrence(M[1], z*M[2], 1, -2*im/3)
+        μ = (μ_==0) ? 0 : -ultrasphericalc(2,-0.5,y)*μ_
+        M[3] = m_recurrence(M[1],z*M[2],1,μ-2im/3)
     end
-    print(M)
     for i=3:n
-        M[i+1] = m_recurrence(M[i-1], z*M[i], i-1)
+        μ = (μ_==0) ? 0 : -ultrasphericalc(i,-0.5,y)*μ_
+        M[i+1] = m_recurrence(M[i-1],z*M[i],i-1,μ)
     end
     M
 end 
