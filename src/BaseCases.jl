@@ -1,6 +1,6 @@
-#module BaseTrap
+module BaseTrap
 using ClassicalOrthogonalPolynomials, PolyLog
-#export s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
+export s₀ⱼ_, s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
 
 clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
@@ -320,4 +320,4 @@ function s̃₀₀(a,b,z)
     return (I₊-I₋)/b
 end
 
-#end
+end

@@ -65,33 +65,40 @@ function approx_quad_skj_(k,j,z,a,b,f)
 end
 
 
-# using Test
-# include("../src/BaseCases.jl")
-# using .BaseTrap: qₖ, s₀ⱼ
-# 
-# function get_valid_z(a,b)
-#     while true
-#         z = randn()*10 + randn()*10im
-#         if (real(z)<0) | (abs(imag(z))>1) | (real(z)>2a+2b*imag(z))
-#             return z
-#         end
-#     end
-# end
-# function generate_z(n)
-#     return [get_valid_z(a,b) for i=1:n]
-# end
-# 
-# function test_qₖ(n,k,a,b,tol=1e-3)
-#     zs = generate_z(n)
-#     expected = [[∫(s->legendrep(i,s)*S₀_(z̃ₛ(j,s,a,b))) for i=0:k] for z=zs]
-#     actual = [qₖ(k,z,a,b) for z=zs]
-#     @test expected≈actual atol=tol
-# end
-# 
-# function test_rⱼ(n,j,a,b,tol=1e-3)
-#     zs = generate_z(n)
-#     expected = [[∫(t->legendrep(i,t)*S₀_(z̃ₜ(z,t,a,b))) for i=0:j] for z=zs]
-#     actual = [s₀ⱼ(j,z,a,b) for z=zs]
-#     @test expected≈actual atol=tol
-# end
+using Test
+include("../src/BaseCases.jl")
+using .BaseTrap: qₖ, s₀ⱼ, s₀ⱼ_
+
+function get_valid_z(a,b)
+    while true
+        z = randn()*10 + randn()*10im
+        if (real(z)<0) | (abs(imag(z))>1) | (real(z)>2a+2b*imag(z))
+            return z
+        end
+    end
+end
+function generate_z(n)
+    return [get_valid_z(a,b) for i=1:n]
+end
+
+function test_qₖ(n,k,a,b,tol=1e-3)
+    zs = generate_z(n)
+    expected = [[∫(s->legendrep(i,s)*S₀_(z̃ₛ(j,s,a,b))) for i=0:k] for z=zs]
+    actual = [qₖ(k,z,a,b) for z=zs]
+    @test expected≈actual atol=tol
+end
+
+function test_rⱼ(n,j,a,b,tol=1e-3)
+    zs = generate_z(n)
+    expected = [[∫(t->legendrep(i,t)*S₀_(z̃ₜ(z,t,a,b))) for i=0:j] for z=zs]
+    actual = [s₀ⱼ(j,z,a,b) for z=zs]
+    @test expected≈actual atol=tol
+end
+
+function test_rⱼ_(n,j,a,b,tol=1e-3)
+    zs = generate_z(n)
+    expected = [[∫(t->legendrep(i,t)*S₀_(z̃ₜ(z,t,a,b))) for i=0:j] for z=zs]
+    actual = [s₀ⱼ_(j,z,a,b) for z=zs]
+    @test expected≈actual atol=tol
+end
 

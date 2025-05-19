@@ -348,16 +348,6 @@ It is easy to see here that $r_j = s_{0j}$; we are able to very easily find a re
     &=\int_{-1}^1P_j(t)log(\frac{z-it}{z-2\alpha-(2\beta+i)t})dt\\
     &=\int_{-1}^1P_j(t)log(z-it)dt-\int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt\\
     &=\int_{-1}^1P_j(t)log(z-it)dt
-    -\int_{-1}^1P_j(t)(log(\frac{2\beta+i}{i})+log(\frac{(z-2\alpha)i}{2\beta+i}-it)+C_1(t))dt\\
-    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})+\int_{-1}^1P_j(t)C_1(t)dt\\
-    &=M_j(z)-2\delta_{j0}log(1+\frac{2\beta}{i})-M_j(\frac{(z-2\alpha)i}{2\beta+i})-2\pi i(C_{j+1}^{(-1/2)}(t_2)-C_{j+1}^{(-1/2)}(t_1))
-\end{align}
-\begin{align}
-    r_j &= \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt\\
-    &=\int_{-1}^1P_j(t)log(\frac{\tilde{z}_t+1}{\tilde{z}_t-1})dt\\
-    &=\int_{-1}^1P_j(t)log(\frac{z-it}{z-2\alpha-(2\beta+i)t})dt\\
-    &=\int_{-1}^1P_j(t)log(z-it)dt-\int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt\\
-    &=\int_{-1}^1P_j(t)log(z-it)dt
     -\int_{-1}^1P_j(t)(log(2\beta+i)+log(\frac{z-2\alpha}{2\beta+i}-t)+C_1(t))dt\\
 \end{align}
 Where $C_1(t)$ is a correction term as a result of branch cuts from splitting up logs which we will derive later.
@@ -406,7 +396,7 @@ Again this will be shown using diagrams
 Case 3 ($arg(z-2\alpha)<-\pi+arg(2\beta+i)$)
 This means the whole interval is lifted over the branch cut.
 \begin{align}
-    t_1 :&= min\{\underset{t\in(-1,\infty)}{inf}arg(t)<0,1\}\\
+    t_1 :&= min\{max\{\underset{t}{inf}\:Im(z-2\alpha-(2\beta+i)t)<0,-1\},1\}\\
     \int_{-1}^1f(t)log(z_2)dt &= \int_{-1}^tf(t)(log(2\beta+i)+log(z_3))dt\\
     &+\int_t^1f(t)(log(2\beta+i)+log(z_3)-2\pi i)dt
 \end{align}
@@ -414,59 +404,6 @@ Case 4 ($z-2\alpha-2\beta Im(z)>0,\: |Im(z)|\leq 1$):
 This is just another way of saying that when parameterising $z_2$ with $t$, the intercept of this line with the real axis is greater than $0$ and so does not pass through the branch cut.
 This means we have a case of rotation that does not cross any branch cut (this is because the rotation will result in a flat line).
 TODO:Proof for these and diagrams.
-
-Next we address
-$$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(\frac{2\beta+i}{i})+log(z_3)$$
-$$z_3:=\frac{(z-2\alpha)i}{2\beta+i}-it,\:c_1:=\frac{2\beta+i}{i}$$
-Case 1 ($Re(z)>0$):
-\begin{align}
-    Re(z)>0&\implies Re(z_2)>0\\
-    &\implies |arg(z_2)|<\frac{\pi}{2}\\
-    arg(c_1)\in(-\frac{\pi}{2},0)&\implies arg(z_3)\in(0,\pi)
-\end{align}
-Case 2 ($Re(z)<0,\:Im(z)<-1$):
-\begin{align}
-    \forall t, -\pi<arg(z_2)&<-\frac{\pi}{2}\\
-    arg(c_1)\in(-\frac{\pi}{2},0)&\implies arg(z_3)\in(-\pi,0)
-\end{align}
-Case 3 ($Re(z)<0,\:-1<Im(z)<1)$)
-
-With this case we have that for some values of $t$, $arg(z_2)=\pm \pi$.
-The issue is that the integral itself crosses a branch cut.
-We also have that rotating the values of $z_2$ which are immediately above the branch cut results in a section of this above and below the branch cut.
-Therefore we need to split this into 3 sections using $t_1>t_2$ where $t_1$ is where it crosses the branch cut and $t_2$ is where it crosses the branch cut when it is rotated over.
-\begin{align}
-    Im(z-2\alpha-(2\beta+i)t_1)&:=0\\
-    Im(z)-t_1=0 &\implies t_1 = Im(z)\\
-    t_2&=\underset{t\in[-1,1]}{sup}\{arg(z_3)+arg(c_1)<-\pi\}\\
-    &=\underset{t\in[-1,1]}{inf}\{arg(z_2)-arg(c_1)>\pi\}\\
-    arg(z_2)<\pi+arg(c_1) &\implies t_2=-1\\
-\end{align}
-We can search for values of $t_2$ by considering values to the solution of:
-\begin{align}
-    t_2&= max\{t,-1\} \: where\\
-    z-2\alpha-(\beta+i)t&=(\frac{1}{2\beta}-i)t\\
-    z-2\alpha&=(\frac{1}{2\beta}+\beta)t\\
-    t&=\frac{2\beta(z-2\alpha)}{1+2\beta^2}
-\end{align}
-Once we have $t_2$ we can decompose the integral as the following:
-\begin{align}
-    \int_{-1}^1f(t)log(z_2)dt&=\int_{-1}^{t_2}f(t)(log(c_1)+log(z_3))dt\\
-    &+\int_{t_2}^{t_1}f(t)(log(c_1)+log(z_3))dt+\int_{t_1}^1f(t)(log(c_1)+log(z_3))dt\\
-    &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^{t_2}f(t)log(z_3)dt\\
-    &+\int_{t_2}^{t_1}f(t)(log(z_3)+2\pi i)dt+\int_{t_1}^1f(t)log(z_3)dt\\
-    &=log(c_1)\int_{-1}^1f(t)dt+\int_{-1}^1f(t)log(z_3)dt+2\pi i\int_{t_2}^{t_1}f(t)dt
-\end{align}
-Therefore we can write our earlier expression for the correction term as:
-$$C_1(t)=2\pi i\mathbb{I}_{\{t_2<t<t_1\}}$$
-In our case we have our $f(t)$ to be $P_j(t)$ which means we should use ultrasperical polynomials to solve the closed form version of our correction:
-\begin{align}
-    \int_x^1P_k(t)dt&=C_{k+1}^{(-1/2)}(x)\\
-    \implies \int_{-1}^1P_j(t)C_1(t)&=2\pi i\int_{t_2}^{t_1}P_j(t)dt\\
-    &=2\pi i(C_{k+1}^{(-1/2)}(t_2)-C_{k+1}^{(-1/2)}(t_1))
-\end{align}
-It is important to remember this is for when $k>0$, when $k=0$, $C_1^{(-1/2)}(x)=\int_{x}^0 P_0(x)=-x$.
-This doesnt't matter for the above since we are taking differences.
 
 Secondly we should also define:
 \begin{align}
