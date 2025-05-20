@@ -144,8 +144,10 @@ $$\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
 It can be shown that any affine transformation in the form of $(x, y)^T \rightarrow A(x,y)^T$ can be done by taking the above translation and performing scaling and rotations.
 TODO: Show that this is indeed the case
 
-\section{Quad Transform}
-We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral. We can use the parameterisation: $$Q\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
+\section{Trapezium Region}
+We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral.
+This can easily be done by computing for a Trapezium,
+We can use the parameterisation: $$Q\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
 \begin{pmatrix}(1+x)(\alpha+\beta y)\\y\end{pmatrix}$$
 Since our $\alpha, \beta > 0$, our $Q$ is invertible:
 $$Q^{-1}\begin{pmatrix}s\\t\end{pmatrix}\rightarrow\begin{pmatrix}\frac{s}{\alpha+\beta t}-1\\t\end{pmatrix}$$
@@ -221,7 +223,7 @@ To make it easier notationally to represent these legendre recurrence relations,
 \end{align}
 It is easiest to begin with a case where:
 
-\subsubsection*{Case 1: $k,j>1$}
+\subsubsection{Case 1: $k,j>1$}
 
 \begin{align}
 	z\tilde{s_{kj}}&=\int_{-1}^1z\frac{P_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
@@ -281,7 +283,7 @@ To begin with the computations of the $k=1,j=1$ rows/cols, it is useful to prove
     &= 2+s_1(z)
 \end{align}
 
-\subsubsection*{Case 2: $k=1$}
+\subsubsection{Case 2: $k=1$}
 For this we are going to assume that we already have values of the following: $\tilde{s}_{kj}$ where both $k\leq1 \wedge j\leq1$ as well as for all $k=0$ and $j=0$.
 Computation of these will be another case outlined later.
 We are able to find a 6 point stencil relation by first beginning with the expansion for $z\tilde{s}_{0j}$
@@ -302,7 +304,7 @@ We are able to find a 6 point stencil relation by first beginning with the expan
     +(\beta+i)(j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1}))
 \end{align}
 
-\subsubsection*{Case 3: $j=1$}
+\subsubsection{Case 3: $j=1$}
 We can use a similar approach for expansion on $z\tilde{s}_{k0}$:
 \begin{align}
     z\tilde{s}_{k0} &= \int_{-1}^1\int_{-1}^1\frac{zP_k(s)}{z-it-(\alpha+\beta t)(1+s)}dsdt\\
@@ -317,7 +319,7 @@ We can use a similar approach for expansion on $z\tilde{s}_{k0}$:
     +\alpha(\tilde{s}_{k0}+k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
 \end{align}
 
-\subsubsection*{Issue with branch cuts}
+\subsubsection{Issue with branch cuts}
 For the following cases we are forced to manipulate integral expressions involving logs.
 We will be using the log decomposition formula $log(ab)=log(a)+log(b)$.
 To highlight our issue lets imagine taking the integral:
@@ -508,7 +510,7 @@ This gives our final expression for $q_k$:
 $$q_k=L_k(\frac{z-i}{\alpha-\beta}-1)-L_k(\frac{z-i}{\alpha+\beta}-1)
 +2\delta_{k0}log(\frac{\alpha-\beta}{\alpha+\beta})-2\pi i C_{k+1}^{(-1/2)}(s)$$
 
-\subsubsection*{Case 4: $k=0$}
+\subsubsection{Case 4: $k=0$}
 For this case we are considering how to solve the following:
 \begin{align}
     \tilde{s}_{0j} &= \int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}s_0(\tilde{z}_t)dt\\
@@ -527,7 +529,7 @@ It is easy to see the relation between $s_{0j}$ and $\tilde{s}_{0j}$ as:
 \end{align}
 Given a value for $\tilde{s}_{00}$ we are therefore easily able to compute all values of $\tilde{s}_{0j}$ recursively.
 
-\subsubsection*{Case 5: $j=0$}
+\subsubsection{Case 5: $j=0$}
 \begin{align}
     \tilde{s}_{k0} &= \int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}s_0(\tilde{z}_s)ds\\
     &= \int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}log(\frac{\tilde{z}_s+1}{\tilde{z}_s-1})ds
@@ -544,7 +546,7 @@ Again for the same reasons of not being able to find a closed form solution to t
 Given a value of $\tilde{s}_{00}$ we are able to compute all values of $\tilde{s}_{k0}$ recursively.
 Now the challenge remains to find this $\tilde{s}_{00}$.
 
-\subsubsection*{Case 6: $k,j=0,0$}
+\subsubsection{Case 6: $k,j=0,0$}
 We are looking for the following:
 \begin{align}
     \tilde{s}_{00}&=\int_{-1}^1\frac{s_0(\tilde{z}_t)}{\alpha+\beta t}dt=\int_{-1}^1\frac{1}{\alpha+\beta t}log(\frac{\tilde{z}_t+1}{\tilde{z}_t-1})dt\\
@@ -607,4 +609,22 @@ Now that we have all the individual elements we can simply plug everything back 
 Now we have a situation where we have all values of $\tilde{s}_kj$ but no values for $s_{kj}$.
 The basic idea to recover all $s_{kj}$ was by adding consecutive rows together:
 $$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\alpha+\beta t}P_j(t)s_k(\tilde{z}_t)dt=\alpha\tilde{s}_{kj}+\beta\tilde{s}_{kj+1}$$
+
+\section{Transformation}
+Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
+In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
+\subsection{Square transforms}
+We will be revisting the stieltjes over a square:
+$$s_{kj} = \int_{-1}^1\int_{-1}^1\frac{P_k(s)P_j(t)}{z-(s+it)}dsdt$$
+Let us also recall the way we approach function decomposition onto our function bases:
+$$f\circ Q(\textbf{x})=\Sigma_{k,j}c_{k,j}b_{kj}(\textbf{x}),\:b_{kj}(\textbf{x})=P_k(\textbf{x}_0)P_j(\textbf{x}_1)$$
+The transformations which are available to us are operations which we can perform on $z$ which lets us alter the region we are integrating over which is parameterised as $s+it$.
+\subsubsection{Translation}
+If we want to translate the region of interest from $[-1,1]\times[-1,1]$ to $[x-1,x+1],[y-1,y+1]$, we need to change the region to $s+x+i(t+y)$.
+This lets us rewrite the denominator as $(z-x-iy)-(s+it)$.
+Therefore the same recursion rules but with a different value of $z$ gives us this.
+\section{Larger Meshes}
+We can add together results from individual triangles to get the result of a convolution over more complicated regions.
+Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.
+If we naively add up all $n$ shapes, we have $O(np^2)$ and now it has started to increase in size.
 \end{document}

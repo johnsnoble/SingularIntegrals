@@ -1,14 +1,13 @@
-module BaseTrap
+# module BaseTrap
 using ClassicalOrthogonalPolynomials, PolyLog
-export s₀ⱼ_, s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
+# export s₀ⱼ_, s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
 
 clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
 L0(z) = zlog(1 + complex(z)) - zlog(complex(z)-1) - 2one(z)
 L1(z, r0=L0(z)) = (z+1)*r0/2 + 1 - zlog(complex(z)+1)
 M0(z) = L0(-im*float(z)) + m_const(0, float(z))
-# M1(z, r0=L0(-im*z)) = L1(-im*float(z), r0) + m_const(1, float(z))
-M1(z) = L1(-im*float(z)) + m_const(1, float(z))
+M1(z, r0=L0(-im*float(z))) = L1(-im*float(z), r0) + m_const(1, float(z))
 
 # Returns values of Mᵢ(z) for 0≤i≤n
 function get_l_vec(z, n)
@@ -320,4 +319,4 @@ function s̃₀₀(a,b,z)
     return (I₊-I₋)/b
 end
 
-end
+# end
