@@ -267,7 +267,7 @@ Returning back to our original equation:
     +\int_{-1}^1\frac{itP_j(t)}{\alpha+\beta t}s_k(\tilde{z_t})dt\\
     &=\beta(k_-j_-\tilde{s}_{k-1j-1}+k_-j_+\tilde{s}_{k-1j+1}+k_+j_-\tilde{s}_{k+1j-1}+k_+j_+\tilde{s}_{k+1j+1})\\
     &+\alpha(\tilde{s}_{kj}+k_-\tilde{s}_{k-1j}+k_+\tilde{s}_{k+1j})\\
-    &+(\beta+i)(j_-\tilde{s}_{kj-1}+j_+\tilde{s}{kj+1})
+    &+(\beta+i)(j_-\tilde{s}_{kj-1}+j_+\tilde{s}_{kj+1})
 \end{align}
 
 And thus we have a 9 point stencil recurrence relation.
@@ -578,7 +578,7 @@ In the case where $a=b$:
 \end{align}
 Otherwise if $a\neq b$:
 $$\int_{-1}^1\frac{log(a+t)}{b+t}dt=\int_{b-1}^{b+1}\frac{log(a-b+t)}{t}dt$$
-We know go about finding correction terms for:$log(a-b+t)\rightarrow log(a-b)+log(1+\frac{t}{a-b})$ as $a-b\in\mathbb{C}$
+We know go about finding correction terms for: $log(a-b+t)\rightarrow log(a-b)+log(1+\frac{t}{a-b})$ as $a-b\in\mathbb{C}$
 We have a branch crossing if for some $t\in[-1,1]$:
 $$|arg(a+t)-arg(a-b)|>\pi$$
 \begin{center}\includegraphics[width=\textwidth/2]{s00}\end{center}
@@ -613,22 +613,22 @@ $$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\a
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
 In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
-\subsection{Square transforms}
 We will be revisting the stieltjes over a square:
 $$s_{kj} = \int_{-1}^1\int_{-1}^1\frac{P_k(s)P_j(t)}{z-(s+it)}dsdt$$
 Let us also recall the way we approach function decomposition onto our function bases:
 $$f\circ Q(\textbf{x})=\Sigma_{k,j}c_{k,j}b_{kj}(\textbf{x}),\:b_{kj}(\textbf{x})=P_k(\textbf{x}_0)P_j(\textbf{x}_1)$$
 The transformations which are available to us are operations which we can perform on $z$ which lets us alter the region we are integrating over which is parameterised as $s+it$.
 
-\subsubsection{Translation}
-If we want to translate the region of interest from $[-1,1]\times[-1,1]$ to $[x-1,x+1],[y-1,y+1]$, we need to change the region to $s+x+i(t+y)$.
-This lets us rewrite the denominator as $(z-x-iy)-(s+it)$.
+\subsection{Translation}
+If we want to translate the region of interest from $[-1,1]\times[-1,1]$ to $[x-1,x+1],[y-1,y+1]$, we need to change the region to $x(s,t)+x+i(t+y)$ where $x(s,t)$ is a function that takes values from the space of $s,t$ and gives out where $s$ should be based on what shape we are working with.
+This lets us rewrite the denominator as $(z-x-iy)-(x(s,t)+it)$.
 Therefore the same recursion rules but with a different value of $z$ gives us this.
 
-\subsubsection{Scaling and Rotation}
-Another type of translation we can make is to do with multipling the region of interest by some $\alpha\in\mathbb{C}$.
+\subsection{Scaling and Rotation}
+The kernel of the stieltjes integral is in the form of $z-x(s,t)-it$ in the general case.
+This means that we can multiply this thie region of $x(s,t)-it$ by $\lambda\in\mathbb{c}$
 The real component of this value contributes to the scaling and the complex component the rotation.
-We can therefore rewrite the scaled $s_{kj}(z)$ as $\frac{1}{\alpha}s_{kj}(\frac{z}{a})$
+We can therefore rewrite the scaled $s_{kj}(z)$ as $\frac{1}{\lambda}s_{kj}(\frac{z}{\lambda})$
 \section{Larger Meshes}
 We can add together results from individual triangles to get the result of a convolution over more complicated regions.
 Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.

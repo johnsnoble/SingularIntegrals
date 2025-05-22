@@ -1,6 +1,6 @@
-# module BaseTrap
+module BaseTrap
 using ClassicalOrthogonalPolynomials, PolyLog
-# export s₀ⱼ_, s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
+export s₀ⱼ, qₖ, s̃ₖ₀, s̃ⱼ₀, s̃₀₀
 
 clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
@@ -99,22 +99,6 @@ function legendreInt(k,x)
 end
 
 function s₀ⱼ(j,z,a,b)
-    M = [get_m_vec(x, j) for
-         x = [z, (z-2*a)*im/(im+2*b)]]
-    S = M[1]-M[2]
-    S[1] -= 2*log(1+2*b/im)
-    if (real(z)<0) & (abs(imag(z))<1)
-        t₁ = imag(z)
-        t₂ = 2b*(z-2a)/(1+2b^2)
-        t₂ = max(Float64(t₂),Float64(-1))
-        Cs = [2pi*im*(ultrasphericalc(i+1,-0.5,t₂)-ultrasphericalc(i+1,-0.5,t₁)) for i=0:j]
-        return S - Cs
-    else
-        return S
-    end
-end
-
-function s₀ⱼ_(j,z,a,b)
     M = get_m_vec(z, j)
     L = get_l_vec((z-2a)/(2b+im), j)
     S = M-L
@@ -310,8 +294,8 @@ function dilog(z,c,b)
     return I1 + I2
 end
 
-function s̃₀₀(a,b,z)
-    # I₊ will be ln(z̃ₜ+1)/(a+bt) and same for I₋
+function s̃₀₀(z,a,b)
+    # I₊ will be ln(z̃ₜ±1)/(a+bt) and same for I₋
     # We do not have to consider the branch cut here because of the restrictions of z which cannot be in the domain:
     # z ∉ {x+iy: x∈[0,2(a+by)], y∈[-1,1]}
     I₊ = dilog(z,-im,a/b)
@@ -319,4 +303,4 @@ function s̃₀₀(a,b,z)
     return (I₊-I₋)/b
 end
 
-# end
+end

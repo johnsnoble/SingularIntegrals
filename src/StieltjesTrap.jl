@@ -42,11 +42,11 @@ function s̃ₖⱼ_complete(S,z,a,b)
    S
 end
 
-function sₖⱼ(k,j,z,a,b,s₀₀=nothing)
+function s_trap_matrix!(k,j,z,a,b,s₀₀=nothing)
     if s₀₀==nothing
-        s₀₀=s̃₀₀(a,b,z)
+        s₀₀=s̃₀₀(z,a,b)
     end
-    S̃ = s̃ₖⱼ_base(k,j+1,z,a,b,s₀₀)
+    S̃ = s̃ₖⱼ_base(k-1,j,z,a,b,s₀₀)
     S̃ = s̃ₖⱼ_complete(S̃,z,a,b)
     N, M = size(S̃)
     S = Array{ComplexF64}(undef, N, M-1)

@@ -64,41 +64,69 @@ function approx_quad_skj_(k,j,z,a,b,f)
     res
 end
 
-
+module SMatrixTests
 using Test
 include("../src/BaseCases.jl")
-using .BaseTrap: qₖ, s₀ⱼ, s₀ⱼ_
+include("../src/StieltjesTrap.jl")
+using .BaseTrap: qₖ, s₀ⱼ, s̃₀₀
 
-function get_valid_z(a,b)
+function get_valid_z(a,b,λ=0,μ=0)
     while true
         z = randn()*10 + randn()*10im
-        if (real(z)<0) | (abs(imag(z))>1) | (real(z)>2a+2b*imag(z))
+        z_ = (z-μ)/λ
+        if (real(z_)<0) | (abs(imag(z_))>1) | (real(z_)>2a+2b*imag(z_))
             return z
         end
     end
 end
-function generate_z(n)
+
+function generate_z(n, a, b)
     return [get_valid_z(a,b) for i=1:n]
 end
 
-function test_qₖ(n,k,a,b,tol=1e-3)
-    zs = generate_z(n)
+function get_zs_(zs,a,b)
+    if zs isa Vector
+        return zs
+    end
+    return generate_z(zs, a, b)
+end
+
+function test_qₖ(k,a,b,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
     expected = [[∫(s->legendrep(i,s)*S₀_(z̃ₛ(j,s,a,b))) for i=0:k] for z=zs]
     actual = [qₖ(k,z,a,b) for z=zs]
     @test expected≈actual atol=tol
 end
 
-function test_rⱼ(n,j,a,b,tol=1e-3)
-    zs = generate_z(n)
+function test_rⱼ(j,a,b,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
     expected = [[∫(t->legendrep(i,t)*S₀_(z̃ₜ(z,t,a,b))) for i=0:j] for z=zs]
     actual = [s₀ⱼ(j,z,a,b) for z=zs]
     @test expected≈actual atol=tol
 end
 
-function test_rⱼ_(n,j,a,b,tol=1e-3)
-    zs = generate_z(n)
-    expected = [[∫(t->legendrep(i,t)*S₀_(z̃ₜ(z,t,a,b))) for i=0:j] for z=zs]
-    actual = [s₀ⱼ_(j,z,a,b) for z=zs]
+function test_s̃₀₀(a,b,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
+    expected = [∫(t->S₀_(z̃ₜ(z,t,a,b))/(a+b*t)) for z=zs]
+    actual = [s̃₀₀(z,a,b) for z=zs]
     @test expected≈actual atol=tol
 end
 
+function test_all(n,m,a,b,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
+    expected = [[[∫(t->∫(s->legendrep(j,t)*legendrep(k,s)/(z-im*t-(a+b*t)*(1+s)))) for j=0:m-1] for k=0:n-1] for z=zs]
+    actual = [s_trap_matrix!(n,m,z,a,b) for z=zs]
+    expected_flat = reduce(vcat, reduce(vcat, expected))
+    actual_flat = reduce(vcat, reduce(vcat, expected))
+    @test expected_flat≈actual_flat atol=tol
+end
+
+function test_transform(n,m,a,b,λ,μ,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
+    expected = [[[∫(t->∫(s->legendrep(j,t)*legendrep(k,s)/(z-λ*im*t-λ*(a+b*t)*(1+s)-μ))) for j=0:m-1] for k=0:n-1] for z=zs]
+    actual = [s_trap_matrix!(n,m,(z/λ)-μ,a,b) for z=zs]
+    expected_flat = reduce(vcat, reduce(vcat, expected))
+    actual_flat = reduce(vcat, reduce(vcat, expected))
+    @test expected_flat≈actual_flat atol=tol
+end
+end
