@@ -270,6 +270,9 @@ Returning back to our original equation:
     &+(\beta+i)(j_-\tilde{s}_{kj-1}+j_+\tilde{s}_{kj+1})
 \end{align}
 
+The decision to have $t$ as the outside integral was completely arbritary, we could have taken $s$ as the outside integral and we would have reached the exact same recurrence relation.
+We can see that for a log kernel we would have different relations which we can use in our benefit to skip finding certain base cases.
+
 And thus we have a 9 point stencil recurrence relation.
 Given any 8 points we are able to find the final point.
 Assuming we therefore for some $k,j\geq 2$ we have all $\tilde{s}_{nm}$ for all $n\leq k,m\leq j$,

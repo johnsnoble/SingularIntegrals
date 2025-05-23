@@ -64,7 +64,6 @@ function approx_quad_skj_(k,j,z,a,b,f)
     res
 end
 
-module SMatrixTests
 using Test
 include("../src/BaseCases.jl")
 include("../src/StieltjesTrap.jl")
@@ -128,5 +127,4 @@ function test_transform(n,m,a,b,λ,μ,zs,tol=1e-3)
     expected_flat = reduce(vcat, reduce(vcat, expected))
     actual_flat = reduce(vcat, reduce(vcat, expected))
     @test expected_flat≈actual_flat atol=tol
-end
 end
