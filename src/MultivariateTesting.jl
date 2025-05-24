@@ -1,6 +1,6 @@
 using QuadGK, ClassicalOrthogonalPolynomials
 
-z = 9.5-3*im
+z = 9.5-3.5*im
 a = 1.5
 b = 0.5
 
@@ -92,7 +92,7 @@ end
 
 function test_qₖ(k,a,b,zs,tol=1e-3)
     zs = get_zs_(zs,a,b)
-    expected = [[∫(s->legendrep(i,s)*S₀_(z̃ₛ(j,s,a,b))) for i=0:k] for z=zs]
+    expected = [[∫(s->legendrep(i,s)*S₀_(z̃ₛ(z,s,a,b))) for i=0:k] for z=zs]
     actual = [qₖ(k,z,a,b) for z=zs]
     @test expected≈actual atol=tol
 end
@@ -127,4 +127,15 @@ function test_transform(n,m,a,b,λ,μ,zs,tol=1e-3)
     expected_flat = reduce(vcat, reduce(vcat, expected))
     actual_flat = reduce(vcat, reduce(vcat, expected))
     @test expected_flat≈actual_flat atol=tol
+end
+
+include("../src/LogBaseCases.jl")
+
+function test_O(n,a,b,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
+    # Test for ₖ₀
+    expected = [[∫(s->legendrep(k,s)*∫(t->log(z-im*t-(a+b*t)*(1+s))))-∫(s->legendrep(k,s)*∫(t->log(z̃ₛ(z,s)-t))) for k=0:n] for z=zs]
+    result = [O²(n,n,z,a,b) for z=zs]
+    actual = [k for (k,j)=result]
+    @test expected≈actual atol=tol
 end

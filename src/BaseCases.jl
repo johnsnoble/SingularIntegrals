@@ -9,7 +9,7 @@ L1(z, r0=L0(z)) = (z+1)*r0/2 + 1 - zlog(complex(z)+1)
 M0(z) = L0(-im*float(z)) + m_const(0, float(z))
 M1(z, r0=L0(-im*float(z))) = L1(-im*float(z), r0) + m_const(1, float(z))
 
-# Returns values of Mᵢ(z) for 0≤i≤n
+# Returns values of Lᵢ(z) for 0≤i≤n
 function get_l_vec(z, n)
     L = Array{ComplexF64}(undef, n+1)
     L[1] = L0(z)
@@ -104,8 +104,6 @@ function s₀ⱼ(j,z,a,b)
     S = M-L
     S[1] -= 2*log(2b+im)
     # z≠2a
-    lz = clog(z-2a)
-    lc = clog(2b+im)
     # Compute x intercept
     t = imag(z)
     x = real(z)-2a-2b*t

@@ -20,6 +20,10 @@
 \newpage
 
 \section{Introduction}
+\subsection{Solving Inhomogenous PDEs}
+We will begin by considering an equation in the form of $\mathcal{D}u=f$.
+The green's function for a particular PDE is defined in a way such that for a green's function $G(x,x')$ given for some differential operator $\mathcal{D}$, we have that $\mathcal{D}G(x,x') = \delta(x,x')$
+My project will be to go through how we can quickly and efficiently by decomposing into orthogonal polynomials and then utilising the recurrence properties of these OPs to solve PDEs using a Dynamic Programming approach.
 \subsection{Cauchy Transform}
 \begin{equation} \label{cauchy transform}
 C_\Gamma f(z):=\frac{1}{2\pi i}\int_\Gamma \frac{f(t)}{t-z}dt
