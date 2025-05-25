@@ -131,11 +131,17 @@ end
 
 include("../src/LogBaseCases.jl")
 
-function test_O(n,a,b,zs,tol=1e-3)
+function test_Oₖ²(n,a,b,zs,tol=1e-3)
     zs = get_zs_(zs,a,b)
     # Test for ₖ₀
     expected = [[∫(s->legendrep(k,s)*∫(t->log(z-im*t-(a+b*t)*(1+s))))-∫(s->legendrep(k,s)*∫(t->log(z̃ₛ(z,s)-t))) for k=0:n] for z=zs]
-    result = [O²(n,n,z,a,b) for z=zs]
-    actual = [k for (k,j)=result]
+    actual = [Oₖ₀²(n,z,a,b) for z=zs]
+    @test expected≈actual atol=tol
+end
+
+function test_Oⱼ²(n,a,b,zs,tol=1e-3)
+    zs = get_zs_(zs,a,b)
+    expected = [[∫(s->∫(t->legendrep(j,t)*log(z-im*t-(a+b*t)*(1+s))))-∫(s->∫(t->legendrep(j,t)*log(z̃ₛ(z,s)-t))) for j=0:n] for z=zs]
+    actual = [O₀ⱼ²(n,z,Oₖ₀²(0,z,a,b)[1]) for z=zs]
     @test expected≈actual atol=tol
 end

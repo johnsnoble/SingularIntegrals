@@ -47,33 +47,48 @@ function O₀ⱼ¹(j,a,b)
     return 2*L
 end
 
-# Returns (Oₖ₀²,O₀ⱼ²)
 function O²(k,j,z,a,b)
+    Oₖ = Oₖ₀²(k,z,a,b)
+    return Oₖ,O₀ⱼ²(j,z,Oₖ[1])
+end
+
+function O₀ⱼ²(j,z,O₀₀)
+    Oⱼ = fill(0.0+0.0im,j+1)
+    Oⱼ[1] = O₀₀
+    if (abs(imag(z))<1) & (real(z)<0)
+        Oⱼ[2:j+1] = -4pi*im*[legendreInt(j_,imag(z)) for j_=1:j]
+    end
+    return Oⱼ
+end
+
+# Returns (Oₖ₀²,O₀ⱼ²)
+function Oₖ₀²(k,z,a,b)
     L = 2*get_l_vec((b+im)/b,k)
     L = L.*[-2*(i%2)+1 for i=0:k]
     L[1]+=4*log(b)
     t̃ = -a/b
     s̃ = real(z)/(a+b*imag(z))-1
     if (imag(z)>1)|((imag(z)>t̃)&(s̃>1))|((real(z)>0)&(imag(z)<t̃))
-        return [L,O₀ⱼ²_(j,0,L[1],0)]
+        return L
     end
     if ((imag(z)<-1)&(imag(z)>t̃)&(real(z)<0))|((imag(z)<t̃)&(s̃>1))
         L[1]-=8pi*im
-        return [L,O₀ⱼ²_(j,0,L[1],0)]
+        return L
     end
     if (abs(imag(z))<1)&(real(z)<0)
-        L[1]-=4pi*im*(1-t̃)
-        return [L,O₀ⱼ²_(j,t̃,L[1],1)]
+        L[1]-=4pi*im*(1-imag(z))
+        return L
     end
     Pcdf = [legendreInt(k_,s̃) for k_=0:k] 
     if (abs(s̃)<1)&(imag(z)>t̃)&(imag(z)<-1)
         L-=4pi*im*Pcdf
-        return [L,O₀ⱼ²_(j,0,L[1],0)]
+        return L
     end
     if (abs(s̃)<1)&(imag(z)<t̃)
         L-=4pi*im*(2 .-Pcdf)
-        return [L,O₀ⱼ²_(j,0,L[1],0)]
+        return L
     end
+    return 0
 end
 
 function O₀ⱼ²_(j,t,O₀,case)
