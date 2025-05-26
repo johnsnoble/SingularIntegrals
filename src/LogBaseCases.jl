@@ -24,19 +24,108 @@ function get_l_vec(z, n)
     L
 end
 
-# Defining L̃ₖⱼ(z):=∫Pⱼ(t)Lₖ(z̃ₜ)dt
+# Returns values of Mᵢ(z) for 0≤i≤n
+function get_m_vec(z, n)
+    M = Array{ComplexF64}(undef, n+1)
+    M[1] = M0(z)
+    if n>=1
+        M[2] = M1(z)
+    end
+    x,y = real(z), imag(z)
+    μ_ = ((x<0)&(-1<y)&(y<1)) ? 2pi*x*im : 0
+    if n>=2
+        μ = (μ_==0) ? 0 : -ultrasphericalc(2,-0.5,y)*μ_
+        M[3] = m_recurrence(M[1],z*M[2],1,μ-2im/3)
+    end
+    for i=3:n
+        μ = (μ_==0) ? 0 : -ultrasphericalc(i,-0.5,y)*μ_
+        M[i+1] = m_recurrence(M[i-1],z*M[i],i-1,μ)
+    end
+    M
+end 
+
+function m_const(k, z)
+    (x,y) = reim(z)
+    T = float(real(typeof(z)))
+    im*convert(T,π) * if k == 0
+        if x > 0 || y ≥ 1 || (x == 0 && !signbit(x) && y < 0) # need to treat im*y+0.0 differently
+            convert(T, 1)
+        elseif y ≤ -1 # x ≤ 0
+            convert(T, -3)
+        else #  x ≤ 0 and -1 < y < 1
+            ((1 + y) - 3*(1-y))/2
+        end
+    elseif -1 ≤ y ≤ 1 && x ≤ 0 # k ≠ 0
+        -Weighted(Jacobi{T}(1,1))[y,k]/k
+    else
+        zero(T)
+    end
+end
+
+function logabt(j,a,b)
+    L = get_l_vec(a/b,j)
+    L[1] += 2*log(b)
+    L = L.*[-2*(i%2)+1 for i=0:j]
+    return L
+end
+
+#TODO: duplicated code in BaseCases.jl:s₀ⱼ
+# Computes ∫Pⱼ(t)log(z-2a-(2b+i)t)dt
+function neg_get_m_vec(k,z,a,b)
+    L = get_l_vec((z-2a)/(2b+im),k)
+    L[1] += 2*log(2b+im)
+    t = imag(z)
+    x = real(z)-2a-2b*t
+    t = max(t,-1)
+    if (t>1) | (x>=0)
+        return L
+    end
+    return L-[2*pi*im*legendreInt(i,t) for i=0:k]
+end
+
+
+function m_recurrence(m_, zm, k, c=0)
+    (zm-(im*(k-1)/(2k+1))*m_-c)*(-im*(2k+1)/(k+2))
+end
+
+
+# Defining Lₖⱼ⁽¹⁾(z):=∫Pⱼ(t)Lₖ(z̃ₜ)dt
+# Defining Lₖⱼ⁽²⁾(z):=∫Pₖ(t)Lₛ(z̃ₛ)ds
 # Lₖ(z):=∫Pₖ(s)log(z-s)ds
+
+# L₀ⱼ⁽¹⁾
 function l₀ⱼ(j,z,a,b)
     0
 end
 
+# lₖ₀⁽¹⁾
 function lₖ₀(k,z,a,b)
+    0
+end
+
+function l̃₀ⱼ(j,z,a,b)
+    M₊ = get_m_vec(z,j+1)
+    M₋ = neg_get_m_vec(j+1,z,a,b)
+    # γ:=∫Pⱼ(t)log(a+bt)dt
+    γ = logabt(j+1,a,b)
+    if j==0
+        L = (2a*γ[j+1]+(z-2a)*M₋[j+1]-z*M₊[1]
+             -(2b+im)*(M₋[2]-γ[2]-2)+im*(M₋[2]-γ[2]-2))
+        return L
+    end
+    L = (2a*γ[j+1]+(z-2a)*M₋[j+1]-z*M₊[j+1]
+         -(2b+im)*(j*(M₋[j]-γ[j])+(j+1)*(M₋[j+2]-γ[j+2]))/(2j+1)
+         +im*(j*(M₊[j]-γ[j])+(j+1)*(M₊[j+2]-γ[j+2]))/(2j+1))
+    return L
+end
+
+function l̃ₖ₀(k,z,a,b)
     0
 end
 
 # Must be such that a,b does not cross 0 or a branch cut
 ∫xlnxdx_(a,b) = (b^2*(log(b)-1/2)-a^2*(log(a)-1/2))/2
-L0(z) = (z+1)*log(z+1)-(z-1)*log(z-1)-2
+# TODO: Duplicated along with functions at the top
 # Returns ∫ₓ¹Pₖ(x)dx
 legendreInt(k,x) = (k==0 ? 1-x : ultrasphericalc(k+1,-0.5,x))
 
@@ -102,3 +191,5 @@ function O₀ⱼ²_(j,t,O₀,case)
         return ret
     end
 end
+
+
