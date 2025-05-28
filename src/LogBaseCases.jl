@@ -69,6 +69,36 @@ function logabt(j,a,b)
     return L
 end
 
+function logbsi(k,b)
+    L = get_l_vec((b+im)/b,k)
+    L[1] += 2*log(b)
+    L = L.*[-2*(i%2)+1 for i=0:k]
+    return L
+end
+
+function logbsi_(k,z,a,b)
+    # returns Pₖ(s)log(b(1+s)+i) with the branch correction
+    # Correct for branch cut crossing -> log(z-(a+b)(1+s)-i)-log(b(1+s)+i)
+    base = logbsi(k,b)
+    # Check if branch cut can exist:
+    if imag(z)>1
+        return base
+    end
+    x = imag(z)*b+a
+    # d: 1 if starts okay, -1 starts with crossing
+    # s: value of s when crossover occurs
+    s,d = 0,(real(z)>0 ? 1 : -1)
+    # In the case (x=0) there is no crossover so set to max (1)
+    s = (x==0 ? 1 : real(z)/x-1)
+    s = (abs(s)>1 ? 1 : s)
+    c = [legendreInt(k_,s) for k_=0:k]
+    if d==-1
+        c[2:k+1] *= -1
+        c[1] = 2-c[1]
+    end
+    return base, 2pi*im*c
+end
+
 #TODO: duplicated code in BaseCases.jl:s₀ⱼ
 # Computes ∫Pⱼ(t)log(z-2a-(2b+i)t)dt
 function neg_get_m_vec(k,z,a,b)
@@ -108,7 +138,7 @@ function l₀ⱼ(j,z,a,b,l₀)
     return l
 end
 
-# lₖ₀⁽¹⁾
+# Lₖ₀⁽²⁾:∫Pₖ(s)L₀(z̃ₛ)ds
 function lₖ₀(k,z,a,b)
     0
 end
@@ -136,8 +166,24 @@ function l̃₀ⱼ(j,z,a,b)
     return L
 end
 
+# ∫(β(1+s)+i)Pₖ(s)L₀(z̃ₛ)ds
 function l̃ₖ₀(k,z,a,b)
-    0
+    γ, corr = logbsi_(k+1,z,a,b)
+    M₊ = get_l_vec((z+im)/(a-b)-1,k+1) - γ
+    M₋ = get_l_vec((z-im)/(a+b)-1,k+1) - γ + corr
+    M₋[1] += 2*log(a+b)-2
+    M₊[1] += 2*log(a-b)-2
+    L = fill(0.0+0.0im, k+1)
+    L[1] = ((z-a+b+im)*M₊[1]-(a-b)*M₊[2]
+            -(z-a-b-im)*M₋[1]+(a+b)*M₋[2])
+    if k==0
+        return L
+    end
+    k₋ = [i/(2i+1) for i=0:k+1]
+    k₊ = [(i+1)/(2i+1) for i=0:k+1]
+    L[2:k+1] = ((z-a+b+im)*M₊[2:k+1]-(a-b)*(k₋[2:k+1].*M₊[1:k]+k₊[2:k+1].*M₊[3:k+2])
+                -(z-a-b-im)*M₋[2:k+1]+(a+b)*(k₋[2:k+1].*M₋[1:k]+k₊[2:k+1].*M₋[3:k+2]))
+    L
 end
 
 # Must be such that a,b does not cross 0 or a branch cut
@@ -191,7 +237,9 @@ function Oₖ₀²(k,z,a,b)
         return L
     end
     if (abs(s̃)<1)&(imag(z)<t̃)
-        L-=4pi*im*(2 .-Pcdf)
+        Pcdf[2:k+1] *= 1
+        Pcdf[1] = 2-Pcdf[1]
+        L-=4pi*im*Pcdf
         return L
     end
     return 0
