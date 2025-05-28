@@ -93,9 +93,19 @@ end
 # Defining Lₖⱼ⁽²⁾(z):=∫Pₖ(t)Lₛ(z̃ₛ)ds
 # Lₖ(z):=∫Pₖ(s)log(z-s)ds
 
-# L₀ⱼ⁽¹⁾
-function l₀ⱼ(j,z,a,b)
-    0
+# L₀ⱼ⁽¹⁾: ∫Pⱼ(t)L₀(z̃ₜ)dt
+function l₀ⱼ(j,z,a,b,l₀)
+    l = fill(0.0+0.0im,j+1)
+    ls = l̃₀ⱼ(j+1,z,a,b)
+    l[1] = l₀
+    if j==0
+        return L
+    end
+    l[2] = (ls[1]-a*l₀)/b
+    for j_=2:j
+        l[j_+1]=((2j_-1)*(ls[j_]-a*l[j_])-b*(j_-1)*l[j_-1])/(b*j_)
+    end
+    return l
 end
 
 # lₖ₀⁽¹⁾
@@ -103,19 +113,26 @@ function lₖ₀(k,z,a,b)
     0
 end
 
+# ∫(α+βt)Pⱼ(t)L₀(z̃ₜ)dt
 function l̃₀ⱼ(j,z,a,b)
     M₊ = get_m_vec(z,j+1)
     M₋ = neg_get_m_vec(j+1,z,a,b)
     # γ:=∫Pⱼ(t)log(a+bt)dt
     γ = logabt(j+1,a,b)
+    M₊ -= γ
+    M₊[1] -= 2
+    M₋ -= γ
+    M₋[1] -= 2
+    L = fill(0.0+0.0im, j+1)
+    L[1] = (z*M₊[1]-im*M₊[2]
+            -(z-2a)*M₋[1]+(2b+im)*M₋[2])
     if j==0
-        L = (2a*γ[j+1]+(z-2a)*M₋[j+1]-z*M₊[1]
-             -(2b+im)*(M₋[2]-γ[2]-2)+im*(M₋[2]-γ[2]-2))
         return L
     end
-    L = (2a*γ[j+1]+(z-2a)*M₋[j+1]-z*M₊[j+1]
-         -(2b+im)*(j*(M₋[j]-γ[j])+(j+1)*(M₋[j+2]-γ[j+2]))/(2j+1)
-         +im*(j*(M₊[j]-γ[j])+(j+1)*(M₊[j+2]-γ[j+2]))/(2j+1))
+    j₋ = [i/(2i+1) for i=0:j+1]
+    j₊ = [(i+1)/(2i+1) for i=0:j+1]
+    L[2:j+1] = (z*M₊[2:j+1]-im*(j₋[2:j+1].*M₊[1:j]+j₊[2:j+1].*M₊[3:j+2])
+                -(z-2a)*M₋[2:j+1]+(2b+im)*(j₋[2:j+1].*M₋[1:j]+j₊[2:j+1].*M₋[3:j+2]))
     return L
 end
 
