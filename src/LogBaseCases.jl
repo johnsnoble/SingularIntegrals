@@ -192,6 +192,7 @@ end
 # Returns ∫ₓ¹Pₖ(x)dx
 legendreInt(k,x) = (k==0 ? 1-x : ultrasphericalc(k+1,-0.5,x))
 
+# ∫Pⱼ(t)L₀(z̃ₜ)dt→∫∫Pⱼ(t)log(z-it-(a+bt)(1+s)dt)ds
 function O₀ⱼ¹(j,a,b)
     L = get_l_vec(a/b,j)
     L = L.*[-2*(i%2)+1 for i=0:j]
@@ -204,6 +205,7 @@ function O²(k,j,z,a,b)
     return Oₖ,O₀ⱼ²(j,z,Oₖ[1])
 end
 
+# ∫Lⱼ(z̃ₛ)ds→∫∫Pⱼ(t)log(z-it-(a+bt)(1+s)dt)ds
 function O₀ⱼ²(j,z,O₀₀)
     Oⱼ = fill(0.0+0.0im,j+1)
     Oⱼ[1] = O₀₀
@@ -214,6 +216,8 @@ function O₀ⱼ²(j,z,O₀₀)
 end
 
 # Returns (Oₖ₀²,O₀ⱼ²)
+# Oₖ₀² difference between 
+# ∫Pₖ(s)L₀(z̃ₛ)ds→∫Pₖ(s)(∫log(z-it-(a+bt)(1+s)dt)ds
 function Oₖ₀²(k,z,a,b)
     L = 2*get_l_vec((b+im)/b,k)
     L = L.*[-2*(i%2)+1 for i=0:k]
@@ -237,7 +241,7 @@ function Oₖ₀²(k,z,a,b)
         return L
     end
     if (abs(s̃)<1)&(imag(z)<t̃)
-        Pcdf[2:k+1] *= 1
+        Pcdf[2:k+1] *= -1
         Pcdf[1] = 2-Pcdf[1]
         L-=4pi*im*Pcdf
         return L

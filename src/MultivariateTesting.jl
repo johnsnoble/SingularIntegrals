@@ -69,7 +69,7 @@ include("../src/BaseCases.jl")
 include("../src/StieltjesTrap.jl")
 using .BaseTrap: qₖ, s₀ⱼ, s̃₀₀
 
-function get_valid_z(a,b,λ=0,μ=0)
+function get_valid_z(a,b,λ=1,μ=0)
     while true
         z = randn()*10 + randn()*10im
         z_ = (z-μ)/λ
@@ -131,17 +131,19 @@ end
 
 include("../src/LogBaseCases.jl")
 
-function test_Oₖ²(n,a,b,zs,tol=1e-3)
+L(k,j,z,a,b,tol) = ∫(s->legendrep(k,s)*∫(t->legendrep(j,t)*log(z-im*t-(a+b*t)*(1+s))),tol)
+
+function test_Oₖ²(n,a,b,zs,tol=1e-3, rtol=1e-3)
     zs = get_zs_(zs,a,b)
     # Test for ₖ₀
-    expected = [[∫(s->legendrep(k,s)*∫(t->log(z-im*t-(a+b*t)*(1+s))))-∫(s->legendrep(k,s)*∫(t->log(z̃ₛ(z,s)-t))) for k=0:n] for z=zs]
+    expected = [[L(k,0,z,a,b,tol)-∫(s->legendrep(k,s)*∫(t->log(z̃ₛ(z,s)-t),tol),tol) for k=0:n] for z=zs]
     actual = [Oₖ₀²(n,z,a,b) for z=zs]
-    @test expected≈actual atol=tol
+    @test expected≈actual atol=rtol
 end
 
-function test_Oⱼ²(n,a,b,zs,tol=1e-3)
+function test_Oⱼ²(n,a,b,zs,tol=1e-3,rtol=1e-3)
     zs = get_zs_(zs,a,b)
-    expected = [[∫(s->∫(t->legendrep(j,t)*log(z-im*t-(a+b*t)*(1+s))))-∫(s->∫(t->legendrep(j,t)*log(z̃ₛ(z,s)-t))) for j=0:n] for z=zs]
+    expected = [[L(0,j,z,a,b,tol)-∫(s->∫(t->legendrep(j,t)*log(z̃ₛ(z,s)-t),tol),tol) for j=0:n] for z=zs]
     actual = [O₀ⱼ²(n,z,Oₖ₀²(0,z,a,b)[1]) for z=zs]
-    @test expected≈actual atol=tol
+    @test expected≈actual atol=rtol
 end
