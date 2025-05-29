@@ -100,7 +100,7 @@ function logbsi_(k,z,a,b)
 end
 
 #TODO: duplicated code in BaseCases.jl:s₀ⱼ
-# Computes ∫Pⱼ(t)log(z-2a-(2b+i)t)dt
+# Computes ∫Pₖ(t)log(z-2a-(2b+i)t)dt
 function neg_get_m_vec(k,z,a,b)
     L = get_l_vec((z-2a)/(2b+im),k)
     L[1] += 2*log(2b+im)
@@ -122,14 +122,13 @@ end
 # Defining Lₖⱼ⁽¹⁾(z):=∫Pⱼ(t)Lₖ(z̃ₜ)dt
 # Defining Lₖⱼ⁽²⁾(z):=∫Pₖ(t)Lₛ(z̃ₛ)ds
 # Lₖ(z):=∫Pₖ(s)log(z-s)ds
-
 # L₀ⱼ⁽¹⁾: ∫Pⱼ(t)L₀(z̃ₜ)dt
 function l₀ⱼ(j,z,a,b,l₀)
     l = fill(0.0+0.0im,j+1)
     ls = l̃₀ⱼ(j+1,z,a,b)
     l[1] = l₀
     if j==0
-        return L
+        return l
     end
     l[2] = (ls[1]-a*l₀)/b
     for j_=2:j
@@ -139,7 +138,19 @@ function l₀ⱼ(j,z,a,b,l₀)
 end
 
 # Lₖ₀⁽²⁾:∫Pₖ(s)L₀(z̃ₛ)ds
-function lₖ₀(k,z,a,b)
+# TODO: Duplication between lₖ₀ and l₀ⱼ
+function lₖ₀(k,z,a,b,l₀)
+    l = fill(0.0+0.0im,k+1)
+    ls = l̃ₖ₀(k+1,z,a,b)
+    l[1] = l₀
+    if k==0
+        return l
+    end
+    l[2] = (ls[1]-(b+im)*l₀)/b
+    for k_=2:k
+        l[k_+1]=((2k_-1)*(ls[k_]-(b+im)*l[k_])-b*(k_-1)*l[k_-1])/(b*k_)
+    end
+    return l
     0
 end
 
@@ -184,6 +195,40 @@ function l̃ₖ₀(k,z,a,b)
     L[2:k+1] = ((z-a+b+im)*M₊[2:k+1]-(a-b)*(k₋[2:k+1].*M₊[1:k]+k₊[2:k+1].*M₊[3:k+2])
                 -(z-a-b-im)*M₋[2:k+1]+(a+b)*(k₋[2:k+1].*M₋[1:k]+k₊[2:k+1].*M₋[3:k+2]))
     L
+end
+
+function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
+    L = Array{ComplexF64}(undef,k+1,j+1)
+    # Get offsets:
+    Oⱼ₁ = O₀ⱼ¹(j,a,b)
+    Oₖ₂, Oⱼ₂ = O²(k,j,z,a,b)
+
+    # Fill in base axis where in (1)
+    L[1,:] = l₀ⱼ(j,z,a,b,l₀₀¹)
+    l₀ⱼ² = L[1,:] + Oⱼ₁ - Oⱼ₂
+    L[2:k+1,1] = lₖ₀(k,z,a,b,l₀₀²)[2:k+1] + Oₖ₂[2:k+1]
+    # Find L₁₁
+    γ = logabt(1,a,b)
+    pos_m = get_m_vec(z,2)
+    neg_m = neg_get_m_vec(1,z,a,b)
+    # λ will be ∫λ₀(z̃ₜ)*(a+bt) as described in the report
+    λ = 2*(a-z)*γ[1]+2*(im+b)*γ[2]+z*pos_m[1]+(z-2a)*neg_m[1]-im*pos_m[2]-(2b+im)*neg_m[2]
+    L[2,2] = ((z-a)*l₀₀¹-2a*L[2,1]-λ-(b+im)*L[1,2])/(2b)
+
+    r₋ = [(i-1)/(2i+1) for i=0:max(k,j)+1]
+    r₊ = [(i+2)/(2i+1) for i=0:max(k,j)+1]
+    q₋ = [i/(2i+1) for i=0:max(k,j)+1]
+    q₊ = [(i+1)/(2i+1) for i=0:max(k,j)+1]
+    # Fill in row lₖ₁
+    if k>1
+        L[3,2] = ((z-a)*L[2,1]-(b+im)*L[2,2]-a*(L[3,1]-4/3))/b
+        for k_=3:k
+            L[k_+1,2] = ((z-a)*L[k_,1]-(b+im)*L[k_,2]
+                         -a*(r₋[k_-1]*L[k_-1,1]+r₊[k_-1]*L[k_+1,1])
+                         -b*r₋[k_-1]*L[k_-1,2])/(b*r₊[k_-1])
+        end
+    end
+    return L
 end
 
 # Must be such that a,b does not cross 0 or a branch cut
