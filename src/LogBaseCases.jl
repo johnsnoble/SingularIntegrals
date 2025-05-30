@@ -120,7 +120,7 @@ end
 
 
 # Defining Lₖⱼ⁽¹⁾(z):=∫Pⱼ(t)Lₖ(z̃ₜ)dt
-# Defining Lₖⱼ⁽²⁾(z):=∫Pₖ(t)Lₛ(z̃ₛ)ds
+# Defining Lₖⱼ⁽²⁾(z):=∫Pₖ(t)Lⱼ(z̃ₛ)ds
 # Lₖ(z):=∫Pₖ(s)log(z-s)ds
 # L₀ⱼ⁽¹⁾: ∫Pⱼ(t)L₀(z̃ₜ)dt
 function l₀ⱼ(j,z,a,b,l₀)
@@ -219,13 +219,23 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
     r₊ = [(i+2)/(2i+1) for i=0:max(k,j)+1]
     q₋ = [i/(2i+1) for i=0:max(k,j)+1]
     q₊ = [(i+1)/(2i+1) for i=0:max(k,j)+1]
-    # Fill in row lₖ₁
+    # Fill in column lₖ₁
     if k>1
         L[3,2] = ((z-a)*L[2,1]-(b+im)*L[2,2]-a*(L[3,1]-4/3))/b
         for k_=3:k
             L[k_+1,2] = ((z-a)*L[k_,1]-(b+im)*L[k_,2]
                          -a*(r₋[k_-1]*L[k_-1,1]+r₊[k_-1]*L[k_+1,1])
                          -b*r₋[k_-1]*L[k_-1,2])/(b*r₊[k_-1])
+        end
+    end
+
+    # Fill in row l₁ⱼ
+    if j>1
+        L[2,3] = ((z-a)*l₀ⱼ²[2]-a*L[2,2]-(b+im)*(l₀ⱼ²[3]-4/3))/b
+        for j_=3:j
+            L[2,j_+1] = ((z-a)*l₀ⱼ²[j_]-a*L[2,j_]
+                         -(b+im)*(r₋[j_]*l₀ⱼ²[j_-1]+r₊[j_]*l₀ⱼ²[j_+1])
+                         -b*r₋[j_]*L[2,j_-1])/(b*r₊[j_])
         end
     end
     return L
