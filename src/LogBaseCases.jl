@@ -207,8 +207,8 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
     # Fill in base axis where in (1)
     L[1,:] = l₀ⱼ(j,z,a,b,l₀₀¹)
     l₀ⱼ² = L[1,:] + Oⱼ₁ - Oⱼ₂
+    # Convert into type (1)
     L[2:k+1,1] = lₖ₀(k,z,a,b,l₀₀²)[2:k+1] + Oₖ₂[2:k+1]
-    L[:,1] = lₖ₀(k,z,a,b,l₀₀²)
     # Find L₁₁
     γ = logabt(1,a,b)
     pos_m = get_m_vec(z,2)
@@ -224,8 +224,8 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
         L[3,2] = ((z-a)*L[2,1]-(b+im)*L[2,2]-a*(L[3,1]-4/3))/b
         for k_=3:k
             L[k_+1,2] = ((z-a)*L[k_,1]-(b+im)*L[k_,2]
-                         -a*(r₋[k_-1]*L[k_-1,1]+r₊[k_-1]*L[k_+1,1])
-                         -b*r₋[k_-1]*L[k_-1,2])/(b*r₊[k_-1])
+                         -a*(r₋[k_]*L[k_-1,1]+r₊[k_]*L[k_+1,1])
+                         -b*r₋[k_]*L[k_-1,2])/(b*r₊[k_])
         end
     end
 
@@ -262,6 +262,8 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
                                  +r₊[k_]*q₋[j_]*L[k_+1,j_-1]))/(b*r₊[k_]*q₊[j_])
         end
     end
+
+    # TODO: Add offsets on the end
     return L
 end
 
