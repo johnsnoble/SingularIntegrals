@@ -198,7 +198,8 @@ function l̃ₖ₀(k,z,a,b)
 end
 
 function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
-    L = Array{ComplexF64}(undef,k+1,j+1)
+    # L = Array{ComplexF64}(undef,k+1,j+1)
+    L = fill(0.0+0.0im,k+1,j+1)
     # Get offsets:
     Oⱼ₁ = O₀ⱼ¹(j,a,b)
     Oₖ₂, Oⱼ₂ = O²(k,j,z,a,b)
@@ -207,6 +208,7 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
     L[1,:] = l₀ⱼ(j,z,a,b,l₀₀¹)
     l₀ⱼ² = L[1,:] + Oⱼ₁ - Oⱼ₂
     L[2:k+1,1] = lₖ₀(k,z,a,b,l₀₀²)[2:k+1] + Oₖ₂[2:k+1]
+    L[:,1] = lₖ₀(k,z,a,b,l₀₀²)
     # Find L₁₁
     γ = logabt(1,a,b)
     pos_m = get_m_vec(z,2)
@@ -242,12 +244,24 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
     end
 
     # Fill in L_[3,3]
-    L[3,3] = 3*((z-a)*L[2,2]-(b+im)*(L[2,1]+2*L[2,3])/3+4*b/9
-              -a*L[3,2]-b*L[3,1]/3)/2b
+    # L[3,3] = 3*((z-a)*L[2,2]-(b+im)*(L[2,1]+2*L[2,3])/3+4*b/9
+    #           -a*L[3,2]-b*L[3,1]/3)/2b
 
     q₋ = [i/(2i+1) for i=0:max(k,j)+1]
     q₊ = [(i+1)/(2i+1) for i=0:max(k,j)+1]
+
+    L[3,3] = 2/3
+    # Important that everything is initialised to 0
     # Fill in rest 
+    for k_=2:k
+        for j_=2:j
+            L[k_+1,j_+1] += ((z-a)*L[k_,j_]-(b+im)*(q₋[j_]*L[k_,j_-1]+q₊[j_]*L[k_,j_+1])
+                             -a*(r₋[k_]*L[k_-1,j_]+r₊[k_]*L[k_+1,j_])
+                             -b*(r₋[k_]*q₋[j_]*L[k_-1,j_-1]
+                                 +r₋[k_]*q₊[j_]*L[k_-1,j_+1]
+                                 +r₊[k_]*q₋[j_]*L[k_+1,j_-1]))/(b*r₊[k_]*q₊[j_])
+        end
+    end
     return L
 end
 
