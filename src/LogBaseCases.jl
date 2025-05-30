@@ -217,8 +217,6 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
 
     r₋ = [(i-1)/(2i+1) for i=0:max(k,j)+1]
     r₊ = [(i+2)/(2i+1) for i=0:max(k,j)+1]
-    q₋ = [i/(2i+1) for i=0:max(k,j)+1]
-    q₊ = [(i+1)/(2i+1) for i=0:max(k,j)+1]
     # Fill in column lₖ₁
     if k>1
         L[3,2] = ((z-a)*L[2,1]-(b+im)*L[2,2]-a*(L[3,1]-4/3))/b
@@ -238,6 +236,18 @@ function l_base(k,j,z,a,b,l₀₀¹,l₀₀²)
                          -b*r₋[j_]*L[2,j_-1])/(b*r₊[j_])
         end
     end
+
+    if (k<=1) | (j<=1)
+        return L
+    end
+
+    # Fill in L_[3,3]
+    L[3,3] = 3*((z-a)*L[2,2]-(b+im)*(L[2,1]+2*L[2,3])/3+4*b/9
+              -a*L[3,2]-b*L[3,1]/3)/2b
+
+    q₋ = [i/(2i+1) for i=0:max(k,j)+1]
+    q₊ = [(i+1)/(2i+1) for i=0:max(k,j)+1]
+    # Fill in rest 
     return L
 end
 

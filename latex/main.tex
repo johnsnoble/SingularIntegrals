@@ -617,6 +617,25 @@ Now we have a situation where we have all values of $\tilde{s}_kj$ but no values
 The basic idea to recover all $s_{kj}$ was by adding consecutive rows together:
 $$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\alpha+\beta t}P_j(t)s_k(\tilde{z}_t)dt=\alpha\tilde{s}_{kj}+\beta\tilde{s}_{kj+1}$$
 
+\section{Log kernel}
+\subsection{Recurrences}
+\subsubsection{Case 1: $k,j>1$}
+\begin{align}
+    zL_{kj} &= \int_{-1}^1zP_j(t)L_k(\tilde{z}_t)dt\\
+    &= \int_{-1}^1(z-\alpha-(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt
+    +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
+    &= \int_{-1}^1(\alpha+\beta t)\frac{z-it-(\alpha+\beta t)}{\alpha+\beta t}P_j(t)L_k(\tilde{z}_t)dt
+    +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
+    &= \int_{-1}^1(\alpha+\beta t)P_j(t)\tilde{z}_tL_k(\tilde{z}_t)dt
+    +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
+    &= \int_{-1}^1(\alpha+\beta t)P_j(t)(k_-^LL_{k-1}(\tilde{z}_t)+k_+^LL_{k+1}(\tilde{z}_t)-\frac{2}{3}\delta_{k1})dt\\
+    &+\alpha L_{kj}+(\beta+i)(j_-L_{kj-1}+j_+L_{kj+1})\\
+    &=\alpha(k_-^LL_{k-1j}+k_+^LL_{k+1j})+
+    \beta(k_-^Lj_-L_{k-1j-1}+k_-^Lj_+L_{k-1j+1}\\
+    &+k_+^Lj_-L_{k+1j-1}+k_+^Lj_+L_{k+1j+1})+\alpha L_{kj}+(\beta+i)(j_-L_{kj-1}+j_+L_{kj+1})\\
+    &-\frac{2\beta}{3}\frac{1}{3}2\delta_{k1}\delta_{j1}
+\end{align}
+
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
 In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
