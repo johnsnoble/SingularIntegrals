@@ -1,6 +1,6 @@
 module Common
 using ClassicalOrthogonalPolynomials, PolyLog
-export clog, zlog, L0, L1, M0, M1, get_l_vec, get_m_vec, m_const, m_recurrence
+export clog, zlog, L0, L1, M0, M1, get_l_vec, get_m_vec, m_const, m_recurrence, legendreInt
 
 clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
@@ -69,5 +69,8 @@ end
 function m_recurrence(m_, zm, k, c=0)
     (zm-(im*(k-1)/(2k+1))*m_-c)*(-im*(2k+1)/(k+2))
 end
+
+# Returns ∫ₓ¹Pₖ(x)dx
+legendreInt(k,x) = (k==0 ? 1-x : ultrasphericalc(k+1,-0.5,x))
 
 end
