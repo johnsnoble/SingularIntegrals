@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  31 MAY 2025 18:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  31 MAY 2025 19:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -262,18 +262,24 @@ Package pdftex.def Info: ./images//s00.png  used on input line 591.
 (pdftex.def)             Requested size: 172.5pt x 168.60336pt.
  [21 <./images//s00.png>] [22]
 [23]
-Overfull \hbox (21.81856pt too wide) detected at line 687
+<./images//ok2.png, id=99, 444.66125pt x 676.5275pt>
+File: ./images//ok2.png Graphic file (type png)
+<use ./images//ok2.png>
+Package pdftex.def Info: ./images//ok2.png  used on input line 663.
+(pdftex.def)             Requested size: 172.5pt x 262.45105pt.
+ [24 <./images//ok2.png>]
+Overfull \hbox (21.81856pt too wide) detected at line 706
 []
  []
 
-[24]
+[25]
 Missing character: There is no c in font msbm10!
-[25] (./main.aux) ) 
+[26] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2763 strings out of 478287
- 44303 string characters out of 5849289
- 356918 words of memory out of 5000000
- 20944 multiletter control sequences out of 15000+600000
+ 2774 strings out of 478287
+ 44503 string characters out of 5849289
+ 355918 words of memory out of 5000000
+ 20955 multiletter control sequences out of 15000+600000
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,17n,62p,324b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -292,10 +298,10 @@ ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b>
-Output written on main.pdf (25 pages, 359984 bytes).
+Output written on main.pdf (26 pages, 385245 bytes).
 PDF statistics:
- 170 PDF objects out of 1000 (max. 8388607)
- 103 compressed objects within 2 object streams
+ 175 PDF objects out of 1000 (max. 8388607)
+ 105 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
