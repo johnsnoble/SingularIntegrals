@@ -618,10 +618,60 @@ The basic idea to recover all $s_{kj}$ was by adding consecutive rows together:
 $$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\alpha+\beta t}P_j(t)s_k(\tilde{z}_t)dt=\alpha\tilde{s}_{kj}+\beta\tilde{s}_{kj+1}$$
 
 \section{Log kernel}
+Now we move onto solving over the 2d log kernel.
+This is a more useful version of the stieltjes case as we are able to use this to solve the poisson PDE:
+\begin{align}
+    \Delta u(\textbf{x}) &= f(\textbf{x})\:\textbf{x}\in\Omega\\
+    u(\textbf{x}) &= g(\textbf{x}), \textbf{x}\in\partial\Omega\\
+    \partial_nu(\textbf{x}) &= h(\textbf{x}), \textbf{x}\in\partial\Omega
+\end{align}
+
+In this section we will be trying to solve the following which is similar from the previous Stieltjes kernel:
+$$L_{kj}=\int_{-1}^1(\alpha+\beta t)\int_{-1}^1P_k(s)P_j(t)log(z-it-(\alpha+\beta t)(1+s))dsdt$$
+Again it is useful to simplify this to solve:
+$$\tilde{L}_{kj} = \int_{-1}^1\int_{-1}^1P_k(s)P_j(t)log(z-it-(\alpha+\beta t)(1+s))dsdt$$
+Recovering $L_{kj}$ is as simple as:
+\begin{align}
+    L_{kj}&=\alpha \tilde{L}_{kj} + \beta\int_{-1}^1\int_{-1}^1tP_j(t)P_k(s)log(z-it-(\alpha+\beta t)(1+s))dsdt\\
+    j=0 &\implies L_{k0}=\alpha\tilde{L}_{k0}+\beta\tilde{L}_{k1}\\
+    j>0 &\implies L_{kj}=\alpha\tilde{L}_{kj}+\beta(\frac{j}{2j+1}\tilde{L}_{kj}+\frac{j+1}{2j+1}\tilde{L}_{kj})\\
+\end{align}
+Even with this simplification we will see that there are further useful simplifications we can do to uncover the recurrence relations.
+The motivation is that we need some sort of recurrence to relate to this log transform and a suitable relation to use is $L_k(z):=\int_{-1}^1P_k(s)log(z-s)ds$.
+However, in order to use this we need to bring $L_{kj}$ into a similar format:
+\begin{align}
+    log(z-it-(\alpha+\beta t)(1+s))&=log((\alpha+\beta t)\frac{z-it}{\alpha+\beta t}-1-s)\\
+    &=log(\alpha+\beta t)+log(\frac{z-it}{\alpha+\beta t}-1-s)\\
+    &=log(\alpha+\beta t)+log(\tilde{z}_t-s)
+\end{align}
+Now integrating over $s$ allows us to use the $L_k$ recurrences.
+We can attempt a similar thing if we want to integrate over the $t$ instead:
+\begin{align}
+    log(z-it-(\alpha+\beta t)(1+s))&=log(z-it-\alpha(1+s)-t\beta(1+s))\\
+    &=log(z-(\beta(1+s)+i)t-\alpha(1+s))\\
+    &=log((\beta(1+s)+i)\frac{z-\alpha(1+s)}{\beta(1+s)+i})\\
+    &=log((\beta(1+s)+i)\tilde{z}_s)
+\end{align}
+
+This is where we run into an issue of branch cuts 
+
 \subsection{Recurrences}
+\subsubsection{Note on notation}
+We will be continuing with the convention of representing the 3 term recurrence constants as follows:
+$$tP_j(t)=j_-P_{j-1}(t)+j_+P_{j+1}$$
+To add onto this we will be using a recurrence relation of $L_k(z)$ as follows:
+\begin{align}
+    zL_k(z) &= \frac{k-1}{2k+1}L_{k-1}(z)+\frac{k+2}{2k+1}L_{k+1}(z)+\lambda_k(z)\\
+    :&= k_-^LL_{k-1}(z)+k_+^LL_{k+1}(z)+\lambda_k(z)\\
+    \lambda_k(z) &= \begin{cases}
+	(z-1)log(z-1)+(z+1)log(z+1),&k=0\\
+	-2/3,&k=1\\
+	0,&\text{otherwise}
+    \end{cases}
+\end{align}
 \subsubsection{Case 1: $k,j>1$}
 \begin{align}
-    zL_{kj} &= \int_{-1}^1zP_j(t)L_k(\tilde{z}_t)dt\\
+    z\tilde{L}_{kj} &= \int_{-1}^1zP_j(t)L_k(\tilde{z}_t)dt\\
     &= \int_{-1}^1(z-\alpha-(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt
     +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
     &= \int_{-1}^1(\alpha+\beta t)\frac{z-it-(\alpha+\beta t)}{\alpha+\beta t}P_j(t)L_k(\tilde{z}_t)dt
@@ -629,12 +679,14 @@ $$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\a
     &= \int_{-1}^1(\alpha+\beta t)P_j(t)\tilde{z}_tL_k(\tilde{z}_t)dt
     +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
     &= \int_{-1}^1(\alpha+\beta t)P_j(t)(k_-^LL_{k-1}(\tilde{z}_t)+k_+^LL_{k+1}(\tilde{z}_t)-\frac{2}{3}\delta_{k1})dt\\
-    &+\alpha L_{kj}+(\beta+i)(j_-L_{kj-1}+j_+L_{kj+1})\\
-    &=\alpha(k_-^LL_{k-1j}+k_+^LL_{k+1j})+
-    \beta(k_-^Lj_-L_{k-1j-1}+k_-^Lj_+L_{k-1j+1}\\
-    &+k_+^Lj_-L_{k+1j-1}+k_+^Lj_+L_{k+1j+1})+\alpha L_{kj}+(\beta+i)(j_-L_{kj-1}+j_+L_{kj+1})\\
+    &+\alpha \tilde{L}_{kj}+(\beta+i)(j_-\tilde{L}_{kj-1}+j_+\tilde{L}_{kj+1})\\
+    &=\alpha(k_-^L\tilde{L}_{k-1j}+k_+^L\tilde{L}_{k+1j})+
+    \beta(k_-^Lj_-\tilde{L}_{k-1j-1}+k_-^Lj_+\tilde{L}_{k-1j+1}\\
+    &+k_+^Lj_-\tilde{L}_{k+1j-1}+k_+^Lj_+\tilde{L}_{k+1j+1})+\alpha \tilde{L}_{kj}+(\beta+i)(j_-\tilde{L}_{kj-1}+j_+\tilde{L}_{kj+1})\\
     &-\frac{2\beta}{3}\frac{1}{3}2\delta_{k1}\delta_{j1}
 \end{align}
+
+\subsubsection{Case 2: $k=0$}
 
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
