@@ -4,6 +4,7 @@
 \usepackage{graphicx} % Required for inserting images
 \graphicspath{ {./images/} }
 \usepackage{mathtools}
+\allowdisplaybreaks
 
 \mathtoolsset{showonlyrefs}
 
@@ -647,6 +648,28 @@ However, in order to use this we need to bring $L_{kj}$ into a similar format:
     &=log(\alpha+\beta t)+log(\tilde{z}_t-s)
 \end{align}
 Now integrating over $s$ allows us to use the $L_k$ recurrences.
+Plugging this into our original equation for $\tilde{L}_{kj}$ denoting $b_{kj}=P_k(s)P_j(t)$ for ease:
+\begin{align}
+    \tilde{L}_{kj}&=\int_{-1}^1\int_{-1}^1b_{kj}log(z-it-(\alpha+\beta t)(1+s))dsdt\\
+    &=\int_{-1}^1\int_{-1}^1b_{kj}(log(\alpha+\beta t)+log(\tilde{z}_t-s))dsdt\\
+    &=\int_{-1}^12P_j(t)log(\alpha+\beta t)\delta_{k0}dt+\int_{-1}^1P_j(t)L_k(\tilde{z}_t)dt\\
+    &=\int_{-1}^12P_j(t)log(\alpha+\beta t)\delta_{k0}dt+L_{kj}^1(z)\\
+    O_{kj}^1:&=\tilde L_{kj}-L_{kj}^1=2\int_{-1}^1P_j(t)log(\alpha+\beta t)\delta_{k0}dt\\
+    &=2\delta_{k0}\int_{-1}^1P_j(t)(log(\beta)+log(\frac{\alpha}{\beta}+t))dt\\
+    &=2\delta_{k0}(2log(\beta)\delta_{j0}+\begin{cases}
+	\int_{-1}^1P_j(t)log(\frac{\alpha}{\beta}-t)dt=L_j(\alpha/\beta),&j\text{ even}\\
+	\int_{-1}^1-P_j(t)log(\frac{\alpha}{\beta}-t)dt=-L_j(\alpha/\beta),&j\text{ odd}
+    \end{cases})\\
+\end{align}
+Breaking this down gives us the following:
+$$
+O_{kj}^1=\begin{cases}
+    4log(\beta)+2L_0(\alpha/\beta),&k,j=0,0\\
+    2L_j(\alpha/\beta),&k=0,j>0,j\text{ even}\\
+    -2L_j(\alpha/\beta),&k=0,j>0,j\text{ odd}\\
+\end{cases}
+$$
+The usefulness of this is that we can now convert between solving recurrences on $\tilde L_{kj}$ and $L_{kj}^1$.
 We can attempt a similar thing if we want to integrate over the $t$ instead:
 \begin{align}
     log(z-it-(\alpha+\beta t)(1+s))&=log(z-it-\alpha(1+s)-t\beta(1+s))\\
@@ -660,10 +683,22 @@ We will see how to deal with these and decompose $log((\beta(1+s)+i)\tilde{z}_s)
 With our initial expression $log(z-it-(\alpha+\beta t)(1+s)$ we can rearrange into $log(z-\alpha(1+s)-(\beta (1+s)+i)t)$.
 Fixing $s$, shows that $t$ parameterises a diagonal line on the complex plane in the direction $\beta(1+s)+i$ centered on $z-(1+s)\alpha$ as you can see from the diagram below.
 
-\begin{center}\includegraphics[width=\textwidth/2]{ok2}\end{center}
-
+\begin{center}\includegraphics[width=0.75\textwidth]{ok2}\end{center}
 It is possible to think of changing the value of $s$ as moving the line while it pivots around that intersection.
 It is simple to compute the value of that intersection and establish cases for computing branch cuts depending on our value of $z$.
+We can do this by taking two values $s$, $s'$ and trying to find $t$ such that the real component is the same:
+\begin{align}
+    Re(z)-\alpha(1+s)-\beta(1+s)t&=Re(z)-\alpha(1+s')-\beta(1+s')t\\
+    -\alpha s-\beta st&=-\alpha s'-\beta s't\\
+    \alpha(s'-s)&=\beta(s-s')t \implies t=-\frac{\alpha}{\beta}
+\end{align}
+Also, it is neccessary to compute a value of "$s$" of the origin relative to $z$ to reason about which case we should follow:
+\begin{align}
+    z-\alpha(1+s^*)-(\beta(1+s^*)+i)t&=0\\
+    Im(z)-t=0 &\implies t=Im(z)\\
+    Re(z)-(\alpha+\beta t)(1+s^*)&=0\\
+    \frac{Re(z)}{\alpha+\beta t}=\frac{Re(z)}{\alpha+\beta Im(z)}&=s^*+1
+\end{align}
 To consider cases of branch cuts, we think about points where we can place the origin relative to this $z$.
 Since we cannot have our $z$ in the trapezium, we will restrict ourselves to placing the origin in areas such that the $z$ is outside the trapezium.
 Therefore we cannot place our origin in this greyed out region.
@@ -671,8 +706,45 @@ Therefore we cannot place our origin in this greyed out region.
 \begin{align}
     Im(z)>1 &\implies arg(z) \in (0,\pi), \: arg(b+(1+s)i) \in (0,\frac{\pi}{2})\\
     &\implies arg(z)-arg(b+(1+s)i) > 0-\frac{\pi}{2} > -\pi\\
-    \text{and}& arg(z)-arg(b+(1+s)i)<\pi-0<\pi
+    \text{and }& arg(z)-arg(b+(1+s)i)<\pi-0<\pi
 \end{align}
+
+\subsubsection{Case 2: $s^*>1$ and $Im(z)\in[-\frac{\alpha}{\beta},1]$}
+TODO: Can use proof similar to case 5.
+In this case we have the origin in the left green region.
+This means that no paths crosses the branch cut and if at all we cross in the positive real numbers, which trivially lets us infer there is no branch cut issues here
+
+\subsubsection{Case 3: $Im(z)<-\frac{\alpha}{\beta}$ and $Re(z)>0$}
+TODO: Show proof that there is no branch cut crossing here
+
+\subsubsection{Case 4: $Re(z)<0$ and $Im(z)\in(-1,1)$}
+We have that for all $s$, the integral crosses the branch cut at $t^*=Im(z)$.
+Since the operation of dividing by $b(1+s)+i$ rotates the integral onto a flat line, we have that for all $s$, each integral is lifted over the branch cut.
+Therefore we compensate by the correction: $-2\pi i\mathbb{I}\{t>t^*\}$
+
+\subsubsection{Case 5: $s^*\in(-1,1)$ and $Im(z)>-\frac{\alpha}{\beta}$}
+TODO: Make sure earlier section explains this and link to it
+Letting $x^*$ be where the line of the integral crosses the real axis:
+\begin{align}
+    Im(z-(\alpha+\beta t)(1+s)-it)&=0\\
+    Im(z)-t=0\implies &t=Im(z)\\
+    x^*=Re(z)-(\alpha+\beta Im(z))(1+s)&=(\alpha+\beta Im(z))(s^*-s)\\
+    Im(z)>-\frac{\alpha}{\beta}&\implies (x^*<0 \iff s^*<s)
+\end{align}
+Given the earlier theorem, we have that if $s>s^*$ we can say that the whole interval for that $s$ has crossed the branch cut and therefore, we compensate with the correction:$-2\pi i\mathbb{I}\{s>s^*\}$ for all $t$.
+
+\subsubsection{Case 6: $Im(z)\in(-\frac{\alpha}{\beta},-1)$ and $Re(z)<0$}
+This is similar to Case 5 except here we can almost think of the origin having an $s^*$ value lower than -1, meaning that all the intervals of $s$ are lifted completely above the branch crossing.
+We can use the $-2\pi i$ correction for every $s,t$ in our integration.
+
+\subsubsection{Case 7: $Im(z)<-\frac{\alpha}{\beta}$ and $s^*\in(-1,1)$}
+Also similar to case 5 except reversed.
+We will begin with the result from case 5:
+\begin{align}
+    x^*=Re(z)-(\alpha+\beta Im(z))(1+s)&=(\alpha+\beta Im(z))(s^*-s)\\
+    Im(z)<-\frac{\alpha}{\beta}&\implies (x^*<0 \iff s^*>s)
+\end{align}
+The correction term here is then $-2\pi i\mathbb{I}\{s<s^*\}$
 
 \subsection{Recurrences}
 \subsubsection{Note on notation}

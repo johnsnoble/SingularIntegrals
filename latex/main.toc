@@ -13,17 +13,23 @@
 \contentsline {subsubsection}{\numberline {5.1.3}Case 3: $j=1$}{11}{}%
 \contentsline {subsubsection}{\numberline {5.1.4}Issue with branch cuts}{11}{}%
 \contentsline {subsubsection}{\numberline {5.1.5}Case 4: $k=0$}{18}{}%
-\contentsline {subsubsection}{\numberline {5.1.6}Case 5: $j=0$}{19}{}%
-\contentsline {subsubsection}{\numberline {5.1.7}Case 6: $k,j=0,0$}{20}{}%
-\contentsline {subsubsection}{\numberline {5.1.8}Recovery of $s_{kj}$}{22}{}%
-\contentsline {section}{\numberline {6}Log kernel}{22}{}%
-\contentsline {subsection}{\numberline {6.1}Useful rearrangements}{23}{}%
-\contentsline {subsubsection}{\numberline {6.1.1}Case 1: $Im(z)>1$}{24}{}%
-\contentsline {subsection}{\numberline {6.2}Recurrences}{25}{}%
-\contentsline {subsubsection}{\numberline {6.2.1}Note on notation}{25}{}%
-\contentsline {subsubsection}{\numberline {6.2.2}Case 1: $k,j>1$}{25}{}%
-\contentsline {subsubsection}{\numberline {6.2.3}Case 2: $k=0$}{25}{}%
-\contentsline {section}{\numberline {7}Transformation}{25}{}%
-\contentsline {subsection}{\numberline {7.1}Translation}{26}{}%
-\contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{26}{}%
-\contentsline {section}{\numberline {8}Larger Meshes}{26}{}%
+\contentsline {subsubsection}{\numberline {5.1.6}Case 5: $j=0$}{18}{}%
+\contentsline {subsubsection}{\numberline {5.1.7}Case 6: $k,j=0,0$}{19}{}%
+\contentsline {subsubsection}{\numberline {5.1.8}Recovery of $s_{kj}$}{21}{}%
+\contentsline {section}{\numberline {6}Log kernel}{21}{}%
+\contentsline {subsection}{\numberline {6.1}Useful rearrangements}{22}{}%
+\contentsline {subsubsection}{\numberline {6.1.1}Case 1: $Im(z)>1$}{25}{}%
+\contentsline {subsubsection}{\numberline {6.1.2}Case 2: $s^*>1$ and $Im(z)\in [-\frac {\alpha }{\beta },1]$}{25}{}%
+\contentsline {subsubsection}{\numberline {6.1.3}Case 3: $Im(z)<-\frac {\alpha }{\beta }$ and $Re(z)>0$}{25}{}%
+\contentsline {subsubsection}{\numberline {6.1.4}Case 4: $Re(z)<0$ and $Im(z)\in (-1,1)$}{25}{}%
+\contentsline {subsubsection}{\numberline {6.1.5}Case 5: $s^*\in (-1,1)$ and $Im(z)>-\frac {\alpha }{\beta }$}{25}{}%
+\contentsline {subsubsection}{\numberline {6.1.6}Case 6: $Im(z)\in (-\frac {\alpha }{\beta },-1)$ and $Re(z)<0$}{26}{}%
+\contentsline {subsubsection}{\numberline {6.1.7}Case 7: $Im(z)<-\frac {\alpha }{\beta }$ and $s^*\in (-1,1)$}{26}{}%
+\contentsline {subsection}{\numberline {6.2}Recurrences}{26}{}%
+\contentsline {subsubsection}{\numberline {6.2.1}Note on notation}{26}{}%
+\contentsline {subsubsection}{\numberline {6.2.2}Case 1: $k,j>1$}{26}{}%
+\contentsline {subsubsection}{\numberline {6.2.3}Case 2: $k=0$}{27}{}%
+\contentsline {section}{\numberline {7}Transformation}{27}{}%
+\contentsline {subsection}{\numberline {7.1}Translation}{27}{}%
+\contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{27}{}%
+\contentsline {section}{\numberline {8}Larger Meshes}{28}{}%
