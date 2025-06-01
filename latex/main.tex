@@ -674,8 +674,23 @@ We can attempt a similar thing if we want to integrate over the $t$ instead:
 \begin{align}
     log(z-it-(\alpha+\beta t)(1+s))&=log(z-it-\alpha(1+s)-t\beta(1+s))\\
     &=log(z-(\beta(1+s)+i)t-\alpha(1+s))\\
-    &=log((\beta(1+s)+i)\frac{z-\alpha(1+s)}{\beta(1+s)+i})\\
-    &=log((\beta(1+s)+i)\tilde{z}_s)
+    &=log((\beta(1+s)+i)(\frac{z-\alpha(1+s)}{\beta(1+s)+i}-t))\\
+    &=log((\beta(1+s)+i)(\tilde{z}_s-t))\\
+    &=log(\beta(1+s)+i)+log(\tilde{z}_s-t)+C(s,t)\\
+    \text{where }&C(s,t)\text{ branch correction term}
+\end{align}
+Plugging back into equation for $\tilde L_{kj}$ gives:
+\begin{align}
+    \tilde L_{kj}&=l\int_{-1}^1\int_{-1}^1b_{kj}log(z-it-(\alpha+\beta t)(1+s))dsdt\\
+    &=\int_{-1}^1\int_{-1}^1b_{kj}(log(\beta(1+s)+i)+C(s,t))+b_{kj}log(\tilde{z}_s-t)dsdt\\
+    &=2\delta_{j0}\int_{-1}^1P_k(s)(log(\beta)+log(\frac{\beta+i}{\beta}+s))ds+\int_{-1}^1P_k(s)L_j(\tilde z_s)ds\\
+    &+\int_{-1}^1\int_{-1}^1b_{kj}C(s,t)dtds\\
+    &=4log(\beta)\delta_{j0}\delta_{k0}+2\delta_{j0}(\begin{cases}
+	L_k(\frac{\beta+i}{\beta}),&k\text{ even}\\
+	-L_k(\frac{\beta+i}{\beta}),&k\text{ odd}\\
+    \end{cases}) + L_{kj}^2\\
+    &+\int_{-1}^1\int_{-1}^1b_{kj}C(s,t)dtds\\
+    O_{kj}^2:&=\tilde L_{kj}-L_{kj}^2
 \end{align}
 
 This is where we run into an issue of branch cuts.
@@ -721,6 +736,11 @@ TODO: Show proof that there is no branch cut crossing here
 We have that for all $s$, the integral crosses the branch cut at $t^*=Im(z)$.
 Since the operation of dividing by $b(1+s)+i$ rotates the integral onto a flat line, we have that for all $s$, each integral is lifted over the branch cut.
 Therefore we compensate by the correction: $-2\pi i\mathbb{I}\{t>t^*\}$
+Going back to finding out correction term we have:
+\begin{align}
+    \int_{-1}^1\int_{-1}^1-2\pi i\mathbb{I}\{t>t^*\}P_k(s)P_j(t)dsdt&=-2\pi i\int_{-1}^12\delta_{k0}P_j(t)\mathbb{I}\{t>t^*\}dt\\
+    &=-4\delta_{k0}\pi i\int_{t^*}^1P_j(t)dt
+\end{align}
 
 \subsubsection{Case 5: $s^*\in(-1,1)$ and $Im(z)>-\frac{\alpha}{\beta}$}
 TODO: Make sure earlier section explains this and link to it
@@ -732,10 +752,16 @@ Letting $x^*$ be where the line of the integral crosses the real axis:
     Im(z)>-\frac{\alpha}{\beta}&\implies (x^*<0 \iff s^*<s)
 \end{align}
 Given the earlier theorem, we have that if $s>s^*$ we can say that the whole interval for that $s$ has crossed the branch cut and therefore, we compensate with the correction:$-2\pi i\mathbb{I}\{s>s^*\}$ for all $t$.
+Yields our final correction term:
+\begin{align}
+    \int_{-1}^1\int_{-1}^1-2\pi i\mathbb{I}\{s>s^*\}P_k(s)P_j(t)dtds&=-2\pi i\int_{-1}^12\delta_{j0}\mathbb{I}\{s>s^*\}P_k(s)ds\\
+    &=-4\delta\pi i\int_{s^*}^1P_k(s)ds
+\end{align}
 
 \subsubsection{Case 6: $Im(z)\in(-\frac{\alpha}{\beta},-1)$ and $Re(z)<0$}
 This is similar to Case 5 except here we can almost think of the origin having an $s^*$ value lower than -1, meaning that all the intervals of $s$ are lifted completely above the branch crossing.
-We can use the $-2\pi i$ correction for every $s,t$ in our integration.
+We can use the $-2\pi i$ correction for every $s,t$ in our integration:
+$$\int_{-1}^1\int_{-1}^1-2\pi iP_k(s)P_j(t)dsdt=-8\pi i\delta_{k0}\delta_{j0}$$
 
 \subsubsection{Case 7: $Im(z)<-\frac{\alpha}{\beta}$ and $s^*\in(-1,1)$}
 Also similar to case 5 except reversed.
@@ -744,7 +770,20 @@ We will begin with the result from case 5:
     x^*=Re(z)-(\alpha+\beta Im(z))(1+s)&=(\alpha+\beta Im(z))(s^*-s)\\
     Im(z)<-\frac{\alpha}{\beta}&\implies (x^*<0 \iff s^*>s)
 \end{align}
-The correction term here is then $-2\pi i\mathbb{I}\{s<s^*\}$
+The correction term here is then $-2\pi i\mathbb{I}\{s<s^*\}$:
+\begin{align}
+    \int_{-1}^1\int_{-1}^1-2\pi i\mathbb{I}\{s<s^*\}P_k(s)P_j(t)dtds&=-2\pi i\int_{-1}^12\delta_{j0}\mathbb{I}\{s<s^*\}P_k(s)ds\\
+    &=-4\delta\pi i\int_{-1}^{s^*}P_k(s)ds
+\end{align}
+
+\subsubsection{Case 8:  $s^*>1$ and $Im(z)<-\frac{\alpha}{\beta}$}
+Also similar to case 5:
+\begin{align}
+    x^*=Re(z)-(\alpha+\beta Im(z))(1+s)&=(\alpha+\beta Im(z))(s^*-s)\\
+    &>(\alpha+\beta Im(z))(1-s)\\
+    (\alpha+\beta Im(z))<0 \& 1-s>0 &\implies x^*<0
+\end{align}
+This means the whole interval must be corrected by $-2\pi i$ for each point and $-8\pi i\delta_{k0}\delta_{j0}$ for the whole interval like in case 6.
 
 \subsection{Recurrences}
 \subsubsection{Note on notation}
