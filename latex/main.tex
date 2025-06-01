@@ -800,8 +800,9 @@ To add onto this we will be using a recurrence relation of $L_k(z)$ as follows:
     \end{cases}
 \end{align}
 \subsubsection{Case 1: $k,j>1$}
+For this case we can use either offsets but we go with working in $L_{kj}^1$
 \begin{align}
-    z\tilde{L}_{kj} &= \int_{-1}^1zP_j(t)L_k(\tilde{z}_t)dt\\
+    zL_{kj}^1 &= \int_{-1}^1zP_j(t)L_k(\tilde{z}_t)dt\\
     &= \int_{-1}^1(z-\alpha-(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt
     +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
     &= \int_{-1}^1(\alpha+\beta t)\frac{z-it-(\alpha+\beta t)}{\alpha+\beta t}P_j(t)L_k(\tilde{z}_t)dt
@@ -809,10 +810,10 @@ To add onto this we will be using a recurrence relation of $L_k(z)$ as follows:
     &= \int_{-1}^1(\alpha+\beta t)P_j(t)\tilde{z}_tL_k(\tilde{z}_t)dt
     +\int_{-1}^1(\alpha+(\beta+i)t)P_j(t)L_k(\tilde{z}_t)dt\\
     &= \int_{-1}^1(\alpha+\beta t)P_j(t)(k_-^LL_{k-1}(\tilde{z}_t)+k_+^LL_{k+1}(\tilde{z}_t)-\frac{2}{3}\delta_{k1})dt\\
-    &+\alpha \tilde{L}_{kj}+(\beta+i)(j_-\tilde{L}_{kj-1}+j_+\tilde{L}_{kj+1})\\
-    &=\alpha(k_-^L\tilde{L}_{k-1j}+k_+^L\tilde{L}_{k+1j})+
-    \beta(k_-^Lj_-\tilde{L}_{k-1j-1}+k_-^Lj_+\tilde{L}_{k-1j+1}\\
-    &+k_+^Lj_-\tilde{L}_{k+1j-1}+k_+^Lj_+\tilde{L}_{k+1j+1})+\alpha \tilde{L}_{kj}+(\beta+i)(j_-\tilde{L}_{kj-1}+j_+\tilde{L}_{kj+1})\\
+    &+\alpha L_{kj}^1+(\beta+i)(j_-L_{kj-1}^1+j_+L_{kj+1}^1)\\
+    &=\alpha(k_-^LL_{k-1j}^1+k_+^LL_{k+1j}^1)+
+    \beta(k_-^Lj_-L_{k-1j-1}^1+k_-^Lj_+L_{k-1j+1}^1\\
+    &+k_+^Lj_-L_{k+1j-1}^1+k_+^Lj_+L_{k+1j+1}^1)+\alpha L_{kj}^1+(\beta+i)(j_-L_{kj-1}^1+j_+L_{kj+1}^1)\\
     &-\frac{2\beta}{3}\frac{1}{3}2\delta_{k1}\delta_{j1}
 \end{align}
 
