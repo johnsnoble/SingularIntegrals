@@ -923,6 +923,42 @@ The kernel of the stieltjes integral is in the form of $z-x(s,t)-it$ in the gene
 This means that we can multiply this thie region of $x(s,t)-it$ by $\lambda\in\mathbb{c}$
 The real component of this value contributes to the scaling and the complex component the rotation.
 We can therefore rewrite the scaled $s_{kj}(z)$ as $\frac{1}{\lambda}s_{kj}(\frac{z}{\lambda})$
+
+\section{Boundary Conditions}
+Now we have all the tools to be able to solve the poisson equation: $\Delta u=f$ for any arbritary function $f$ by convolving its green's function ($\frac{1}{2\pi}ln|x-y|$) over the target function $f$.
+This essentially gives us a function that satisfies $\Delta u(x)=f(x)$ over a 2d domain but nothing else.
+What is useful to be able to do is to be able to set boundary conditions on this problem.
+Let the result we obtain be $u_p$. As well as:
+\begin{align}
+    u_p(x)&=g_p(x),\:x\in\partial\Omega\\
+    \frac{\partial u_p(x)}{\partial n}&=h_p(x),\:x\in\partial\Omega
+\end{align}
+We wish for a solution where $u(x)=g(x)\text{ and }\partial_nu(x)=h(x)$ on the boundary.
+The idea here is to solve a homogeneous pde:
+\begin{align}
+    \Delta u(x)&=0, x\in\Omega\\
+    u(x)&=g(x)-g_p(x),\\
+    \partial_nu(x)&=h(x)-h_p(x),x\in\partial\Omega
+\end{align}
+Therefore the solution $u(x)+u_p(x)$ will satisfy $\Delta(u+u_p)=f$ as well as the desired boundary conditions.
+Now all we need is to come up with a way to find solutions to the problem $\Delta u=0$ for any given boundary condition.
+\subsection{Boundary element method}
+We begin with our initial equation and multiply test function $w$ to get a weak solution:
+\begin{align}
+    \Delta u=0&\implies \int_\Omega w\Delta u=0\\
+    \int_\Omega w\Delta u&=\int_{\partial\Omega}w\partial_nu-\int_\Omega(\nabla u)\cdot(\nabla w)\\
+    &=\int_{\partial\Omega}w\partial_nu-(\int_{\partial\Omega}u\partial_nw-\int_\Omega u\Delta w)\\
+    \int_\Omega u\Delta w&=\int_{\partial\Omega}u\partial_nw-w\partial_nu
+\end{align}
+If we let our $w$ be the greens function i.e $\Delta w_y(x) = \delta(x,y)$, we can simplify the above down:
+$$y\in\Omega,\:\int_\Omega u\Delta w_y=u(y)=\int_{\partial\Omega}u\partial_nw_y-w_y\partial_nu$$
+As you can see we have an expression for the solution which is in the form of an integral along the boundary.
+Firstly, we need an expression for $\partial_nw_y = \partial_n\frac{1}{2}ln|x-y|$:
+\begin{align}
+    \nabla ln|x-y|&=\nabla ln(\sqrt{(x_i-y_i)^2})=\nabla\frac{1}{2}ln((x_i-y_i)^2)\\
+    (\nabla ln|x-y|)_i &=\frac{x_i-y_i}{|x-y|}\\
+    \partial_n ln|x-y| &= \hat n\cdot\nabla ln|x-y| = \frac{\hat n\cdot(x-y)}{|x-y|}
+\end{align}
 \section{Larger Meshes}
 We can add together results from individual triangles to get the result of a convolution over more complicated regions.
 Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.
