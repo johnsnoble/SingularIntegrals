@@ -635,7 +635,7 @@ Recovering $L_{kj}$ is as simple as:
 \begin{align}
     L_{kj}&=\alpha \tilde{L}_{kj} + \beta\int_{-1}^1\int_{-1}^1tP_j(t)P_k(s)log(z-it-(\alpha+\beta t)(1+s))dsdt\\
     j=0 &\implies L_{k0}=\alpha\tilde{L}_{k0}+\beta\tilde{L}_{k1}\\
-    j>0 &\implies L_{kj}=\alpha\tilde{L}_{kj}+\beta(\frac{j}{2j+1}\tilde{L}_{kj}+\frac{j+1}{2j+1}\tilde{L}_{kj})\\
+    j>0 &\implies L_{kj}=\alpha\tilde{L}_{kj}+\beta(\frac{j}{2j+1}\tilde{L}_{kj}+\frac{j+1}{2j+1}\tilde{L}_{kj})
 \end{align}
 
 \subsection{Useful rearrangements}
@@ -659,14 +659,14 @@ Plugging this into our original equation for $\tilde{L}_{kj}$ denoting $b_{kj}=P
     &=2\delta_{k0}(2log(\beta)\delta_{j0}+\begin{cases}
 	\int_{-1}^1P_j(t)log(\frac{\alpha}{\beta}-t)dt=L_j(\alpha/\beta),&j\text{ even}\\
 	\int_{-1}^1-P_j(t)log(\frac{\alpha}{\beta}-t)dt=-L_j(\alpha/\beta),&j\text{ odd}
-    \end{cases})\\
+    \end{cases})
 \end{align}
 Breaking this down gives us the following:
 $$
 O_{kj}^1=\begin{cases}
     4log(\beta)+2L_0(\alpha/\beta),&k,j=0,0\\
     2L_j(\alpha/\beta),&k=0,j>0,j\text{ even}\\
-    -2L_j(\alpha/\beta),&k=0,j>0,j\text{ odd}\\
+    -2L_j(\alpha/\beta),&k=0,j>0,j\text{ odd}
 \end{cases}
 $$
 The usefulness of this is that we can now convert between solving recurrences on $\tilde L_{kj}$ and $L_{kj}^1$.
@@ -827,7 +827,7 @@ We will also make use of the fact that $L_0(z)=(z+1)(log(z+1)-1)-(z-1)(log(z-1)-
     &=\int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}((z-it)log(\frac{z-it}{\alpha+\beta t})\\
     &-(z-2\alpha-(2\beta+i)t)log(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})-2(\alpha+\beta t))dt\\
     &=\int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}((z-it)log(z-it)+(z-2\alpha-(2\beta+i)t)log(z-2\alpha-(2\beta+i)t)\\
-    &+2(\alpha+\beta t)(log(\alpha+\beta t)-1))dt\\
+    &+2(\alpha+\beta t)(log(\alpha+\beta t)-1))dt
 \end{align}
 We can simplify this by trying to solve:
 $$\tilde l_j= \int_{-1}^1(\alpha+\beta t)P_j(t)L_0(\tilde z_t)dt$$
@@ -835,7 +835,7 @@ Breaking it down even further we are just solving 1: $\int_{-1}^1P_j(t)log(z-it)
 \begin{align}
     \int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt&=\int_{-1}^1P_j(t)log(2\beta+i)\\
     &+P_j(t)log(\frac{z-2\alpha}{2\beta+i}-t)+P_j(t)C(t)dt\\
-    &= 2(2\beta+i)\delta_{j0}+L_j(\frac{z-2\alpha}{2\beta+i})+\int_{-1}^1P_j(t)C(t)dt\\
+    &= 2(2\beta+i)\delta_{j0}+L_j(\frac{z-2\alpha}{2\beta+i})+\int_{-1}^1P_j(t)C(t)dt
 \end{align}
 letting $x^*=Re(z)-2(\alpha+\beta)Im(z)$ i.e the value of the reals when we extend the interval to cross the real axis where the imaginary component is $0$:
 $$
@@ -852,20 +852,58 @@ By computing $L_{01}^1=\frac{1}{\beta}(\tilde l_0-\alpha L_{00}^1)$, we can find
 $$L_{0j+1}^1 = \frac{1}{j_+\beta}(\tilde l_j-\alpha L_{0j}^1-j_-\beta L_{0j-1}^1)$$
 
 \subsubsection{Case 3: $j=0$}
-The easiest way to solve this is to work in $L_{kj}^2$.
+In order to solve this we must first work out how to correct for a certain type of branch cut in the form of:
+$$f(s)log(z-\gamma(1+s)) \rightarrow f(s)(log(\frac{z-\gamma(1+s)}{\beta(1+s)+i})+log(\beta(1+s)+i)+C(s))$$
+\begin{center}\includegraphics[width=0.5\textwidth]{bsi}\end{center}
+Above is an image which shoes the interval at the top ($\beta(1+s)+i$) and a few intervals beneath the real axis in the form of $z-\gamma(1+s)$.
+We have a crossing of the branch cut for some $s$ if $arg(z-\gamma(1+s))-arg(\beta(1+s)+i)<-\pi$.
+Intuitively, we can see this condition will be fulfilled for some $s$ if the angle from the interval $\beta(1+s)+i$ to the interval below exceeds $\pi$.
+Therefore we can find for each interval some values of $s$ where it goes from crossing the branch cut to not crossing it and vice versa depending on where the below interval is.
+Above are some examples: The blue interval begins without any branch crossings but at the end of the interval ($2b+i\rightarrow z-2\gamma$), we have that the angle between these is greater than $\pi$.
+Therefore, at some point there would be an $s$ where the branch cut is crossed.
+We can show using some calculations that this value of $s$ is unique and that there are no cases of multiple branch crossings within the same interval.
+The green interval is fine the whole way through and the red is on the other side of the branch cut the whole way through.
+Finally, the yellow interval is the opposite as the blue since it begins crossed over but then returns to the "correct" side.
+Caclulating which side of the branch cut the interval begins on is relatively trivial as we can just check if the value of $z$ has a positive or a negative real component.
+Computing some value $s^*$ for which we have a crossing is as follows:
+\begin{align}
+    \lambda(\beta(1+s^*)+i)&=z-\gamma(1+s^*),\lambda\in\mathbb{C}\\
+    Im:\:\lambda&=Im(z)\\
+    Re:\:Im(z)\beta(1+s^*)&=Re(z)-\gamma(1+s^*)\\
+    (Im(z)\beta+\gamma)(1+s^*)&=Re(z)\\
+    s^*&=\frac{Re(z)}{Im(z)\beta+\gamma}
+\end{align}
+Since $s^*$ is defined to be the point at which a crossing occurs, we force the value of $s^*$ to be $1$ if the above calculation results in something outside of the interval $[-1,1]$ since this means that any crossings happens outside.
+There is a case where $Im(z)\beta+\gamma=0$ which can be thought if as when we essentially have that there will never be a crossing.
+An example of when this can happen is if $z=-i,\:\gamma=\beta$ which is where both lines move symmetrically away from the imaginary axis and stay at exactly $\pi$ away.
+
+The easiest way to solve $\tilde L_{k0}$ is to work in $L_{kj}^2$.
 \begin{align}
     L_{k0}^2 &= \int_{-1}^1P_k(s)L_0(\tilde z_s)ds\\
     &= \int_{-1}^1P_k(s)((\tilde z_s+1)log(\tilde z_s+1)-(\tilde z_s-1)log(\tilde z_s-1)-2)ds\\
     &= \int_{-1}^1P_k(s)(\frac{z-(\alpha-\beta)(1+s)+i}{\beta(1+s)+i}log(\frac{z-(\alpha-\beta)(1+s)+i}{\beta(1+s)+i})\\
     &-\frac{z-(\alpha+\beta)(1+s)-i}{\beta(1+s)+i}log(\frac{z-(\alpha+\beta)(1+s)-i}{\beta(1+s)+i})-2)ds\\
     &=\int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}((z-(\alpha-\beta)(1+s)+i)(log(z-(\alpha-\beta)(1+s)+i)\\
-    &-log(\beta(1+s)+i)+C_1(s))-(z-(\alpha+\beta)(1+s)-i)(log(z-(\alpha+\beta)(1+s)-i)\\
-    &-log(\beta(1+s)+i)+C_2(s))-2(\beta(1+s)+i)ds\\
-    &=\int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}((z-(\alpha-\beta)(1+s)+i)(log(z-(\alpha-\beta)(1+s)+i+C_1(s))\\
-    &-(z-(\alpha+\beta)(1+s)-i)(log(z-(\alpha+\beta)(1+s)-i)+C_2(s))\\
-    &2(\beta(1+s)+i)(log(\beta(1+s)+i)-1)ds\\
+    &-log(\beta(1+s)+i)+C_+(s))-(z-(\alpha+\beta)(1+s)-i)(log(z-(\alpha+\beta)(1+s)-i)\\
+    &-log(\beta(1+s)+i)+C_-(s))-2(\beta(1+s)+i)ds\\
+    &=\int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}((z-(\alpha-\beta)(1+s)+i)(log(z-(\alpha-\beta)(1+s)+i)+C_+(s))\\
+    &-(z-(\alpha+\beta)(1+s)-i)(log(z-(\alpha+\beta)(1+s)-i)+C_-(s))\\
+    &2(\beta(1+s)+i)(log(\beta(1+s)+i)-1)ds
 \end{align}
-
+Where $C_+, C_-$ are correction terms for branch cuts from splitting the log.
+\begin{align}
+    log(z-(\alpha\mp\beta)(1+s)\pm i)&=log(\frac{z-(\alpha\mp\beta)(1+s)\pm i}{\beta(1+s)+i})+log(\beta(1+s)+i)+C_\pm\\
+    s_\pm^*= \frac{Re(z\pm i)}{Im(z\pm i)\beta+(\alpha\mp\beta)}-1&=\frac{Re(z)}{Im(z)\beta\pm\beta+\alpha\mp\beta}-1=\frac{Re(z)}{Im(z)\beta+\alpha}-1\\
+\end{align}
+Applying the results from branch cut analysis from before we can try finding the correction $C_+,C_-$.
+As we see, the values of $s^*$ are the same for both cases as long as $Im(z)<-1$ and therefore:
+$$C_\pm(s)=\begin{cases}
+    2\pi i\mathbb{I}\{s>s^*\}\mathbb{I}\{Im(z)\pm1<0\},&Re(z)>0\\
+    2\pi i\mathbb{I}\{s<s^*\}\mathbb{I}\{Im(z)\pm1<0\},&Re(z)<0
+\end{cases}$$
+Going back to our original expression we do the same trick as earlier where we define and solve:
+$$\tilde l_k^2=\int_{-1}^1(\beta(1+s)+i)P_k(s)L_0(tilde z_s)ds$$
+Solving $l_k^2$ can be done by solving its individual components:
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
 In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
@@ -890,3 +928,4 @@ We can add together results from individual triangles to get the result of a con
 Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.
 If we naively add up all $n$ shapes, we have $O(np^2)$ and now it has started to increase in size.
 \end{document}
+
