@@ -132,21 +132,36 @@ end
 L̃_(k,j,z,a,b,tol=1e-3) = ∫(s->legendrep(k,s)*∫(t->legendrep(j,t)*log(z-im*t-(a+b*t)*(1+s))),tol)
 L_(k,j,z,a,b,tol=1e-3) = ∫(s->legendrep(k,s)*∫(t->(a+b*t)*legendrep(j,t)*log(z-im*t-(a+b*t)*(1+s))),tol)
 
-# include("../src/LogBaseCases.jl")
-# 
-# 
-# function test_Oₖ²(n,a,b,zs,tol=1e-3, rtol=1e-3)
-#     zs = get_zs_(zs,a,b)
-#     # Test for ₖ₀
-#     expected = [[L(k,0,z,a,b,tol)-∫(s->legendrep(k,s)*∫(t->log(z̃ₛ(z,s)-t),tol),tol) for k=0:n] for z=zs]
-#     actual = [Oₖ₀²(n,z,a,b) for z=zs]
-#     @test expected≈actual atol=rtol
-# end
-# 
-# function test_Oⱼ²(n,a,b,zs,tol=1e-3,rtol=1e-3)
-#     zs = get_zs_(zs,a,b)
-#     expected = [[L(0,j,z,a,b,tol)-∫(s->∫(t->legendrep(j,t)*log(z̃ₛ(z,s)-t),tol),tol) for j=0:n] for z=zs]
-#     actual = [O₀ⱼ²(n,z,Oₖ₀²(0,z,a,b)[1]) for z=zs]
-#     @test expected≈actual atol=rtol
-# end
-#
+include("../src/LogTrap.jl")
+
+
+function test_Oₖ²(n,a,b,zs,tol=1e-3, rtol=1e-3)
+    zs = get_zs_(zs,a,b)
+    # Test for ₖ₀
+    for z=zs
+        expected = [L̃_(k,0,z,a,b,tol)-∫(s->legendrep(k,s)*∫(t->log(z̃ₛ(z,s)-t),tol),tol) for k=0:n]
+        actual = Oₖ₀²(n,z,a,b)
+        @test expected≈actual atol=rtol
+    end
+    print("Tests passed!")
+end
+
+function test_Oⱼ²(n,a,b,zs,tol=1e-3,rtol=1e-3)
+    zs = get_zs_(zs,a,b)
+    for z=zs
+        expected = [L̃_(0,j,z,a,b,tol)-∫(s->∫(t->legendrep(j,t)*log(z̃ₛ(z,s)-t),tol),tol) for j=0:n]
+        actual = O₀ⱼ²(n,z,Oₖ₀²(0,z,a,b)[1])
+        @test expected≈actual atol=rtol
+    end
+end
+
+
+function test_l̃ₖ₀(n,a,b,zs,tol=1e-3,rtol=1e-3)
+    zs = get_zs_(zs,a,b)
+    for z=zs
+        expected = [∫(s->(b*(1+s)+im)*legendrep(k,s)*L0(z̃ₛ(z,s)),tol) for k=0:n]
+        actual = l̃ₖ₀(n,z,a,b)
+        @test expected≈actual atol=rtol
+    end
+    print("Tests passed!")
+end

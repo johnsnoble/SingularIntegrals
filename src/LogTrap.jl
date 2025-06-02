@@ -129,8 +129,8 @@ end
 # ∫(β(1+s)+i)Pₖ(s)L₀(z̃ₛ)ds
 function l̃ₖ₀(k,z,a,b)
     γ, corr = logbsi_(k+1,z,a,b)
-    M₊ = get_l_vec((z+im)/(a-b)-1,k+1) - γ + (imag(z)>=-1 ? 0 : corr)
-    M₋ = get_l_vec((z-im)/(a+b)-1,k+1) - γ + corr
+    M₊ = get_l_vec((z+im)/(a-b)-1,k+1) - γ .+ (imag(z)>=-1 ? 0 : corr)
+    M₋ = get_l_vec((z-im)/(a+b)-1,k+1) - γ .+ corr
     M₋[1] += 2*log(a+b)-2
     M₊[1] += 2*log(a-b)-2
     L = fill(0.0+0.0im, k+1)
