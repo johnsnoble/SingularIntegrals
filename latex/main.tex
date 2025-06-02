@@ -902,8 +902,14 @@ $$C_\pm(s)=\begin{cases}
     2\pi i\mathbb{I}\{s<s^*\}\mathbb{I}\{Im(z)\pm1<0\},&Re(z)<0
 \end{cases}$$
 Going back to our original expression we do the same trick as earlier where we define and solve:
-$$\tilde l_k^2=\int_{-1}^1(\beta(1+s)+i)P_k(s)L_0(tilde z_s)ds$$
+$$\tilde l_k^2=\int_{-1}^1(\beta(1+s)+i)P_k(s)L_0(\tilde z_s)ds$$
 Solving $l_k^2$ can be done by solving its individual components:
+$$\int_{-1}^1P_k(s)log(z-(\alpha\mp\beta)(1+s)\pm i)ds=2log(\alpha\mp\beta)\delta_{k0}
++L_k(\frac{z}{\alpha\mp\beta}\pm i-1)$$
+The correction terms can be trivially attained by adjusting the bounds of the legendre polynomial integrals and multiplying by a constant factor e.g $\int_s^1P_k(s)ds$
+We follow the same protocal as before to obtain all $L_{k0}^2$ by starting the forward substitution with $L_{00}^2$ and $L_{10}^2=\frac{1}{\beta}(\tilde l_0^2-(\beta+i)L_{00}^2)$:
+$$L_{k+10}^2=\frac{1}{k_+\beta}(\tilde l_k^2-(\beta+i)L_{k0}^2-k_-\beta L_{k-10}^2)$$
+
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
 In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
