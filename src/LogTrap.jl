@@ -22,15 +22,16 @@ end
 function logbsi_(k,z,a,b)
     # returns Pₖ(s)log(b(1+s)+i) with the branch correction
     # Correct for branch cut crossing -> log(z-(a+b)(1+s)-i)-log(b(1+s)+i)
+    # Correct also for branch cut crossing -> log(z-(a-b)(1+s)+i)-log(b(1+s)+i)
     base = logbsi(k,b)
     # Check if branch cut can exist:
     if imag(z)>1
-        return base
+        return base, 0
     end
-    x = imag(z)*b+a
     # d: 1 if starts okay, -1 starts with crossing
     # s: value of s when crossover occurs
-    s,d = 0,(real(z)>0 ? 1 : -1)
+    d = (real(z)>0 ? 1 : -1)
+    x = imag(z)*b+a
     # In the case (x=0) there is no crossover so set to max (1)
     s = (x==0 ? 1 : real(z)/x-1)
     s = (abs(s)>1 ? 1 : s)
@@ -40,6 +41,17 @@ function logbsi_(k,z,a,b)
         c[1] = 2-c[1]
     end
     return base, 2pi*im*c
+end
+
+# When dividing z-γ(1+s) by b(1+s)+i
+# returns when the resulting interval crosses over the branch cut
+function get_crossover_(z,γ,b)
+    # s: value of s when crossover occurs
+    x = imag(z)*b+γ
+    # In the case (x=0) there is no crossover so set to max (1)
+    s = (x==0 ? 1 : real(z)/x-1)
+    s = (abs(s)>1 ? 1 : s)
+    return s
 end
 
 #TODO: duplicated code in BaseCases.jl:s₀ⱼ
@@ -55,8 +67,6 @@ function neg_get_m_vec(k,z,a,b)
     end
     return L-[2*pi*im*legendreInt(i,t) for i=0:k]
 end
-
-
 
 # Defining Lₖⱼ⁽¹⁾(z):=∫Pⱼ(t)Lₖ(z̃ₜ)dt
 # Defining Lₖⱼ⁽²⁾(z):=∫Pₖ(t)Lⱼ(z̃ₛ)ds
@@ -119,7 +129,7 @@ end
 # ∫(β(1+s)+i)Pₖ(s)L₀(z̃ₛ)ds
 function l̃ₖ₀(k,z,a,b)
     γ, corr = logbsi_(k+1,z,a,b)
-    M₊ = get_l_vec((z+im)/(a-b)-1,k+1) - γ
+    M₊ = get_l_vec((z+im)/(a-b)-1,k+1) - γ + (imag(z)>=-1 ? 0 : corr)
     M₋ = get_l_vec((z-im)/(a+b)-1,k+1) - γ + corr
     M₋[1] += 2*log(a+b)-2
     M₊[1] += 2*log(a-b)-2

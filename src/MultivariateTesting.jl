@@ -149,3 +149,4 @@ L_(k,j,z,a,b,tol=1e-3) = ∫(s->legendrep(k,s)*∫(t->(a+b*t)*legendrep(j,t)*log
 #     actual = [O₀ⱼ²(n,z,Oₖ₀²(0,z,a,b)[1]) for z=zs]
 #     @test expected≈actual atol=rtol
 # end
+#

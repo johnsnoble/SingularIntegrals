@@ -781,7 +781,7 @@ Also similar to case 5:
 \begin{align}
     x^*=Re(z)-(\alpha+\beta Im(z))(1+s)&=(\alpha+\beta Im(z))(s^*-s)\\
     &>(\alpha+\beta Im(z))(1-s)\\
-    (\alpha+\beta Im(z))<0 \& 1-s>0 &\implies x^*<0
+    (\alpha+\beta Im(z))<0 \text{ and } 1-s>0 &\implies x^*<0
 \end{align}
 This means the whole interval must be corrected by $-2\pi i$ for each point and $-8\pi i\delta_{k0}\delta_{j0}$ for the whole interval like in case 6.
 
@@ -818,6 +818,53 @@ For this case we can use either offsets but we go with working in $L_{kj}^1$
 \end{align}
 
 \subsubsection{Case 2: $k=0$}
+The easiest way to solve for this is to work in $L_{kj}^1$.
+We will also make use of the fact that $L_0(z)=(z+1)(log(z+1)-1)-(z-1)(log(z-1)-1)=(z+1)log(z+1)-(z-1)log(z-1)-2$.
+\begin{align}
+    L_{0j}^1 &= \int_{-1}^1P_j(t)L_0(\tilde z_t)dt\\
+    &= \int_{-1}^1P_j(t)((\tilde z_t+1)log(\tilde z_t+1)-(\tilde z_t-1)log(\tilde z_t-1)-2)dt\\
+    &= \int_{-1}^1P_j(t)(\frac{z-it}{\alpha+\beta t}log(\frac{z-it}{\alpha+\beta t})-(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})log(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})-2)dt\\
+    &=\int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}((z-it)log(\frac{z-it}{\alpha+\beta t})\\
+    &-(z-2\alpha-(2\beta+i)t)log(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})-2(\alpha+\beta t))dt\\
+    &=\int_{-1}^1\frac{P_j(t)}{\alpha+\beta t}((z-it)log(z-it)+(z-2\alpha-(2\beta+i)t)log(z-2\alpha-(2\beta+i)t)\\
+    &+2(\alpha+\beta t)(log(\alpha+\beta t)-1))dt\\
+\end{align}
+We can simplify this by trying to solve:
+$$\tilde l_j= \int_{-1}^1(\alpha+\beta t)P_j(t)L_0(\tilde z_t)dt$$
+Breaking it down even further we are just solving 1: $\int_{-1}^1P_j(t)log(z-it)dt = M_j(t)$ and 2:
+\begin{align}
+    \int_{-1}^1P_j(t)log(z-2\alpha-(2\beta+i)t)dt&=\int_{-1}^1P_j(t)log(2\beta+i)\\
+    &+P_j(t)log(\frac{z-2\alpha}{2\beta+i}-t)+P_j(t)C(t)dt\\
+    &= 2(2\beta+i)\delta_{j0}+L_j(\frac{z-2\alpha}{2\beta+i})+\int_{-1}^1P_j(t)C(t)dt\\
+\end{align}
+letting $x^*=Re(z)-2(\alpha+\beta)Im(z)$ i.e the value of the reals when we extend the interval to cross the real axis where the imaginary component is $0$:
+$$
+\int_{-1}^1P_j(t)C(t)dt = \begin{cases}
+    -2\pi i\int_{Im(z)}^1P_j(t)dt,&x^*<0,\:|Im(z)|<1\\
+    -4\pi i\delta_{j0},&x^*<0,\:Im(z)<-1\\ 
+    0,&\text{otherwise}
+\end{cases}
+$$
+Solving the log part of the $\tilde l_j$ is very trivial and we have seen multiple instances of this case before where we turn it into the form of $L_k$.
+Now that we know how to solve for $\tilde l_j$ we can go about solving $L_{0j}^1$.
+For this to work we need a value for $L_{00}^1$ to get started with the forward substitution which I will describe in a different case.
+By computing $L_{01}^1=\frac{1}{\beta}(\tilde l_0-\alpha L_{00}^1)$, we can find the rest:
+$$L_{0j+1}^1 = \frac{1}{j_+\beta}(\tilde l_j-\alpha L_{0j}^1-j_-\beta L_{0j-1}^1)$$
+
+\subsubsection{Case 3: $j=0$}
+The easiest way to solve this is to work in $L_{kj}^2$.
+\begin{align}
+    L_{k0}^2 &= \int_{-1}^1P_k(s)L_0(\tilde z_s)ds\\
+    &= \int_{-1}^1P_k(s)((\tilde z_s+1)log(\tilde z_s+1)-(\tilde z_s-1)log(\tilde z_s-1)-2)ds\\
+    &= \int_{-1}^1P_k(s)(\frac{z-(\alpha-\beta)(1+s)+i}{\beta(1+s)+i}log(\frac{z-(\alpha-\beta)(1+s)+i}{\beta(1+s)+i})\\
+    &-\frac{z-(\alpha+\beta)(1+s)-i}{\beta(1+s)+i}log(\frac{z-(\alpha+\beta)(1+s)-i}{\beta(1+s)+i})-2)ds\\
+    &=\int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}((z-(\alpha-\beta)(1+s)+i)(log(z-(\alpha-\beta)(1+s)+i)\\
+    &-log(\beta(1+s)+i)+C_1(s))-(z-(\alpha+\beta)(1+s)-i)(log(z-(\alpha+\beta)(1+s)-i)\\
+    &-log(\beta(1+s)+i)+C_2(s))-2(\beta(1+s)+i)ds\\
+    &=\int_{-1}^1\frac{P_k(s)}{\beta(1+s)+i}((z-(\alpha-\beta)(1+s)+i)(log(z-(\alpha-\beta)(1+s)+i+C_1(s))\\
+    &-(z-(\alpha+\beta)(1+s)-i)(log(z-(\alpha+\beta)(1+s)-i)+C_2(s))\\
+    &2(\beta(1+s)+i)(log(\beta(1+s)+i)-1)ds\\
+\end{align}
 
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.

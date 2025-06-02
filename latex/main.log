@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  1 JUN 2025 17:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  2 JUN 2025 13:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -272,13 +272,28 @@ Overfull \hbox (21.81856pt too wide) detected at line 818
 []
  []
 
+
+Overfull \hbox (43.92374pt too wide) detected at line 831
+[]
+ []
+
 [27]
+Overfull \hbox (11.98236pt too wide) detected at line 839
+[]
+ []
+
+[28]
+Overfull \hbox (31.00972pt too wide) detected at line 867
+[]
+ []
+
+[29]
 Missing character: There is no c in font msbm10!
-[28] (./main.aux) ) 
+[30] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  2774 strings out of 478287
  44503 string characters out of 5849289
- 355918 words of memory out of 5000000
+ 356918 words of memory out of 5000000
  20955 multiletter control sequences out of 15000+600000
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -298,10 +313,10 @@ ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b>
-Output written on main.pdf (28 pages, 419788 bytes).
+Output written on main.pdf (30 pages, 425025 bytes).
 PDF statistics:
- 181 PDF objects out of 1000 (max. 8388607)
- 109 compressed objects within 2 object streams
+ 187 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
