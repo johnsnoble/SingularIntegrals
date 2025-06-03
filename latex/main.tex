@@ -1009,6 +1009,13 @@ Sadly, in order to split this we must yet again consider branch cuts since $\lam
 
 We can see in this above image 3 different examples for various transformations on different values of $\lambda$ centered around different values of $z$.
 We have that by dividing by $\lambda$, the trapeziums will be rotated by that angle and will end up with the $\lambda$ vector pointing with arg 0.
+Note that this is a more general version of the linear log interval transformations which were made.
+Going through the above examples, the green trapezium is to be rotated anticlockwise over the branch cut if the origin is to the right of the x intersection (if it was to its left it wouldn't need to rotate as far as to cross it).
+The red one is a little trickier, since it exists currently on a branch cut, it is difficult to work with.
+In fact it the simplest way to tackle these are to split them up into two shapes and work on each independently.
+To do this we can extend into a rectangle, solve the rectangle as two trapeziums split along the real axis and remove the excess trapeziums and rectangles to obtain our original shape.
+The blue trapezium shows what happens if we have the origin positioned where part of the trapezium when rotated is lifted over and a section which is not.
+Correction is only applied to the area which is lifted past.
 \section{Boundary Conditions}
 Now we have all the tools to be able to solve the poisson equation: $\Delta u=f$ for any arbritary function $f$ by convolving its green's function ($\frac{1}{2\pi}ln|x-y|$) over the target function $f$.
 This essentially gives us a function that satisfies $\Delta u(x)=f(x)$ over a 2d domain but nothing else.
