@@ -921,15 +921,28 @@ The transformations which are available to us are operations which we can perfor
 
 \subsection{Translation}
 If we want to translate the region of interest from $[-1,1]\times[-1,1]$ to $[x-1,x+1],[y-1,y+1]$, we need to change the region to $x(s,t)+x+i(t+y)$ where $x(s,t)$ is a function that takes values from the space of $s,t$ and gives out where $s$ should be based on what shape we are working with.
-This lets us rewrite the denominator as $(z-x-iy)-(x(s,t)+it)$.
+This lets us rewrite the expression in the kernel as $(z-x-iy)-(x(s,t)+it)$.
+Since we do not interfere with the formula of the kernel, this works for both stieltjes and for log kernels.
 Therefore the same recursion rules but with a different value of $z$ gives us this.
 
 \subsection{Scaling and Rotation}
+\subsubsection{Stieltjes kernel}
 The kernel of the stieltjes integral is in the form of $z-x(s,t)-it$ in the general case.
 This means that we can multiply this thie region of $x(s,t)-it$ by $\lambda\in\mathbb{c}$
 The real component of this value contributes to the scaling and the complex component the rotation.
 We can therefore rewrite the scaled $s_{kj}(z)$ as $\frac{1}{\lambda}s_{kj}(\frac{z}{\lambda})$
+\subsubsection{Log kernel}
+We can apply a similar sort of technique as before as we are trying to go from:
+\begin{align}
+    Log(z-(\alpha+\beta t)(1+s)-it)&\rightarrow Log(z-\lambda((\alpha+\beta t)(1+s)-it))\\
+    &= Log(\lambda(\frac{z}{\lambda}-(\alpha+\beta t)(1+s)-it))
+\end{align}
+Sadly, in order to split this we must yet again consider branch cuts since $\lambda\in\mathbb{C}$
 
+\includegraphics[width=\textwidth]{lscale}
+
+We can see in this above image 3 different examples for various transformations on different values of $\lambda$ centered around different values of $z$.
+We have that by dividing by $\lambda$, the trapeziums will be rotated by that angle and will end up with the $\lambda$ vector pointing with arg 0.
 \section{Boundary Conditions}
 Now we have all the tools to be able to solve the poisson equation: $\Delta u=f$ for any arbritary function $f$ by convolving its green's function ($\frac{1}{2\pi}ln|x-y|$) over the target function $f$.
 This essentially gives us a function that satisfies $\Delta u(x)=f(x)$ over a 2d domain but nothing else.

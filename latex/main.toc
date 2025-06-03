@@ -34,6 +34,8 @@
 \contentsline {section}{\numberline {7}Transformation}{32}{}%
 \contentsline {subsection}{\numberline {7.1}Translation}{33}{}%
 \contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{33}{}%
-\contentsline {section}{\numberline {8}Boundary Conditions}{33}{}%
-\contentsline {subsection}{\numberline {8.1}Boundary element method}{34}{}%
-\contentsline {section}{\numberline {9}Larger Meshes}{34}{}%
+\contentsline {subsubsection}{\numberline {7.2.1}Stieltjes kernel}{33}{}%
+\contentsline {subsubsection}{\numberline {7.2.2}Log kernel}{33}{}%
+\contentsline {section}{\numberline {8}Boundary Conditions}{34}{}%
+\contentsline {subsection}{\numberline {8.1}Boundary element method}{35}{}%
+\contentsline {section}{\numberline {9}Larger Meshes}{35}{}%
