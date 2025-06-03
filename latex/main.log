@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  3 JUN 2025 15:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  3 JUN 2025 20:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -205,141 +205,150 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- [3] [4] [5] [6] [7]
-[8] [9] [10] [11]
-Overfull \hbox (20.44183pt too wide) detected at line 338
+ [3] [4] [5] [6]
+<./images//intervaltransform.png, id=32, 920.43875pt x 458.71375pt>
+File: ./images//intervaltransform.png Graphic file (type png)
+<use ./images//intervaltransform.png>
+Package pdftex.def Info: ./images//intervaltransform.png  used on input line 13
+6.
+(pdftex.def)             Requested size: 345.0pt x 171.94023pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 136--137
+[][] 
+ []
+
+[7] [8 <./images//intervaltransform.png>] [9] [10] [11] [12] [13]
+Overfull \hbox (20.44183pt too wide) detected at line 379
 []
  []
 
-[12] [13]
-Overfull \hbox (3.12064pt too wide) detected at line 387
+[14]
+Overfull \hbox (3.12064pt too wide) detected at line 428
 []
  []
 
-<./images//z12.png, id=58, 1133.23375pt x 729.72626pt>
+[15]
+<./images//z12.png, id=67, 1133.23375pt x 729.72626pt>
 File: ./images//z12.png Graphic file (type png)
 <use ./images//z12.png>
-Package pdftex.def Info: ./images//z12.png  used on input line 397.
+Package pdftex.def Info: ./images//z12.png  used on input line 438.
 (pdftex.def)             Requested size: 345.0pt x 222.14864pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 397--402
+Overfull \hbox (15.0pt too wide) in paragraph at lines 438--443
 [][]
  []
 
-[14] [15 <./images//z12.png>]
-<./images//z23.png, id=67, 965.6075pt x 513.92pt>
+[16 <./images//z12.png>]
+<./images//z23.png, id=72, 965.6075pt x 513.92pt>
 File: ./images//z23.png Graphic file (type png)
 <use ./images//z23.png>
-Package pdftex.def Info: ./images//z23.png  used on input line 428.
+Package pdftex.def Info: ./images//z23.png  used on input line 469.
 (pdftex.def)             Requested size: 345.0pt x 183.61522pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 428--434
+Overfull \hbox (15.0pt too wide) in paragraph at lines 469--475
 [][]
  []
 
-[16 <./images//z23.png>]
-Overfull \hbox (4.17912pt too wide) detected at line 475
+[17 <./images//z23.png>]
+Overfull \hbox (4.17912pt too wide) detected at line 516
 []
  []
 
-[17]
-<./images//z45.png, id=75, 742.775pt x 404.51125pt>
+[18]
+<./images//z45.png, id=80, 742.775pt x 404.51125pt>
 File: ./images//z45.png Graphic file (type png)
 <use ./images//z45.png>
-Package pdftex.def Info: ./images//z45.png  used on input line 491.
+Package pdftex.def Info: ./images//z45.png  used on input line 532.
 (pdftex.def)             Requested size: 345.0pt x 187.88593pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 491--498
+Overfull \hbox (15.0pt too wide) in paragraph at lines 532--539
 [][]
  []
 
-[18 <./images//z45.png>] [19] [20] [21]
-<./images//s00.png, id=90, 355.3275pt x 347.2975pt>
+[19] [20 <./images//z45.png>] [21] [22]
+<./images//s00.png, id=95, 355.3275pt x 347.2975pt>
 File: ./images//s00.png Graphic file (type png)
 <use ./images//s00.png>
-Package pdftex.def Info: ./images//s00.png  used on input line 617.
+Package pdftex.def Info: ./images//s00.png  used on input line 658.
 (pdftex.def)             Requested size: 172.5pt x 168.60336pt.
- [22 <./images//s00.png>] [23] [24]
-<./images//ok2.png, id=102, 779.91376pt x 872.25874pt>
+ [23] [24 <./images//s00.png>] [25]
+[26]
+<./images//ok2.png, id=111, 779.91376pt x 872.25874pt>
 File: ./images//ok2.png Graphic file (type png)
 <use ./images//ok2.png>
-Package pdftex.def Info: ./images//ok2.png  used on input line 726.
+Package pdftex.def Info: ./images//ok2.png  used on input line 767.
 (pdftex.def)             Requested size: 258.75pt x 289.37688pt.
-
-[25] [26 <./images//ok2.png>] [27] [28]
-Overfull \hbox (21.81856pt too wide) detected at line 843
+ [27] [28 <./images//ok2.png>] [29] [30]
+Overfull \hbox (21.81856pt too wide) detected at line 884
 []
  []
 
 
-Overfull \hbox (43.92374pt too wide) detected at line 856
+Overfull \hbox (43.92374pt too wide) detected at line 897
 []
  []
 
-[29]
-Overfull \hbox (11.98236pt too wide) detected at line 864
-[]
- []
-
-[30]
-<./images//bsi.png, id=123, 477.785pt x 654.445pt>
-File: ./images//bsi.png Graphic file (type png)
-<use ./images//bsi.png>
-Package pdftex.def Info: ./images//bsi.png  used on input line 882.
-(pdftex.def)             Requested size: 172.5pt x 236.27907pt.
- [31 <./images//bsi.png>]
-Overfull \hbox (33.1625pt too wide) detected at line 917
+[31]
+Overfull \hbox (11.98236pt too wide) detected at line 905
 []
  []
 
 [32]
-Overfull \hbox (35.67984pt too wide) detected at line 922
+<./images//bsi.png, id=132, 477.785pt x 654.445pt>
+File: ./images//bsi.png Graphic file (type png)
+<use ./images//bsi.png>
+Package pdftex.def Info: ./images//bsi.png  used on input line 923.
+(pdftex.def)             Requested size: 172.5pt x 236.27907pt.
+ [33 <./images//bsi.png>]
+Overfull \hbox (33.1625pt too wide) detected at line 958
 []
  []
 
-[33]
+[34]
+Overfull \hbox (35.67984pt too wide) detected at line 963
+[]
+ []
+
+[35]
 Missing character: There is no c in font msbm10!
-<./images//lscale.png, id=135, 709.65125pt x 679.53876pt>
+<./images//lscale.png, id=143, 709.65125pt x 679.53876pt>
 File: ./images//lscale.png Graphic file (type png)
 <use ./images//lscale.png>
-Package pdftex.def Info: ./images//lscale.png  used on input line 967.
+Package pdftex.def Info: ./images//lscale.png  used on input line 1008.
 (pdftex.def)             Requested size: 345.0pt x 330.36394pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 967--968
+Overfull \hbox (15.0pt too wide) in paragraph at lines 1008--1009
 [][] 
  []
 
-[34] [35 <./images//lscale.png>] [36] [37] (./main.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[36] [37 <./images//lscale.png>] [38] [39] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2796 strings out of 478287
- 44936 string characters out of 5849289
- 356918 words of memory out of 5000000
- 20977 multiletter control sequences out of 15000+600000
+ 2807 strings out of 478287
+ 45290 string characters out of 5849289
+ 356920 words of memory out of 5000000
+ 20988 multiletter control sequences out of 15000+600000
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,17n,62p,324b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (37 pages, 526857 bytes).
+</usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (39 pages, 546506 bytes).
 PDF statistics:
- 216 PDF objects out of 1000 (max. 8388607)
- 131 compressed objects within 2 object streams
+ 224 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

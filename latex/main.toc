@@ -7,38 +7,38 @@
 \contentsline {subsubsection}{\numberline {2.1.1}Stieltjes kernel on interval}{5}{}%
 \contentsline {subsubsection}{\numberline {2.1.2}Log kernel on interval}{6}{}%
 \contentsline {subsection}{\numberline {2.2}Log kernel interval linear transformations}{7}{}%
-\contentsline {section}{\numberline {3}Stieltjes Polynomial Transforms}{7}{}%
-\contentsline {section}{\numberline {4}Affine Transformations}{8}{}%
-\contentsline {section}{\numberline {5}Trapezium Region}{8}{}%
-\contentsline {subsection}{\numberline {5.1}Recurrences}{10}{}%
-\contentsline {subsubsection}{\numberline {5.1.1}Case 1: $k,j>1$}{10}{}%
-\contentsline {subsubsection}{\numberline {5.1.2}Case 2: $k=1$}{12}{}%
-\contentsline {subsubsection}{\numberline {5.1.3}Case 3: $j=1$}{12}{}%
-\contentsline {subsubsection}{\numberline {5.1.4}Issue with branch cuts}{13}{}%
-\contentsline {subsubsection}{\numberline {5.1.5}Case 4: $k=0$}{20}{}%
-\contentsline {subsubsection}{\numberline {5.1.6}Case 5: $j=0$}{20}{}%
-\contentsline {subsubsection}{\numberline {5.1.7}Case 6: $k,j=0,0$}{21}{}%
-\contentsline {subsubsection}{\numberline {5.1.8}Recovery of $s_{kj}$}{23}{}%
-\contentsline {section}{\numberline {6}Log kernel}{23}{}%
-\contentsline {subsection}{\numberline {6.1}Useful rearrangements}{24}{}%
-\contentsline {subsubsection}{\numberline {6.1.1}Case 1: $Im(z)>1$}{27}{}%
-\contentsline {subsubsection}{\numberline {6.1.2}Case 2: $s^*>1$ and $Im(z)\in [-\frac {\alpha }{\beta },1]$}{27}{}%
-\contentsline {subsubsection}{\numberline {6.1.3}Case 3: $Im(z)<-\frac {\alpha }{\beta }$ and $Re(z)>0$}{27}{}%
-\contentsline {subsubsection}{\numberline {6.1.4}Case 4: $Re(z)<0$ and $Im(z)\in (-1,1)$}{27}{}%
-\contentsline {subsubsection}{\numberline {6.1.5}Case 5: $s^*\in (-1,1)$ and $Im(z)>-\frac {\alpha }{\beta }$}{27}{}%
-\contentsline {subsubsection}{\numberline {6.1.6}Case 6: $Im(z)\in (-\frac {\alpha }{\beta },-1)$ and $Re(z)<0$}{28}{}%
-\contentsline {subsubsection}{\numberline {6.1.7}Case 7: $Im(z)<-\frac {\alpha }{\beta }$ and $s^*\in (-1,1)$}{28}{}%
-\contentsline {subsubsection}{\numberline {6.1.8}Case 8: $s^*>1$ and $Im(z)<-\frac {\alpha }{\beta }$}{28}{}%
-\contentsline {subsection}{\numberline {6.2}Recurrences}{29}{}%
-\contentsline {subsubsection}{\numberline {6.2.1}Note on notation}{29}{}%
-\contentsline {subsubsection}{\numberline {6.2.2}Case 1: $k,j>1$}{29}{}%
-\contentsline {subsubsection}{\numberline {6.2.3}Case 2: $k=0$}{29}{}%
-\contentsline {subsubsection}{\numberline {6.2.4}Case 3: $j=0$}{31}{}%
-\contentsline {section}{\numberline {7}Transformation}{33}{}%
-\contentsline {subsection}{\numberline {7.1}Translation}{34}{}%
-\contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{34}{}%
-\contentsline {subsubsection}{\numberline {7.2.1}Stieltjes kernel}{34}{}%
-\contentsline {subsubsection}{\numberline {7.2.2}Log kernel}{34}{}%
-\contentsline {section}{\numberline {8}Boundary Conditions}{35}{}%
-\contentsline {subsection}{\numberline {8.1}Boundary element method}{36}{}%
-\contentsline {section}{\numberline {9}Larger Meshes}{37}{}%
+\contentsline {section}{\numberline {3}Stieltjes Polynomial Transforms}{9}{}%
+\contentsline {section}{\numberline {4}Affine Transformations}{10}{}%
+\contentsline {section}{\numberline {5}Trapezium Region}{10}{}%
+\contentsline {subsection}{\numberline {5.1}Recurrences}{12}{}%
+\contentsline {subsubsection}{\numberline {5.1.1}Case 1: $k,j>1$}{12}{}%
+\contentsline {subsubsection}{\numberline {5.1.2}Case 2: $k=1$}{14}{}%
+\contentsline {subsubsection}{\numberline {5.1.3}Case 3: $j=1$}{14}{}%
+\contentsline {subsubsection}{\numberline {5.1.4}Issue with branch cuts}{15}{}%
+\contentsline {subsubsection}{\numberline {5.1.5}Case 4: $k=0$}{21}{}%
+\contentsline {subsubsection}{\numberline {5.1.6}Case 5: $j=0$}{22}{}%
+\contentsline {subsubsection}{\numberline {5.1.7}Case 6: $k,j=0,0$}{22}{}%
+\contentsline {subsubsection}{\numberline {5.1.8}Recovery of $s_{kj}$}{25}{}%
+\contentsline {section}{\numberline {6}Log kernel}{25}{}%
+\contentsline {subsection}{\numberline {6.1}Useful rearrangements}{26}{}%
+\contentsline {subsubsection}{\numberline {6.1.1}Case 1: $Im(z)>1$}{29}{}%
+\contentsline {subsubsection}{\numberline {6.1.2}Case 2: $s^*>1$ and $Im(z)\in [-\frac {\alpha }{\beta },1]$}{29}{}%
+\contentsline {subsubsection}{\numberline {6.1.3}Case 3: $Im(z)<-\frac {\alpha }{\beta }$ and $Re(z)>0$}{29}{}%
+\contentsline {subsubsection}{\numberline {6.1.4}Case 4: $Re(z)<0$ and $Im(z)\in (-1,1)$}{29}{}%
+\contentsline {subsubsection}{\numberline {6.1.5}Case 5: $s^*\in (-1,1)$ and $Im(z)>-\frac {\alpha }{\beta }$}{29}{}%
+\contentsline {subsubsection}{\numberline {6.1.6}Case 6: $Im(z)\in (-\frac {\alpha }{\beta },-1)$ and $Re(z)<0$}{30}{}%
+\contentsline {subsubsection}{\numberline {6.1.7}Case 7: $Im(z)<-\frac {\alpha }{\beta }$ and $s^*\in (-1,1)$}{30}{}%
+\contentsline {subsubsection}{\numberline {6.1.8}Case 8: $s^*>1$ and $Im(z)<-\frac {\alpha }{\beta }$}{30}{}%
+\contentsline {subsection}{\numberline {6.2}Recurrences}{31}{}%
+\contentsline {subsubsection}{\numberline {6.2.1}Note on notation}{31}{}%
+\contentsline {subsubsection}{\numberline {6.2.2}Case 1: $k,j>1$}{31}{}%
+\contentsline {subsubsection}{\numberline {6.2.3}Case 2: $k=0$}{31}{}%
+\contentsline {subsubsection}{\numberline {6.2.4}Case 3: $j=0$}{33}{}%
+\contentsline {section}{\numberline {7}Transformation}{35}{}%
+\contentsline {subsection}{\numberline {7.1}Translation}{36}{}%
+\contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{36}{}%
+\contentsline {subsubsection}{\numberline {7.2.1}Stieltjes kernel}{36}{}%
+\contentsline {subsubsection}{\numberline {7.2.2}Log kernel}{36}{}%
+\contentsline {section}{\numberline {8}Boundary Conditions}{37}{}%
+\contentsline {subsection}{\numberline {8.1}Boundary element method}{38}{}%
+\contentsline {section}{\numberline {9}Larger Meshes}{39}{}%

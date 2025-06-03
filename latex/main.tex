@@ -124,6 +124,44 @@ Following the process of introducing a multiple of $z$ and decomposing into $z-t
 \subsection{Log kernel interval linear transformations}
 Now that we have a recurrence relation of the log kernel on a simple interval, we will try and formulate a way to extend this to work on linearly transformed intervals.
 The motivation to do this will become clear later on when we attempt to use boundary element methods to help solve a poisson PDE.
+Let us aim to be able to scale and rotate by some $\lambda$ and move by some $\mu$.
+\begin{align}
+    L_k(z)=\int_{-1}^1P_k(s)&Log(z-s)ds\rightarrow\int_{-1}^1P_k(s)Log(z-(\mu+\lambda s))ds\\
+    \int_{-1}^1P_k(s)log(z-\mu-\lambda s)ds&=\int_{-1}^1P_k(s)log(\lambda(\frac{z-\mu}{\lambda}-s))ds
+\end{align}
+From here we have to be careful with considering branch cuts.
+The idea is that we have an interval which is moved by $-\mu$ from our $z$ and going up direction $-\lambda$ as we go from $-1\rightarrow 1$.
+Thinking about flat interval we think about what occurs when this is rotated clockwise by angle $\lambda$.
+
+\includegraphics[width=\textwidth]{intervaltransform}
+
+Above is a small example where we can see what the interval in the integral we are trying to decompose the log of looks like.
+We see here are that we may already have a cut crossing which means it is important to know at what value of $s$, this crossing occurs and then trelike two seperate integrals.
+Now we are able to rotate and see that it will lie entirely above or below the branch cut as it is flat.
+We can imagine in the image above the origin being at different points along the real axis.
+If we try mentally rotate these intervals around any chosen origin point along this real axis, we will find that when the extended line in the direction of $\lambda$ intercepts the real axis, we have a branch crossing given that the this intersection happens in the negative region of the line.
+TODO: Prove this statement
+We can find intercept at the real axis fairly easily to be:
+\begin{align}
+    Im:\:Im(z-\mu-\lambda s^*)&=0\\
+    Im(z-\mu)&=Im(\lambda)s^*\implies s^*=\frac{Im(z-\mu)}{Im(\lambda)}\\
+    x^*=Re(z-\mu-\lambda s^*)&=Re(z-\mu)-s^*Re(\lambda)=Re(z-\mu)-\frac{Im(z-\mu)Re(\lambda)}{Im(\lambda)}
+\end{align}
+If $s^*<-1$ then it means there is no point in the direction of $\lambda$ which intersects the real axis which means we do not have to make any corrections.
+Provided it holds that $s^*>-1$, if there is an $x^*\geq 0$ then we have no correction.
+Otherwise we handle the correction based on the direction we are rotating in:
+\begin{align}
+    C(s)=\begin{cases}
+	0,&arg(\lambda)=0\text{ or }s^*<-1\text{ or }x^*\geq 0\\
+	-2\pi i\mathbb{I}\{s<s^*\},&arg(\lambda)>0\\
+	2\pi i\mathbb{I}\{s<s^*\},&arg(\lambda)<0\\
+    \end{cases}
+\end{align}
+Revisiting earlier, we can show say that our transformed version is like:
+\begin{align}
+    \int_{-1}^1P_k(s)log(\lambda(\frac{z-\mu}{\lambda}-s))ds&=\int_{-1}^1P_k(s)(log(\lambda)+log(\frac{z-\mu}{\lambda}-s)+C(s))ds\\
+    &=2log(\lambda)\delta_{k0}+L_k(\frac{z-\mu}{\lambda})+\int_{-1}^1P_k(s)C(s)ds
+\end{align}
 
 \section{Stieltjes Polynomial Transforms}
 We can begin to consider taking these transforms across different geometries.
