@@ -60,7 +60,7 @@ We are looking for looking for $\mathcal{S}_{[-1,1]}f(z)$.
 Decomposing $f(z) \approx \Sigma_k f_kP_k(z)$ and writing $S_k(z):=\mathcal{S}_{[-1,1]}P_k(z)$ lets us write:
 $$\mathcal{S}_{[-1,1]}f(z) \approx \Sigma_k f_kS_k(z)$$
 This motivates finding fast methods to compute $S_k(z)$. Log kernels are approached similarly letting $L_k(z):=\mathcal{L}_{[-1,1]}P_k(z)$ and looking for recurrence relations.
-\subsubsection*{Stieltjes}
+\subsubsection{Stieltjes kernel on interval}
 Recall recurrence relation of Legendre Polynomials:
 \begin{equation}\label{legendre recurrence}
 	xP_k(x) = \frac{k}{2k+1}P_{k-1}(x) + \frac{k+1}{2k+1}P_{k+1}(x)
@@ -87,9 +87,9 @@ zS_{k,j}(z) &= z\int_{-1}^1\int_{-1}^1\frac{P_k(s)P_j(t)}{z-(s+it)}dsdt \\
 &+i\frac{j}{2j+1}S_{k,j-1}(z)+i\frac{j+1}{2j+1}S_{k,j+1}+4\delta_{j0}\delta{k0}
 \end{split}
 \end{equation}
-\subsubsection*{Log}
+\subsubsection{Log kernel on interval}
 We can begin by connecting log kernel to the Stieltjes kernel. To do this we define:$$S_k^{(\lambda)}(z):=\int_{-1}^{1}\frac{C_k^{(\lambda)}(t)}{z-t}dt$$
-We let $F(x) = \int_{-1}^1f(s)ds$ and apply integration by parts on log transform:
+We let $F(x) = \int_x^1f(s)ds$ and apply integration by parts on log transform:
 \begin{equation}
 \begin{split}
 	\int_{-1}^1f(t)log(z-t)dt &= [-F(t)log(z-t)]_{-1}^1-\int_{-1}^1\frac{F(t)}{z-t}dt \\
@@ -97,7 +97,35 @@ We let $F(x) = \int_{-1}^1f(s)ds$ and apply integration by parts on log transfor
 \end{split}
 \end{equation}
 
-\section{Polynomial Transforms}
+Since $C_1^{(-1/2)}(x)=-x$ and $\int_x^1P_0(s)ds = 1-x$ we make an adjustment for the case $k=0$:
+$$\int_x^1P_k(s)ds = \delta_{k0}+C_{k+1}^{(-1/2)}(x)$$
+Also because $\int_{-1}^1P_k(s)ds=2\delta_{k0}$:
+\begin{align}
+    L_k(z)&=log(z+1)\int_{-1}^1P_k(s)ds-\int_{-1}^1\frac{1}{z-t}\int_t^1P_k(s)dsdt\\
+    &=2log(z+1)\delta_{k0}-\int_{-1}^1\frac{C_{k+1}^{(-1/2)}(t)}{z-t}+\frac{\delta_{k0}}{z-t}dt\\
+    &=2log(z+1)\delta_{k0}-S_{k+1}^{(-1/2)}(z)-\int_{-1}^1\frac{\delta_{k0}}{z-t}dt\\
+    &=-S_{k+1}^{(-1/2)}(z)+\delta_{k0}((z-1)log(z-1)+(z+1)log(z+1))
+\end{align}
+Now we employ the recurrence relation of $C_{k}^{(-1/2)}$ to solve for the recurrence relation of $L_k(s)$:
+\begin{align}
+    tC_k^{(\lambda)}(t)&=\frac{k+2\lambda-1}{2(k+\lambda)}C_{k-1}^{(-1/2)}(t)+\frac{k+1}{2(k+\lambda)}C_{k+1}^{(-1/2)}(t)\\
+    tC_k^{(-1/2)}(t)&=\frac{k-2}{2k-1}C_{k-1}^{(-1/2)}(t)+\frac{k+1}{2k-1}C_{k+1}^{(-1/2)}(t)
+\end{align}
+Following the process of introducing a multiple of $z$ and decomposing into $z-t,t$ as we did for $S_k$ yields the following function recurrence:
+\begin{align}
+    zL_k(z)&=\frac{k-1}{2k+1}L_{k-1}(z)+\frac{k+2}{2k+1}L_{k+1}(z)\\
+    &+\begin{cases}
+	(z-1)log(z-1)+(z+1)log(z+1),&k=0\\
+	-2/3,&k=1\\
+	0,&\text{otherwise}
+    \end{cases}
+\end{align}
+
+\subsection{Log kernel interval linear transformations}
+Now that we have a recurrence relation of the log kernel on a simple interval, we will try and formulate a way to extend this to work on linearly transformed intervals.
+The motivation to do this will become clear later on when we attempt to use boundary element methods to help solve a poisson PDE.
+
+\section{Stieltjes Polynomial Transforms}
 We can begin to consider taking these transforms across different geometries.
 Currently we have a way to find these transforms across [-1,1] but we will be trying to use this to solve other geometries.
 The first type of geometry we should consider is one where we apply a degree $d$ polynomial transform to the interval:
