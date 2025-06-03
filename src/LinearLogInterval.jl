@@ -22,8 +22,5 @@ function getOffset_(k,z,λ,μ)
     if x>= 0
         return 0
     end
-    ultsph = [legendreInt(k_,0) for k_=0:k]
-    ultsph[1] = 2-ultsph[1]
-    ultsph[2:k+1] *= -1
-    return (imag(λ)>0 ? 1 : -1)*2pi*im*ultsph
+    return (imag(λ)<0 ? 1 : -1)*2pi*im*[legendreInt(k_,s) for k_=0:k]
 end

@@ -147,14 +147,14 @@ We can find intercept at the real axis fairly easily to be:
     Im(z-\mu)&=Im(\lambda)s^*\implies s^*=\frac{Im(z-\mu)}{Im(\lambda)}\\
     x^*=Re(z-\mu-\lambda s^*)&=Re(z-\mu)-s^*Re(\lambda)=Re(z-\mu)-\frac{Im(z-\mu)Re(\lambda)}{Im(\lambda)}
 \end{align}
-If $s^*<-1$ then it means there is no point in the direction of $\lambda$ which intersects the real axis which means we do not have to make any corrections.
-Provided it holds that $s^*>-1$, if there is an $x^*\geq 0$ then we have no correction.
+If $s^*>1$ then it means there is no point in the direction of $\lambda$ which intersects the real axis which means we do not have to make any corrections.
+Provided it holds that $s^*<1$, if there is an $x^*\geq 0$ then we have no correction.
 Otherwise we handle the correction based on the direction we are rotating in:
 \begin{align}
     C(s)=\begin{cases}
-	0,&arg(\lambda)=0\text{ or }s^*<-1\text{ or }x^*\geq 0\\
-	-2\pi i\mathbb{I}\{s<s^*\},&arg(\lambda)>0\\
-	2\pi i\mathbb{I}\{s<s^*\},&arg(\lambda)<0\\
+	0,&arg(\lambda)=0\text{ or }s^*>1\text{ or }x^*\geq 0\\
+	-2\pi i\mathbb{I}\{s>s^*\},&arg(\lambda)>0\\
+	2\pi i\mathbb{I}\{s<s^*\},&arg(\lambda)<0
     \end{cases}
 \end{align}
 Revisiting earlier, we can show say that our transformed version is like:
