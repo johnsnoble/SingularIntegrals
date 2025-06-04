@@ -1016,6 +1016,22 @@ In fact it the simplest way to tackle these are to split them up into two shapes
 To do this we can extend into a rectangle, solve the rectangle as two trapeziums split along the real axis and remove the excess trapeziums and rectangles to obtain our original shape.
 The blue trapezium shows what happens if we have the origin positioned where part of the trapezium when rotated is lifted over and a section which is not.
 Correction is only applied to the area which is lifted past.
+This prompts us to be able to find a value for $t$ which represents the split which can be drawn from the origin if it falls between the two parallel lines.
+The value of $t$ begin outside ($-1,1$) means that we have a case where the parallel lines are both have real axis intercepts on the same side as the origin.
+\begin{align}
+    \text{let: }x=(\alpha+\beta t)(1+s)\\
+    \text{We need: }z-\mu-\lambda((\alpha+\beta t)(1+s)+it)&=0=z-\mu-\lambda(x+it)\\
+    Re:\:Re(z-\mu)-xRe(\lambda)+tIm(\lambda)&=0\\
+    Im:\:Im(z-\mu)-xIm(\lambda)-tRe(\lambda)&=0\\
+    \begin{bmatrix}
+	-Re(\lambda)&Im(\lambda)\\
+	-Im(\lambda)&-Re(\lambda)\\
+    \end{bmatrix}
+    \begin{bmatrix}x\\t\end{bmatrix}
+    &=\begin{bmatrix}-Re(z-\mu)\\-Im(z-\mu)\end{bmatrix}\\
+    \text{non singular: }\lambda\neq 0\implies Re(\lambda)^2+Im(\lambda)^2&>0
+\end{align}
+
 \section{Boundary Conditions}
 Now we have all the tools to be able to solve the poisson equation: $\Delta u=f$ for any arbritary function $f$ by convolving its green's function ($\frac{1}{2\pi}ln|x-y|$) over the target function $f$.
 This essentially gives us a function that satisfies $\Delta u(x)=f(x)$ over a 2d domain but nothing else.
@@ -1045,7 +1061,7 @@ We begin with our initial equation and multiply test function $w$ to get a weak 
 If we let our $w$ be the greens function i.e $\Delta w_y(x) = \delta(x,y)$, we can simplify the above down:
 $$y\in\Omega,\:\int_\Omega u\Delta w_y=u(y)=\int_{\partial\Omega}u\partial_nw_y-w_y\partial_nu$$
 As you can see we have an expression for the solution which is in the form of an integral along the boundary.
-Firstly, we need an expression for $\partial_nw_y = \partial_n\frac{1}{2}ln|x-y|$:
+Firstly, we need an expression for $\partial_nw_y = \partial_n\frac{1}{2\pi}ln|x-y|$:
 \begin{align}
     \nabla ln|x-y|&=\nabla ln(\sqrt{(x_i-y_i)^2})=\nabla\frac{1}{2}ln((x_i-y_i)^2)\\
     (\nabla ln|x-y|)_i &=\frac{x_i-y_i}{|x-y|}\\
@@ -1055,8 +1071,8 @@ Since we have boundaries which are straight lines we have that over each line $i
 If we are able to integrate over a single line then we can sum up the results to get the entire boundary.
 For example, when we are moving across the axis $j$, we have that:
 \begin{align}
-    \int_{\partial\Omega_j}\partial_nw_y&=\int_{\partial\Omega_j}\frac{\hat n\cdot x-\hat n\cdot y}{2|x-y|}\\
-    &=\int_{\partial\Omega_j}\frac{\hat n_jx_j}{2|x-y|}dx_j+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\int_{\partial\Omega_j}\frac{1}{2|x-y|}
+    \int_{\partial\Omega_j}\partial_nw_y&=\int_{\partial\Omega_j}\frac{\hat n\cdot x-\hat n\cdot y}{2\pi|x-y|}\\
+    &=\int_{\partial\Omega_j}\frac{\hat n_jx_j}{2\pi|x-y|}dx_j+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\int_{\partial\Omega_j}\frac{1}{2\pi|x-y|}
 \end{align}
 Since the boundary is defined by one of the 2 axis changing constantly between $-1\rightarrow 1$, it is enough to consider only this.
 Notice now that we have in the first and second integral are just stieltjes kernels which we have already worked out how to solve.
