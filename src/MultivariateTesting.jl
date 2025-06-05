@@ -91,11 +91,17 @@ function generate_z(n, a, b, region=0)
     return [get_valid_z(a,b,region) for i=1:n]
 end
 
-function get_zs_(zs,a,b,region=0)
+function get_zs_(zs,a,b,n=1,region=0)
     if zs isa Vector
         return zs
     end
-    return generate_z(zs, a, b, region)
+    if zs isa Matrix
+        return [zs[i,:] for i=1:size(zs)[1]]
+    end
+    if n==1
+        return generate_z(zs, a, b, region)
+    end
+    return [generate_z(zs, a, b, region) for i=1:n]
 end
 
 function test_qₖ(k,a,b,zs,tol=1e-3)
@@ -175,7 +181,7 @@ function test_l̃ₖ₀(n,a,b,zs,tol=1e-3,rtol=1e-3)
 end
 
 function test_l₀₀¹(a,b,zs,region=0,tol=1e-7,rtol=1e-3)
-    zs = get_zs_(zs,a,b,region)
+    zs = get_zs_(zs,a,b,1,region)
     for z=zs
         expected = ∫(t->L0(z̃ₜ(z,t)),tol)
         actual = l₀₀¹_(z,a,b)
@@ -185,7 +191,7 @@ function test_l₀₀¹(a,b,zs,region=0,tol=1e-7,rtol=1e-3)
 end
 
 function test_neg_get_m_vec(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
-    zs = get_zs_(zs,a,b,region)
+    zs = get_zs_(zs,a,b,1,region)
     for z=zs
         expected = [∫(s->legendrep(k,s)*log(z-2a-(2b+im)*s),tol) for k=0:n]
         actual = neg_get_m_vec(n,z,a,b)
@@ -194,3 +200,15 @@ function test_neg_get_m_vec(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
     print("Tests passed!")
 end
 
+include("../src/RieszInterval.jl")
+
+function test_log_interval(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
+    μs, λs = get_zs_(zs,a,b,2,region)
+    for i=1:length(μs)
+        μ, λ = μs[i], λs[i]
+        expected = [∫(s->legendrep(k,s)*log(z-μ-λ*s),tol) for k=0:n]
+        actual = log_interval(z,μ,λ,n)
+        @test expected≈actual atol=rtol
+    end
+    print("Tests passed!")
+end
