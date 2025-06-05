@@ -69,25 +69,33 @@ include("../src/BaseCases.jl")
 include("../src/StieltjesTrap.jl")
 using .BaseTrap: qₖ, s₀ⱼ, s̃₀₀
 
-function get_valid_z(a,b,λ=1,μ=0)
+function get_valid_z(a,b,region=1,λ=1,μ=0)
     while true
-        z = randn()*10 + randn()*10im
+        z = randn()*5 + randn()*5im
         z_ = (z-μ)/λ
         if (real(z_)<0) | (abs(imag(z_))>1) | (real(z_)>2a+2b*imag(z_))
+            if region==-1
+                return z
+            end
+        elseif region==1
             return z
         end
     end
 end
 
-function generate_z(n, a, b)
-    return [get_valid_z(a,b) for i=1:n]
+function generate_z(n, a, b, region=0)
+    # Region 1: interior, 0:anywhere, -1:exterior
+    if region==0
+        return randn(n)*5+randn(n)*5im
+    end
+    return [get_valid_z(a,b,region) for i=1:n]
 end
 
-function get_zs_(zs,a,b)
+function get_zs_(zs,a,b,region=0)
     if zs isa Vector
         return zs
     end
-    return generate_z(zs, a, b)
+    return generate_z(zs, a, b, region)
 end
 
 function test_qₖ(k,a,b,zs,tol=1e-3)
@@ -150,7 +158,7 @@ function test_Oⱼ²(n,a,b,zs,tol=1e-3,rtol=1e-3)
     zs = get_zs_(zs,a,b)
     for z=zs
         expected = [L̃_(0,j,z,a,b,tol)-∫(s->∫(t->legendrep(j,t)*log(z̃ₛ(z,s)-t),tol),tol) for j=0:n]
-        actual = O₀ⱼ²(n,z,Oₖ₀²(0,z,a,b)[1])
+        actual = O₀ⱼ²(n,z,a,b,Oₖ₀²(0,z,a,b)[1])
         @test expected≈actual atol=rtol
     end
 end
@@ -165,3 +173,24 @@ function test_l̃ₖ₀(n,a,b,zs,tol=1e-3,rtol=1e-3)
     end
     print("Tests passed!")
 end
+
+function test_l₀₀¹(a,b,zs,region=0,tol=1e-7,rtol=1e-3)
+    zs = get_zs_(zs,a,b,region)
+    for z=zs
+        expected = ∫(t->L0(z̃ₜ(z,t)),tol)
+        actual = l₀₀¹_(z,a,b)
+        @test expected≈actual atol=rtol
+    end
+    print("Tests passed!")
+end
+
+function test_neg_get_m_vec(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
+    zs = get_zs_(zs,a,b,region)
+    for z=zs
+        expected = [∫(s->legendrep(k,s)*log(z-2a-(2b+im)*s),tol) for k=0:n]
+        actual = neg_get_m_vec(n,z,a,b)
+        @test expected≈actual atol=rtol
+    end
+    print("Tests passed!")
+end
+

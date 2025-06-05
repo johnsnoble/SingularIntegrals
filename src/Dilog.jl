@@ -1,3 +1,4 @@
+include("../src/Common.jl")
 module Dilog
 using PolyLog
 export dilog
@@ -132,23 +133,28 @@ function get_cut_pos(a,b)
     return x-a+b, rot
 end
 
-# Fixes branch cut issue by splitting ln(z+ct)=ln(t+z/c)+ln(c)
-function correction_c(z, c)
-    lc = clog(c)
-    zc = imag(clog(z/c)) + imag(lc)
-    if zc <= -pi
-        return 1
-    elseif zc > pi
+function find_split_(z,c)
+    if imag(c)==0
         return -1
     end
-    return 0
+    t = -imag(z)/imag(c)
+    if t<=-1
+        return -1
+    end
+    x = real(z)+t*real(c)
+    if x>=0
+        return -1
+    end
+    return min(t, 1)
 end
+    
 
 # Solves in the form ∫ln(z+ct)/(b+t) t∈(-1,1)
 function dilog(z,c,b)
-    c_correct = correction_c(z,c)
     lc = clog(c)
-    I2 = (2*pi*im*c_correct+lc)*∫x⁻¹dx(b-1,b+1)
+    t = find_split_(z,c)
+    I2 = lc*∫x⁻¹dx(b-1,b+1)
+    I2 -= sign(imag(c))*2pi*im*∫x⁻¹dx(b-1,b+t)
     # Solves of the form ln(a+t)/(b+t) between u,w
     a = z/c
     if a==b

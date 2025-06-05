@@ -259,15 +259,21 @@ end
 
 function O²(k,j,z,a,b)
     Oₖ = Oₖ₀²(k,z,a,b)
-    return Oₖ,O₀ⱼ²(j,z,Oₖ[1])
+    return Oₖ,O₀ⱼ²(j,z,a,b,Oₖ[1])
 end
 
 # ∫Lⱼ(z̃ₛ)ds→∫∫Pⱼ(t)log(z-it-(a+bt)(1+s)dt)ds
-function O₀ⱼ²(j,z,O₀₀)
+function O₀ⱼ²(j,z,a,b,O₀₀)
     Oⱼ = fill(0.0+0.0im,j+1)
     Oⱼ[1] = O₀₀
-    if (abs(imag(z))<1) & (real(z)<0)
-        Oⱼ[2:j+1] = -4pi*im*[legendreInt(j_,imag(z)) for j_=1:j]
+    t = imag(z)
+    if (abs(t)<1) & (real(z)<0)
+        Oⱼ[2:j+1] = -4pi*im*[legendreInt(j_,t) for j_=1:j]
+    end
+    # Case of z begin in the trapezium
+    if (abs(t)<1) & (2*(t*b+a)>real(z))
+        s = real(z)/(a+b*t)-1
+        Oⱼ[2:j+1] = -2pi*im*[legendreInt(j_,t) for j_=1:j]*(1-s)
     end
     return Oⱼ
 end
@@ -303,7 +309,7 @@ function Oₖ₀²(k,z,a,b)
         L-=4pi*im*Pcdf
         return L
     end
-    return 0
+    return L-2pi*im*[legendreInt(k_,s̃) for k_=0:k]*(1-imag(z))
 end
 
 function O₀ⱼ²_(j,t,O₀,case)

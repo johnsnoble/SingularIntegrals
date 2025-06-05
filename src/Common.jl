@@ -1,6 +1,6 @@
 module Common
 using ClassicalOrthogonalPolynomials, PolyLog
-export clog, zlog, L0, L1, M0, M1, get_l_vec, get_m_vec, m_const, m_recurrence, legendreInt
+export clog, zlog, L0, L1, M0, M1, get_l_vec, get_m_vec, m_const, m_recurrence, legendreInt, find_split
 
 clog(z) = log(Complex(z))
 zlog(z) = iszero(z) ? zero(z) : z*log(z)
@@ -73,4 +73,25 @@ end
 # Returns ∫ₓ¹Pₖ(x)dx
 legendreInt(k,x) = (k==0 ? 1-x : ultrasphericalc(k+1,-0.5,x))
 
+# Finds the split of log(z-ct) -> log(c) + log(z/c-t)
+# Returns at what t we split
+function find_split(z,c)
+    if imag(c)==0
+        return 1
+    end
+    # find t
+    t = imag(z)/imag(c)
+    if t>=1
+        return 1
+    end
+    x = real(z)-t*real(c)
+    if x>=0
+        return 1
+    end
+    # If the imag(c)>0: -2πi{t>t̃} else +2πi{t>t̃}
+    return max(t, -1)
 end
+
+end
+
+

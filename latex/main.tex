@@ -433,15 +433,6 @@ When going through the cases $log(f(t)g(t))$ we are verifying such that for ever
 $$|arg(f(t))+arg(g(t))|<\pi$$
 First we address:
 $$log(\frac{z-it}{z-2\alpha-(2\beta+i)t})$$
-This problem is potentially susceptible to strange branch cuts but this problem is simplified greatly if we only consider the feasible set of $z$.
-
-\includegraphics[width=\textwidth]{z12}
-In this diagram we can see various trapeziums drawn around the main trapezium we are integrating over.
-The right edge and the slanted left edge of each trapezium around the main trapezium are the intervals $z-it,z-2\alpha-(2\beta+i)t,t\in[-1,1]$ respectively.
-Each trapezium represents what happens if we take our $z$ to be a different corner of the main trapezium.
-Since our problem is one of taking the stieltjes kernel across a trapezium domain, we are allowed to restrict values of z from not being inside this domain:
-$$z\notin \{z: Im(z)\in [-1,1],\:Re(z)\in [0,2\alpha+2\beta\cdot Im(z)],\:a\geq b>0\}$$
-Going back to our diagram this helps us see that not taking $z$ from within the triangle ensures that the origin is always "outside" which saves us a few cases of branch cut proofs.
 We can now consider two cases.
 let:
 \begin{align}
@@ -462,6 +453,8 @@ Case 2 ($Im(z_1)=Im(z_2)<0$ - Origin lies above):
     arg(z_1)<0,\:arg(z_2)>-\pi&\implies arg(z_1)-arg(z_2)<\frac{\pi}{2}\\
     arg(z_1)>arg(z_2)&\implies arg(z_1)-arg(z_2)>0
 \end{align}
+
+In the remaining cases, we have that some values of $t$ is above and some values of $t$ are below which means we can simply combine the logic of these the above two cases to say that there are no issues with branch cuts.
 
 Next we address
 $$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(2\beta+i)+log(\frac{z-2\alpha}{2\beta+i}-t):=log(c_1)+log(z_3)$$
@@ -821,7 +814,7 @@ Given the earlier theorem, we have that if $s>s^*$ we can say that the whole int
 Yields our final correction term:
 \begin{align}
     \int_{-1}^1\int_{-1}^1-2\pi i\mathbb{I}\{s>s^*\}P_k(s)P_j(t)dtds&=-2\pi i\int_{-1}^12\delta_{j0}\mathbb{I}\{s>s^*\}P_k(s)ds\\
-    &=-4\delta\pi i\int_{s^*}^1P_k(s)ds
+    &=-4\delta_{j0}\pi i\int_{s^*}^1P_k(s)ds
 \end{align}
 
 \subsubsection{Case 6: $Im(z)\in(-\frac{\alpha}{\beta},-1)$ and $Re(z)<0$}
@@ -850,6 +843,11 @@ Also similar to case 5:
     (\alpha+\beta Im(z))<0 \text{ and } 1-s>0 &\implies x^*<0
 \end{align}
 This means the whole interval must be corrected by $-2\pi i$ for each point and $-8\pi i\delta_{k0}\delta_{j0}$ for the whole interval like in case 6.
+
+\subsubsection{Case 9: $|s^*|<1$ and $|Im(z)|<1$}
+Combining the logic in the earlier cases we have that the branch cut correction here is just $-2\pi i\mathbb{I}\{s>s^*\}\mathbb{I}\{t>t^*\}$.
+This gives us the total correction:
+$$-2\pi i(\int_{s^*}^1P_k(s)ds)(\int_{t^*}^1P_j(t)dt)$$
 
 \subsection{Recurrences}
 \subsubsection{Note on notation}
@@ -1064,18 +1062,18 @@ As you can see we have an expression for the solution which is in the form of an
 Firstly, we need an expression for $\partial_nw_y = \partial_n\frac{1}{2\pi}ln|x-y|$:
 \begin{align}
     \nabla ln|x-y|&=\nabla ln(\sqrt{(x_i-y_i)^2})=\nabla\frac{1}{2}ln((x_i-y_i)^2)\\
-    (\nabla ln|x-y|)_i &=\frac{x_i-y_i}{|x-y|}\\
-    \partial_n ln|x-y| &= \hat n\cdot\nabla ln|x-y| = \frac{\hat n\cdot(x-y)}{|x-y|} = \frac{\hat n\cdot x}{|x-y|}-\frac{\hat n\cdot y}{|x-y|}
+    (\nabla ln|x-y|)_i &=\frac{x_i-y_i}{|x-y|^2}\\
+    \partial_n ln|x-y| &= \hat n\cdot\nabla ln|x-y| = \frac{\hat n\cdot(x-y)}{|x-y|^2} = \frac{\hat n\cdot x}{|x-y|^2}-\frac{\hat n\cdot y}{|x-y|^2}
 \end{align}
 Since we have boundaries which are straight lines we have that over each line $i,\hat n_i$ stays constant and therefore so does $\hat n\cdot y$.
 If we are able to integrate over a single line then we can sum up the results to get the entire boundary.
 For example, when we are moving across the axis $j$, we have that:
 \begin{align}
-    \int_{\partial\Omega_j}\partial_nw_y&=\int_{\partial\Omega_j}\frac{\hat n\cdot x-\hat n\cdot y}{2\pi|x-y|}\\
-    &=\int_{\partial\Omega_j}\frac{\hat n_jx_j}{2\pi|x-y|}dx_j+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\int_{\partial\Omega_j}\frac{1}{2\pi|x-y|}
+    \int_{\partial\Omega_j}\partial_nw_y&=\int_{\partial\Omega_j}\frac{\hat n\cdot x-\hat n\cdot y}{2\pi|x-y|^2}\\
+    &=\int_{\partial\Omega_j}\frac{\hat n_jx_j}{2\pi|x-y|^2}dx_j+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\int_{\partial\Omega_j}\frac{1}{2\pi|x-y|^2}
 \end{align}
 Since the boundary is defined by one of the 2 axis changing constantly between $-1\rightarrow 1$, it is enough to consider only this.
-Notice now that we have in the first and second integral are just stieltjes kernels which we have already worked out how to solve.
+Notice now that we have in the first and second integral are similar to stieltjes kernels which we have already worked out how to solve.
 Th other component of the greens identity was $w_y\partial_nu$.
 Given boundary conditions $\partial_nu$ on our $\partial\Omega$, we have a transformed log line kernel which we already know how to solve.
 \section{Larger Meshes}

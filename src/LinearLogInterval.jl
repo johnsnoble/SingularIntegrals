@@ -24,3 +24,4 @@ function getOffset_(k,z,λ,μ)
     end
     return (imag(λ)<0 ? 1 : -1)*2pi*im*[legendreInt(k_,s) for k_=0:k]
 end
+
