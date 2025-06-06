@@ -54,3 +54,20 @@ function log_interval(z,μ,λ,k)
     return L
 end
 
+# Returns ∫Pₖ(s)/((z-s)^2-r^2)
+function augmented_riesz(z,r,k)
+    # Make sure z-r∉1, z+r∉-1
+    S = simple_stieltjes_interval(z-r,k)
+    R = fill(0.0im, k+1)
+    R[1] = (log(z-r+1)+log(z+r-1)-log(z-r-1)-log(z+r+1))/2r
+    if k==0
+        return R
+    end
+    R[2] = (z+r)*R[1]-S[1]
+    k₋ = [k_/(2k_+1) for k_=0:k]
+    k₊ = [(k_+1)/(2k_+1) for k_=0:k]
+    for k_=2:k
+        R[k_+1] = ((z+r)*R[k_]-S[k_]-k₋[k_]*R[k_-1])/k₊[k_]
+    end
+    return R
+end

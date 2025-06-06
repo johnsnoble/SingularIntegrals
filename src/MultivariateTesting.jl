@@ -200,7 +200,7 @@ function test_neg_get_m_vec(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
     print("Tests passed!")
 end
 
-include("../src/RieszInterval.jl")
+include("../src/Interval.jl")
 
 function test_log_interval(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
     μs, λs = get_zs_(zs,a,b,2,region)
