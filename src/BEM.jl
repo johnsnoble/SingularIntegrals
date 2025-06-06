@@ -58,8 +58,7 @@ function square_boundary(z,u,k)
     return res
 end
 
-# Compute greens ∫u∂ₙw-w∂ₙu across z1->z2 with 
-function greens_interval(z, z1, z2, u, du, k)
+function greens_interval_(z, z1, z2, u, du, k)
     μ = (z1+z2)/2
     λ = z2-μ
     n = (z2-z1)*im/abs(z2-z1)
@@ -68,26 +67,18 @@ function greens_interval(z, z1, z2, u, du, k)
     dũ(s) = du(s*(z2-μ)+μ)
     dc = get_c(dũ,k)
     # I1: ∫u∂ₙw
-    k₋ = [k_/(2k_+1) for k_=0:k]
-    k₊ = [(k_+1)/(2k_+1) for k_=0:k]
-    R = abs_riesz((z-μ)/λ,k)/abs(λ)^2
-    c = fill(0.0,k+1)
-    c[2:k+1] = k₊[1:k].*uc[1:k]
-    c[1:k] += k₋[2:k+1].*uc[2:k+1]
-    I1 = λ*(R⋅c)
-    I1 -= (z-μ)*(R⋅uc)
-    I1 = real(I1)*real(n)+imag(I1)*imag(n)
+    D = potential_interval((z-μ)/λ,k)
+    I1 = -dot_(n,λ*(uc⋅D))/abs(λ)^2
     # I2: ∫w∂ₙu
     L = real(log_interval(z,μ,λ,k))
     I2 = dc⋅L
     return (I1-I2)/2pi
 end
 
-# Returns ∫Pₖ(s)/|z-s|^2ds
-function abs_riesz(z,k)
-    return real(augmented_riesz(real(z),imag(z)*im,k))
+function potential_interval(z,k)
+    S = simple_stieltjes_interval(z,k)
+    return conj(S)
 end
-
 P = Legendre()
 function get_c(f,k)
     try

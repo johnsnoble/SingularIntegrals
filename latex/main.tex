@@ -1067,16 +1067,23 @@ Firstly, we need an expression for $\partial_nw_y = \partial_n\frac{1}{2\pi}ln|x
 \end{align}
 Since we have boundaries which are straight lines we have that over each line $i,\hat n_i$ stays constant and therefore so does $\hat n\cdot y$.
 If we are able to integrate over a single line then we can sum up the results to get the entire boundary.
+We will revist the case of a stieltjes kernel over a simple interval but decompose $z=x+iy$ to see what happens.
+\begin{align}
+    S_k(z)=\int_{-1}^1\frac{P_k(s)}{z-s}ds&=\int_{-1}^1\frac{P_k(s)}{x-s+iy}ds\\
+    &=\int_{-1}^1P_k(s)\frac{x-s-iy}{(x-s)^2+y^2}ds\\
+    Re(S_k(z))&=\int_{-1}^1P_k(s)\frac{Re(z)-s}{|z-s|^2}ds\\
+    -Im(S_k(z))&=\int_{-1}^1P_k(s)\frac{Im(z)}{|z-s|^2}ds\\
+    S_k(z)^*=Re(S_k(z))-Im(S_k(z))i&=\int_{-1}^1P_k(s)\frac{z-s}{|z-s|^2}ds
+\end{align}
 For example, when we are moving across the axis $j$, we have that:
 \begin{align}
-    \int_{\partial\Omega_j}u\partial_nw_y&=\int_{\partial\Omega_j}u\frac{\hat n\cdot x-\hat n\cdot y}{2\pi|x-y|^2}\\
-    &=\int_{\partial\Omega_j}u\frac{\hat n_jx_j}{2\pi|x-y|^2}dx_j+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\int_{\partial\Omega_j}\frac{u}{2\pi|x-y|^2}\\
-    \text{Setting }\tilde u(s)&\text{ to take }s\in(-1,1)\text{ and map it to }x_j\text{ before applying }u\\
-    &=\int_{-1}^1\tilde u(s)\frac{\hat n_js}{2\pi|x-y|^2}ds+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\int_{-1}^1\frac{\tilde u(s)}{2\pi|x-y|^2}\\
+    \int_{\partial\Omega_j}u\partial_nw_z&=\int_{\partial\Omega_j}u\frac{\hat n\cdot(x-z)}{2\pi|x-z|^2}dx
+    =\frac{\hat n}{2\pi}\cdot\int_{\partial\Omega_j}\frac{u(x-z)}{|x-z|^2}dx\\
+    &=\frac{\hat n}{2\pi}\cdot\int_{-1}^1u\frac{(\mu+\lambda s-z)}{|\mu+\lambda s-z|^2}ds
+    =-\frac{\hat n}{2\pi|\lambda|^2}\cdot\lambda\int_{-1}^1u\frac{\frac{z-\mu}{\lambda}- s}{|\frac{z-\mu}{\lambda}-s|^2}ds\\
+    &=-\frac{\hat n}{2\pi|\lambda|^2}\cdot\Sigma_kc_k\lambda\int_{-1}^1P_k(s)\frac{\tilde z- s}{|\tilde z-s|^2}ds
 \end{align}
-Decomposing: $\tilde u(s)=\Sigma_{i=0}^kc_iP_i(s)$:
-$$\int_{\partial\Omega_j}u\partial_nw_y=\hat n_j\Sigma_i^kc_i\int_{-1}^1\frac{sP_i(s)}{2\pi|x-y|^2}ds+(\Sigma_{k\neq j}(\hat n_kx_k)-\hat n\cdot y)\Sigma_i^kc_i\int_{-1}^1\frac{P_i(s)}{2\pi|x-y|^2}ds$$
-We can easily solve this by transforming the interval kernels.
+Let $\tilde z = \frac{z-\mu}{\lambda}$ be normalised $z$
 Since the boundary is defined by one of the 2 axis changing constantly between $-1\rightarrow 1$, it is enough to consider only this.
 Notice now that we have in the first and second integral are similar to stieltjes kernels which we have already worked out how to solve.
 Th other component of the greens identity was $w_y\partial_nu$.
