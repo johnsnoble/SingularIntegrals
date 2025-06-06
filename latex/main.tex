@@ -881,7 +881,45 @@ For this case we can use either offsets but we go with working in $L_{kj}^1$
     &-\frac{2\beta}{3}\frac{1}{3}2\delta_{k1}\delta_{j1}
 \end{align}
 
-\subsubsection{Case 2: $k=0$}
+\subsubsection{Case 2: $k=1$}
+\begin{align}
+    zL_{0j}^2&=\int_{-1}^1zL_j(\tilde z_s)ds\\
+    &=\int_{-1}^1(\beta(1+s)+i)\tilde z_sL_j(z_s)ds+\int_{-1}^1\alpha(1+s)L_j(\tilde z_s)ds\\
+    &=\int_{-1}^1(\beta(1+s)+i)(j_-^LL_{j-1}(\tilde z_s)+j_+^LL_{j+1}(\tilde z_s)-\frac{2}{3}\delta_{j1})ds\\
+    &+\int_{-1}^1\alpha(1+s)L_j(\tilde z_s)ds\\
+    &=(\beta+i)(j_-^LL_{0j-1}^2+j_+^LL_{0j+1}^2-\frac{4\delta_{j1}}{3})+\beta(j_-^LL_{1j-1}^2+j_+^LL_{1j+1}^2)\\
+    &=\alpha L_{0j}^2+\alpha L_{1j}^2\\
+\end{align}
+
+\subsubsection{Case 3: $j=1$}
+\begin{align}
+    zL_{k0}^1&=\int_{-1}^1zL_k(\tilde z_t)dt\\
+    &=\int_{-1}^1(\alpha+\beta t)\tilde z_tL_k(\tilde z_t)dt+\int_{-1}^1(\alpha+(\beta+i))tL_k(\tilde z_t)dt\\
+    &=\int_{-1}^1(\alpha+\beta t)(k_-^LL_{k-1}(\tilde z_s)+k_+^LL_{k+1}(\tilde z_s)-\frac{2}{3}\delta_{k1})dt\\
+    &+\int_{-1}^1(\alpha+(\beta+i))tL_k(\tilde z_t)dt\\
+    &=\alpha(k_-^LL_{k-10}^1+k_+^LL_{k+10}-\frac{4\delta_{k1}}{3})+\beta(k_-^LL_{k-11}^1+k_+^LL_{k+11})\\
+    &+\alpha L_{k0}^1+(\beta+i)L_{k1}^1
+\end{align}
+
+\subsubsection{Case 4: $k,j=1,1$}
+As seen earlier we can describe the $L_k$ relation for $k=0$ as:
+$$zL_0(z)=2L_1(z)+\lambda_0(z)\text{ where } \lambda_0(z)=(z-1)log(z-1)+(z+1)log(z+1)$$
+First its important to solve:
+\begin{align}
+    \int_{-1}^1(\alpha+\beta t)\lambda_0(\tilde z_t)dt&=\int_{-1}^1(z-it)log(\frac{z-it}{\alpha+\beta t})\\
+    &+(z-2\alpha-(2\beta+i)t)log(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})dt\\
+    &=2(\alpha+\beta t)log(\alpha+\beta t)dt+\int_{-1}^1(z-it)log(z-it)\\
+    &+(z-2\alpha-(2\beta+i)t)log(z-2\alpha-(2\beta+i)t)\\
+\end{align}
+We are able to use techniques from the earlier section TODO: reference section.
+Since then we are able to find this we can now find the overall recurrence:
+\begin{align}
+    zL_{00}^1&=\int_{-1}^1zL_0(\tilde z_t)dt\\
+    &=\int_{-1}^1(\alpha+\beta t)\tilde zL_0(\tilde z)dt+\int_{-1}^1(\alpha+(\beta+i)t)L_0(\tilde z)dt\\
+    &=2\alpha L_{10}^1+2\beta L_{11}^1+\alpha L_{00}^1+(\beta+i)L_{01}^1+\int_{-1}^1(\alpha+\beta t)\lambda_0(\tilde z_t)dt
+\end{align}
+
+\subsubsection{Case 5: $k=0$}
 The easiest way to solve for this is to work in $L_{kj}^1$.
 We will also make use of the fact that $L_0(z)=(z+1)(log(z+1)-1)-(z-1)(log(z-1)-1)=(z+1)log(z+1)-(z-1)log(z-1)-2$.
 \begin{align}
@@ -915,7 +953,7 @@ For this to work we need a value for $L_{00}^1$ to get started with the forward 
 By computing $L_{01}^1=\frac{1}{\beta}(\tilde l_0-\alpha L_{00}^1)$, we can find the rest:
 $$L_{0j+1}^1 = \frac{1}{j_+\beta}(\tilde l_j-\alpha L_{0j}^1-j_-\beta L_{0j-1}^1)$$
 
-\subsubsection{Case 3: $j=0$}
+\subsubsection{Case 6: $j=0$}
 In order to solve this we must first work out how to correct for a certain type of branch cut in the form of:
 $$f(s)log(z-\gamma(1+s)) \rightarrow f(s)(log(\frac{z-\gamma(1+s)}{\beta(1+s)+i})+log(\beta(1+s)+i)+C(s))$$
 \begin{center}\includegraphics[width=0.5\textwidth]{bsi}\end{center}
@@ -1075,17 +1113,16 @@ We will revist the case of a stieltjes kernel over a simple interval but decompo
     -Im(S_k(z))&=\int_{-1}^1P_k(s)\frac{Im(z)}{|z-s|^2}ds\\
     S_k(z)^*=Re(S_k(z))-Im(S_k(z))i&=\int_{-1}^1P_k(s)\frac{z-s}{|z-s|^2}ds
 \end{align}
-For example, when we are moving across the axis $j$, we have that:
+We can apply this to the problem of finding the integral of $u\partial_nw$ across an edge as follows:
 \begin{align}
     \int_{\partial\Omega_j}u\partial_nw_z&=\int_{\partial\Omega_j}u\frac{\hat n\cdot(x-z)}{2\pi|x-z|^2}dx
     =\frac{\hat n}{2\pi}\cdot\int_{\partial\Omega_j}\frac{u(x-z)}{|x-z|^2}dx\\
-    &=\frac{\hat n}{2\pi}\cdot\int_{-1}^1u\frac{(\mu+\lambda s-z)}{|\mu+\lambda s-z|^2}ds
+    &=\frac{\hat n}{2\pi}\cdot\int_{-1}^1u\frac{\mu+\lambda s-z}{|\mu+\lambda s-z|^2}ds
     =-\frac{\hat n}{2\pi|\lambda|^2}\cdot\lambda\int_{-1}^1u\frac{\frac{z-\mu}{\lambda}- s}{|\frac{z-\mu}{\lambda}-s|^2}ds\\
-    &=-\frac{\hat n}{2\pi|\lambda|^2}\cdot\Sigma_kc_k\lambda\int_{-1}^1P_k(s)\frac{\tilde z- s}{|\tilde z-s|^2}ds
+    &=-\frac{\hat n}{2\pi|\lambda|^2}\cdot\Sigma_kc_k\lambda\int_{-1}^1P_k(s)\frac{\tilde z- s}{|\tilde z-s|^2}ds\\
+    &=-\frac{\hat n}{2\pi|\lambda|^2}\cdot\Sigma_kc_k\lambda S_k(z)^*
 \end{align}
-Let $\tilde z = \frac{z-\mu}{\lambda}$ be normalised $z$
-Since the boundary is defined by one of the 2 axis changing constantly between $-1\rightarrow 1$, it is enough to consider only this.
-Notice now that we have in the first and second integral are similar to stieltjes kernels which we have already worked out how to solve.
+Let $\tilde z = \frac{z-\mu}{\lambda}$ be normalised $z$.
 Th other component of the greens identity was $w_y\partial_nu$.
 Given boundary conditions $\partial_nu$ on our $\partial\Omega$, we have a transformed log line kernel which we already know how to solve.
 \section{Larger Meshes}

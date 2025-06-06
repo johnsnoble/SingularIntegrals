@@ -35,17 +35,12 @@ function u_!(x,y)
     return (I1-I2)/(2pi)
 end
 
-x_vals = -1:0.1:1
-y_vals = -1:0.1:1
+x_vals = -1:0.05:1
+y_vals = -1:0.05:1
+
+square_wrapper(k) = ((x,y)->square_boundary(x+im*y,u,k))
 
 C = randn(4,5)
-
-function baseSolSquare(z,C)
-    n_row, n_col = size(C)
-    C = (n_row<n_col ? C[:,1:n_row] : C[1:n_col,:])
-    L = newtoniansquare(z,min(n_row, n_col))
-    return sum(L*C)
-end
 
 function square_boundary(z,u,k)
     ns = [-1,im,1,-im]

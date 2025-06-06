@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  6 JUN 2025 16:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  6 JUN 2025 20:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -272,45 +272,45 @@ Overfull \hbox (21.81856pt too wide) detected at line 882
 []
  []
 
-[30]
-Overfull \hbox (43.92374pt too wide) detected at line 895
+[30] [31]
+Overfull \hbox (43.92374pt too wide) detected at line 933
 []
  []
 
 
-Overfull \hbox (11.98236pt too wide) detected at line 903
+Overfull \hbox (11.98236pt too wide) detected at line 941
 []
  []
 
-[31]
-<./images//bsi.png, id=127, 477.785pt x 654.445pt>
+[32]
+<./images//bsi.png, id=130, 477.785pt x 654.445pt>
 File: ./images//bsi.png Graphic file (type png)
 <use ./images//bsi.png>
-Package pdftex.def Info: ./images//bsi.png  used on input line 921.
+Package pdftex.def Info: ./images//bsi.png  used on input line 959.
 (pdftex.def)             Requested size: 172.5pt x 236.27907pt.
- [32 <./images//bsi.png>]
-Overfull \hbox (33.1625pt too wide) detected at line 956
+ [33] [34 <./images//bsi.png>]
+Overfull \hbox (33.1625pt too wide) detected at line 994
 []
  []
 
-[33]
-Overfull \hbox (35.67984pt too wide) detected at line 961
+
+Overfull \hbox (35.67984pt too wide) detected at line 999
 []
  []
 
-[34]
+[35] [36]
 Missing character: There is no c in font msbm10!
-<./images//lscale.png, id=138, 847.165pt x 710.655pt>
+<./images//lscale.png, id=144, 847.165pt x 710.655pt>
 File: ./images//lscale.png Graphic file (type png)
 <use ./images//lscale.png>
-Package pdftex.def Info: ./images//lscale.png  used on input line 1006.
+Package pdftex.def Info: ./images//lscale.png  used on input line 1044.
 (pdftex.def)             Requested size: 345.0pt x 289.40771pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 1006--1007
+Overfull \hbox (15.0pt too wide) in paragraph at lines 1044--1045
 [][] 
  []
 
-[35] [36 <./images//lscale.png>] [37] [38] [39] (./main.aux) ) 
+[37 <./images//lscale.png>] [38] [39] [40] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  2796 strings out of 478287
  45090 string characters out of 5849289
@@ -319,25 +319,25 @@ Here is how much of TeX's memory you used:
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,17n,62p,324b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (39 pages, 510940 bytes).
+</usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (40 pages, 513941 bytes).
 PDF statistics:
- 222 PDF objects out of 1000 (max. 8388607)
- 135 compressed objects within 2 object streams
+ 225 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
