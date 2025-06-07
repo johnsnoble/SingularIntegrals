@@ -38,11 +38,12 @@
 \contentsline {subsubsection}{\numberline {6.2.5}Case 4: $k,j=1,1$}{31}{}%
 \contentsline {subsubsection}{\numberline {6.2.6}Case 5: $k=0$}{32}{}%
 \contentsline {subsubsection}{\numberline {6.2.7}Case 6: $j=0$}{33}{}%
+\contentsline {subsubsection}{\numberline {6.2.8}Case 7: $k,j=0,0$}{36}{}%
 \contentsline {section}{\numberline {7}Transformation}{36}{}%
-\contentsline {subsection}{\numberline {7.1}Translation}{36}{}%
+\contentsline {subsection}{\numberline {7.1}Translation}{37}{}%
 \contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{37}{}%
 \contentsline {subsubsection}{\numberline {7.2.1}Stieltjes kernel}{37}{}%
 \contentsline {subsubsection}{\numberline {7.2.2}Log kernel}{37}{}%
-\contentsline {section}{\numberline {8}Boundary Conditions}{38}{}%
+\contentsline {section}{\numberline {8}Boundary Conditions}{39}{}%
 \contentsline {subsection}{\numberline {8.1}Boundary element method}{39}{}%
-\contentsline {section}{\numberline {9}Larger Meshes}{40}{}%
+\contentsline {section}{\numberline {9}Larger Meshes}{41}{}%

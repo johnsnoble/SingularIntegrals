@@ -1,3 +1,5 @@
+module Intervals
+export simple_stieltjes_interval, log_interval
 include("../src/Common.jl")
 
 λ = 3+4im
@@ -70,4 +72,5 @@ function augmented_riesz(z,r,k)
         R[k_+1] = ((z+r)*R[k_]-S[k_]-k₋[k_]*R[k_-1])/k₊[k_]
     end
     return R
+end
 end

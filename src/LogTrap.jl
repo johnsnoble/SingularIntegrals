@@ -206,6 +206,7 @@ function l̃ₖⱼ(k,j,z,a,b)
     end
 
     if (k<=1) | (j<=1)
+        L[1,:] += Oⱼ₁
         return L
     end
 

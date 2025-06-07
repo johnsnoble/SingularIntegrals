@@ -1,18 +1,12 @@
 include("../src/MultivariateSingularIntegrals.jl")
 include("../src/Intervals.jl")
+using .Intervals
 using LinearAlgebra, ClassicalOrthogonalPolynomials, QuadGK, Plots
 # Experiement with target solution being cosh(πy)sin(πx)
 expected_u_(x,y) = cosh(π*y)*sin(π*x)
 u_(z) = cosh(π*imag(z))*sin(π*real(z))
 du_(z) = pi*(cos(pi*real(z))*cosh(pi*imag(z))+sinh(pi*imag(z))*sin(pi*real(z))*im)
 dot_(z1,z2) = real(z1)*real(z2)+imag(z1)*imag(z2)
-
-function ∫(f,tol)
-    res, err = quadgk(f,-1,1,rtol=tol)
-    res
-end
-
-∫(f) = ∫(f,1e-3)
 
 function u_!(x,y)
     if ((abs(x)==1) & (abs(y)<=1)) | ((abs(y)==1) & (abs(x)<=1))
@@ -40,8 +34,6 @@ y_vals = -1:0.05:1
 
 square_wrapper(k) = ((x,y)->square_boundary(x+im*y,u,k))
 
-C = randn(4,5)
-
 function square_boundary(z,u,k)
     ns = [-1,im,1,-im]
     zs = [-1-im,-1+im,1+im,1-im,-1-im]
@@ -49,6 +41,30 @@ function square_boundary(z,u,k)
     for i=1:4
         du(x) = dot_(ns[i],du_(x))
         res += greens_interval(z,zs[i],zs[i+1],u,du,k)
+    end
+    return res
+end
+
+include("../src/LogTrap.jl")
+function base_trap_sol(z,a,b,p,C)
+    L = lₖⱼ(p-1,p-1,z,a,b)
+    return dot(real(L),C)
+end
+
+# include("../src/MultivariateSingularIntegrals.jl")
+# using .MultivariateSingularIntegrals
+# function base_square_sol(z,p,C)
+#     L = logkernelsquare(z,p)
+#     return dot(real(L),C)
+# end
+
+function trapezium_boundary(z,a,b,p,u,du,C)
+    ns = [-1,im,(b-im)/abs(b-im),-im,-1]
+    zs = [-im,im,2*(a+b)+im,2*(a-b)-im,-im]
+    res = 0
+    for i=1:4
+        du_ = (x->dot_(ns[i],du(x)))
+        res += greens_interval(z,zs[i],zs[i+1],u,du_,p)
     end
     return res
 end
@@ -81,5 +97,16 @@ function get_c(f,k)
         return c
     catch
         return fill(0.0,k+1)
+    end
+end
+
+function get_c2(f,p)
+    try
+        x = ClassicalOrthogonalPolynomials.grid(P,p)
+        F = f.(x,x')
+        C = plan_transform(P,(p,p))*F
+        return C
+    catch
+        return fill(0.0,p,p)
     end
 end

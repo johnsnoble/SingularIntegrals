@@ -888,7 +888,7 @@ For this case we can use either offsets but we go with working in $L_{kj}^1$
     &=\int_{-1}^1(\beta(1+s)+i)(j_-^LL_{j-1}(\tilde z_s)+j_+^LL_{j+1}(\tilde z_s)-\frac{2}{3}\delta_{j1})ds\\
     &+\int_{-1}^1\alpha(1+s)L_j(\tilde z_s)ds\\
     &=(\beta+i)(j_-^LL_{0j-1}^2+j_+^LL_{0j+1}^2-\frac{4\delta_{j1}}{3})+\beta(j_-^LL_{1j-1}^2+j_+^LL_{1j+1}^2)\\
-    &=\alpha L_{0j}^2+\alpha L_{1j}^2\\
+    &+\alpha L_{0j}^2+\alpha L_{1j}^2\\
 \end{align}
 
 \subsubsection{Case 3: $j=1$}
@@ -1011,6 +1011,10 @@ $$\int_{-1}^1P_k(s)log(z-(\alpha\mp\beta)(1+s)\pm i)ds=2log(\alpha\mp\beta)\delt
 The correction terms can be trivially attained by adjusting the bounds of the legendre polynomial integrals and multiplying by a constant factor e.g $\int_s^1P_k(s)ds$
 We follow the same protocal as before to obtain all $L_{k0}^2$ by starting the forward substitution with $L_{00}^2$ and $L_{10}^2=\frac{1}{\beta}(\tilde l_0^2-(\beta+i)L_{00}^2)$:
 $$L_{k+10}^2=\frac{1}{k_+\beta}(\tilde l_k^2-(\beta+i)L_{k0}^2-k_-\beta L_{k-10}^2)$$
+
+\subsubsection{Case 7: $k,j=0,0$}
+In this section chosing between $L_{kj}^1$ and $L_{kj}^2$ is very arbritary so we simply pick the former:
+$$L_{00}^1 = \int_{-1}^1L_0(\tilde z_t)dt$$
 
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
