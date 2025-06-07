@@ -1014,7 +1014,11 @@ $$L_{k+10}^2=\frac{1}{k_+\beta}(\tilde l_k^2-(\beta+i)L_{k0}^2-k_-\beta L_{k-10}
 
 \subsubsection{Case 7: $k,j=0,0$}
 In this section chosing between $L_{kj}^1$ and $L_{kj}^2$ is very arbritary so we simply pick the former:
-$$L_{00}^1 = \int_{-1}^1L_0(\tilde z_t)dt$$
+\begin{align}
+    zL_{00}^1 &= \int_{-1}^1L_0(\tilde z_t)dt\\
+    &=\int_{-1}^1 (\tilde z_t+1)log(\tilde z_t+1)-(\tilde z_t-1)log(\tilde z_t-1)-2dt\\
+    &=\int_{-1}^1 \frac{z-it}{\alpha+\beta t}log(\frac{z-it}{\alpha+\beta t})-\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t}log(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})dt-4
+\end{align}
 
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
