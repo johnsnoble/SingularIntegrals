@@ -164,7 +164,7 @@ function l̃ₖⱼ(k,j,z,a,b)
     L = fill(0.0+0.0im,k+1,j+1)
     # Get offsets:
     Oⱼ₁ = O₀ⱼ¹(j,a,b)
-    Oₖ₂, Oⱼ₂ = O²(k,j,z,a,b)
+    Oₖ₂, Oⱼ₂, O₁ⱼ₂  = O²(k,j,z,a,b)
 
     # Get l₀₀¹,l₀₀²
     l₀₀¹ = l₀₀¹_(z,a,b)
@@ -197,12 +197,14 @@ function l̃ₖⱼ(k,j,z,a,b)
 
     # Fill in row l₁ⱼ
     if j>1
+        L[2,2:j+1] -= O₁ⱼ₂[2:j+1]
         L[2,3] = ((z-a)*l₀ⱼ²[2]-a*L[2,2]-(b+im)*(l₀ⱼ²[3]-4/3))/b
         for j_=3:j
             L[2,j_+1] = ((z-a)*l₀ⱼ²[j_]-a*L[2,j_]
                          -(b+im)*(r₋[j_]*l₀ⱼ²[j_-1]+r₊[j_]*l₀ⱼ²[j_+1])
                          -b*r₋[j_]*L[2,j_-1])/(b*r₊[j_])
         end
+        L[2,2:j+1] += O₁ⱼ₂[2:j+1]
     end
 
     if (k<=1) | (j<=1)
@@ -242,7 +244,7 @@ function lₖⱼ(k,j,z,a,b)
     L = fill(0.0+0.0im,k+1,j+1)
     L[:,1] = a*L_[:,1] + b*L_[:,2]
     for j_=2:j+1
-        L[:,j_] = a*L_[:,j_]+b*(q₋[j_]*L_[:,j_-1]+q₊[j_]*L_[:,j+1])
+        L[:,j_] = a*L_[:,j_]+b*(q₋[j_]*L_[:,j_-1]+q₊[j_]*L_[:,j_+1])
     end
     return L
 end
@@ -258,9 +260,10 @@ function O₀ⱼ¹(j,a,b)
     return 2*L
 end
 
+
 function O²(k,j,z,a,b)
     Oₖ = Oₖ₀²(k,z,a,b)
-    return Oₖ,O₀ⱼ²(j,z,a,b,Oₖ[1])
+    return Oₖ,O₀ⱼ²(j,z,a,b,Oₖ[1]), O₁ⱼ²(j,z,a,b)
 end
 
 # ∫Lⱼ(z̃ₛ)ds→∫∫Pⱼ(t)log(z-it-(a+bt)(1+s)dt)ds
@@ -277,6 +280,15 @@ function O₀ⱼ²(j,z,a,b,O₀₀)
         Oⱼ[2:j+1] = -2pi*im*[legendreInt(j_,t) for j_=1:j]*(1-s)
     end
     return Oⱼ
+end
+
+function O₁ⱼ²(j,z,a,b)
+    t = imag(z)
+    if (abs(t)<1) & (2*(t*b+a)>real(z))
+        s = real(z)/(a+b*t)-1
+        O = -2pi*im*[legendreInt(j_,t) for j_=0:j]*legendreInt(1,s)
+    end
+    return O
 end
 
 # Returns (Oₖ₀²,O₀ⱼ²)
