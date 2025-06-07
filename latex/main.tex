@@ -136,11 +136,11 @@ Thinking about flat interval we think about what occurs when this is rotated clo
 \includegraphics[width=\textwidth]{intervaltransform}
 
 Above is a small example where we can see what the interval in the integral we are trying to decompose the log of looks like.
-We see here are that we may already have a cut crossing which means it is important to know at what value of $s$, this crossing occurs and then trelike two seperate integrals.
+We see here are that we may already have a cut crossing which means it is important to know at what value of $s$, this crossing occurs and then treat like two seperate integrals.
 Now we are able to rotate and see that it will lie entirely above or below the branch cut as it is flat.
 We can imagine in the image above the origin being at different points along the real axis.
 If we try mentally rotate these intervals around any chosen origin point along this real axis, we will find that when the extended line in the direction of $\lambda$ intercepts the real axis, we have a branch crossing given that the this intersection happens in the negative region of the line.
-TODO: Prove this statement
+This is because intercepting the real axis at a negative point implies that the argument of this whole interval is in the region which gets rotated over the branch cut when we rotate by $\lambda$.
 We can find intercept at the real axis fairly easily to be:
 \begin{align}
     Im:\:Im(z-\mu-\lambda s^*)&=0\\
@@ -162,7 +162,9 @@ Revisiting earlier, we can show say that our transformed version is like:
     \int_{-1}^1P_k(s)log(\lambda(\frac{z-\mu}{\lambda}-s))ds&=\int_{-1}^1P_k(s)(log(\lambda)+log(\frac{z-\mu}{\lambda}-s)+C(s))ds\\
     &=2log(\lambda)\delta_{k0}+L_k(\frac{z-\mu}{\lambda})+\int_{-1}^1P_k(s)C(s)ds
 \end{align}
-
+This type of branch correction is extremely useful as it allows us to represent any given log integral in the form of $L_k(z)$ which we have a recurrence relation.
+Therefore we can represent the correction term as $C_\lambda^z$:
+$$log(z-\lambda s)=log(\frac{z}{\lambda}-s)+log(\lambda)+C_\lambda^z(s)$$
 \section{Stieltjes Polynomial Transforms}
 We can begin to consider taking these transforms across different geometries.
 Currently we have a way to find these transforms across [-1,1] but we will be trying to use this to solve other geometries.
@@ -1018,6 +1020,15 @@ In this section chosing between $L_{kj}^1$ and $L_{kj}^2$ is very arbritary so w
     zL_{00}^1 &= \int_{-1}^1L_0(\tilde z_t)dt\\
     &=\int_{-1}^1 (\tilde z_t+1)log(\tilde z_t+1)-(\tilde z_t-1)log(\tilde z_t-1)-2dt\\
     &=\int_{-1}^1 \frac{z-it}{\alpha+\beta t}log(\frac{z-it}{\alpha+\beta t})-\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t}log(\frac{z-2\alpha-(2\beta+i)t}{\alpha+\beta t})dt-4
+\end{align}
+Decomposing the log here is allowed as $\alpha+\beta t\in\mathbb{R}$.
+Once decomposed we can solve $P_j(t)log(\alpha+\beta t)$ again using $L_k$ recurrence.
+We can see that it is fairly simple to solve anything in the form of $\frac{log(z-ct)}{\alpha+\beta t}$ as the solution is just the dilogarithm which we have solved in the stieltjes case.
+Now all thats left to work out is to be able to solve the form of $t\frac{log(z-ct)}{\alpha+\beta t}$:
+\begin{align}
+    M_0(z)&=\int_{-1}^1log(z-it)dt\\
+    &=\int_{-1}^1\frac{\alpha}{\alpha+\beta t}log(z-it)dt+\int_{-1}^1\frac{\beta t}{\alpha+\beta t}log(z-it)dt\\
+    \int_{-1}^1\frac{tlog(z-it)}{\alpha+\beta t}dt&=\frac{1}{\beta}(M_0(z)-\int_{-1}^1\frac{\alpha log(z-it)}{\alpha+\beta t}dt)
 \end{align}
 
 \section{Transformation}
