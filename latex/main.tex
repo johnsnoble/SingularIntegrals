@@ -107,7 +107,10 @@ zS_{k,j}(z) &= z\int_{-1}^1\int_{-1}^1\frac{P_k(s)P_j(t)}{z-(s+it)}dsdt \\
 \end{split}
 \end{equation}
 \subsubsection{Log kernel on interval}
-We can begin by connecting log kernel to the Stieltjes kernel. To do this we define:$$S_k^{(\lambda)}(z):=\int_{-1}^{1}\frac{C_k^{(\lambda)}(t)}{z-t}dt$$
+Being able to solve the log kernel for a function over an interval is very useful.
+We follow the same steps as \cite{logkernel} to derive the $L_k$ recurrence.
+First connect log kernel to the Stieltjes kernel.
+To do this we define:$$S_k^{(\lambda)}(z):=\int_{-1}^{1}\frac{C_k^{(\lambda)}(t)}{z-t}dt$$
 We let $F(x) = \int_x^1f(s)ds$ and apply integration by parts on log transform:
 \begin{equation}
 \begin{split}
@@ -183,7 +186,8 @@ Revisiting earlier, we can show say that our transformed version is like:
 \end{align}
 This type of branch correction is extremely useful as it allows us to represent any given log integral in the form of $L_k(z)$ which we have a recurrence relation.
 Therefore we can represent the correction term as $C_\lambda^z$:
-$$log(z-\lambda s)=log(\frac{z}{\lambda}-s)+log(\lambda)+C_\lambda^z(s)$$
+\begin{equation}log(z-\lambda s)=log(\frac{z}{\lambda}-s)+log(\lambda)+C_\lambda^z(s)\label{branch_correct}\end{equation}
+
 \section{Stieltjes Polynomial Transforms}
 We can begin to consider taking these transforms across different geometries.
 Currently we have a way to find these transforms across [-1,1] but we will be trying to use this to solve other geometries.
@@ -228,13 +232,6 @@ We can do a similar thing with $\psi^-$ and putting everything together:
 In the case where $z \notin \psi, \psi^+=\psi^-$ which is expected since the area in between is analytic
 
 TODO show that condition \eqref{cauchy_conditions}.3 holds
-\section{Affine Transformations}
-Affine transformations can be solved in 2 distinct ways:
-We will begin by considering the case of solving for a horizontally skewed square with the following transformation:
-$$\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
-\begin{pmatrix}\alpha x+\beta y\\y\end{pmatrix}$$
-It can be shown that any affine transformation in the form of $(x, y)^T \rightarrow A(x,y)^T$ can be done by taking the above translation and performing scaling and rotations.
-TODO: Show that this is indeed the case
 
 \section{Trapezium Region}
 We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral.
@@ -422,10 +419,9 @@ $$\int_{0}^1 f(x)log(abx)dx,\:arg(a)+arg(b)>\frac{\pi}{2}$$
 Here we see that if we try and decompose $log(abx)$ into $log(ax)+log(b)$,
 we will have to add a correction term since
 $$arg(abx)\neq (arg(ax)+arg(b)=arg(a)+arg(b)>\frac{\pi}{2})$$
-This is because of the branch cut at $\pm\pi$, $arg(abx)=arg(ab)<0$
+This is because of the branch cut at argument $\pm\pi$, $arg(abx)=arg(ab)<0$
 It is possible to easily fix this by removing a factor of $2\pi$:
 $$\int_{0}^1 f(x)log(abx)dx = \int_{0}^1 f(x)log(ax)dx+\int_{0}^1 f(x)(log(b)-2\pi)dx$$
-
 Although this is a very simple case which I am just using to illustrate the point we can get a much more complex case when the interval we are taking integrals over crosses over branch cuts.
 To solve this we find the value $w$ such that $arg(z)+arg(w)=\frac{\pi}{2}$:
 \begin{align}
@@ -434,7 +430,6 @@ To solve this we find the value $w$ such that $arg(z)+arg(w)=\frac{\pi}{2}$:
     \int_{c_-}^{c_+}f(x)log(zx)dx=&\int_{c_-}^wf(x)(log(zx)-2\pi)dx
     +\int_w^{c_+}f(x)log(zx)dx
 \end{align}
-
 Before moving to the next two cases we need closed form solutions to the following:
 
 First we define: $$r_j = \int_{-1}^1P_j(t)s_0(\tilde{z}_t)dt$$
@@ -477,7 +472,7 @@ Case 2 ($Im(z_1)=Im(z_2)<0$ - Origin lies above):
 
 In the remaining cases, we have that some values of $t$ is above and some values of $t$ are below which means we can simply combine the logic of these the above two cases to say that there are no issues with branch cuts.
 
-Next we address
+Next we address:
 $$log(z_2)=log(z-2\alpha-(2\beta+i)t)=log(2\beta+i)+log(\frac{z-2\alpha}{2\beta+i}-t):=log(c_1)+log(z_3)$$
 
 \includegraphics[width=\textwidth]{z23}
@@ -486,26 +481,12 @@ As $b>0$, the $arg(2\beta+i)\in(0,\frac{\pi}{2})$.
 Also we note that in $z_3$ the interval is flat.
 This should make sense as we have an interval of angle $2\beta+i$ and we are rotating this interval by the same angle.
 Therefore the question of branch crossing is reduced down to wether or not the whole interval crosses the line.
-
-Case 1 ($Im(z)>1$):
+This is a special case of branch cut we solved earlier in \eqref{branch_correct} with $\mu=0,\lambda=2\beta+i$:
 \begin{align}
-    Im(z)>1 &\implies Im(z_2)>1,\:arg(z_2)\in(0,\pi)\\
-    arg(2\beta+i)\in(0,\frac{\pi}{2}) &\implies arg(z_3) = arg(z_2)-arg(2\beta + i) \in (-\frac{\pi}{2},\pi)
+    log(z-2\alpha-(2\beta+i)s)&=log(\frac{z-2\alpha}{2\beta+i}-s)+log(2\beta+i)+Corr_{2\beta+i}^{z-2\alpha}(t)\\
+    &=log(\frac{z-2\alpha}{2\beta+i}-s)+log(2\beta+i)-2\pi i\mathbb{I}\{s>s^*\}\mathbb{I}\{x^*<0\}\\
+    \text{where: }& s^*=Im(z-\alpha),\:x^*=Re(z-\alpha)-2\beta s^*
 \end{align}
-Case 2 ($arg(z-2\alpha)>-\pi+arg(2\beta+i)$)
-Rough idea here is that it is never lifted clockwise over the branch cut.
-Again this will be shown using diagrams
-Case 3 ($arg(z-2\alpha)<-\pi+arg(2\beta+i)$)
-This means the whole interval is lifted over the branch cut.
-\begin{align}
-    t_1 :&= min\{max\{\underset{t}{inf}\:Im(z-2\alpha-(2\beta+i)t)<0,-1\},1\}\\
-    \int_{-1}^1f(t)log(z_2)dt &= \int_{-1}^tf(t)(log(2\beta+i)+log(z_3))dt\\
-    &+\int_t^1f(t)(log(2\beta+i)+log(z_3)-2\pi i)dt
-\end{align}
-Case 4 ($z-2\alpha-2\beta Im(z)>0,\: |Im(z)|\leq 1$):
-This is just another way of saying that when parameterising $z_2$ with $t$, the intercept of this line with the real axis is greater than $0$ and so does not pass through the branch cut.
-This means we have a case of rotation that does not cross any branch cut (this is because the rotation will result in a flat line).
-TODO:Proof for these and diagrams.
 
 Secondly we should also define:
 \begin{align}
@@ -647,10 +628,8 @@ We are looking for the following:
 We need to be able to solve solutions of the following from:
 $$\int_{-1}^1\frac{log(z+ct)}{b+t}dt$$
 Begin by considering decomposing $log(z+ct)\rightarrow log(\frac{z}{c}+t)+log(c)$.
-Rigorously we must show that we do not cross a branch cut for all values of $t$, however, we can notice that the values of $t$ in the decomposed form is along a horizontal line.
-We can assume that this interval does not cross over $0$ as our integral needs to be defined.
-Because of this we can say that the whole interval either stays or crosses over the cut.
-We can therefore add a correction term $(2\pi i)$ depending on $|arg(c)+arg(z/c)|$ and no correction term if this stays under $\pi$.
+Because of this we can say that the whole interval either stays or crosses over the cut once tranformed.
+This is the same as in \eqref{branch_correct} where we can add correction term $(2\pi i)$ depending on $|arg(z)-arg(c)|<\pi$.
 We can move forward by denoting as $C_3$:
 \begin{align}
     \int_{-1}^1\frac{log(z+ct)}{b+t}dt&=\int_{-1}^1\frac{log(z/c+t)}{b+t}+\frac{log(c)}{b+t}dt+C_3\\
@@ -669,7 +648,7 @@ $$\int_{-1}^1\frac{log(a+t)}{b+t}dt=\int_{b-1}^{b+1}\frac{log(a-b+t)}{t}dt$$
 We know go about finding correction terms for: $log(a-b+t)\rightarrow log(a-b)+log(1+\frac{t}{a-b})$ as $a-b\in\mathbb{C}$
 We have a branch crossing if for some $t\in[-1,1]$:
 $$|arg(a+t)-arg(a-b)|>\pi$$
-\begin{center}\includegraphics[width=\textwidth/2]{s00}\end{center}
+\begin{center}\includegraphics[width=0.75\textwidth]{s00}\end{center}
 Above we can see an example of $a,b$ values which results in a branch crossing over the positive side.
 The red line denotes the angle at which we rotate when dividing by $a-b$.
 This means that anything on the left over this line crosses the branch cut whilst anything to the right does not.
@@ -732,8 +711,7 @@ From these it feels appropriate to use the form:
     &+S_{kj-1}B_{jj-1}+S_{kj+1}B{jj+1}+C\\
 \end{align}
 This implies that in order to fit this form we can only have recursive elements from $kj$ in the form of $k\pm 1,j$ or $k,j\pm 1$ (or even $\pm x$ for $x>1$).
-Since our recurrence relation has the "diagonal" elements we cannot have this for $S$.
-This prompts us to augment $S$ slightly so that we can let it obtain the displacement structure.
+Since our recurrence relation has the "diagonal" elements we cannot have displacement structure for $\tilde s_{kj}$.
 
 \section{Log kernel}
 Now we move onto solving over the 2d log kernel.
@@ -969,7 +947,7 @@ First its important to solve:
     &=2(\alpha+\beta t)log(\alpha+\beta t)dt+\int_{-1}^1(z-it)log(z-it)\\
     &+(z-2\alpha-(2\beta+i)t)log(z-2\alpha-(2\beta+i)t)\\
 \end{align}
-We are able to use techniques from the earlier section TODO: reference section.
+We are able to use techniques from the earlier section \eqref{branch_correct}
 Since then we are able to find this we can now find the overall recurrence:
 \begin{align}
     zL_{00}^1&=\int_{-1}^1zL_0(\tilde z_t)dt\\
@@ -1007,7 +985,7 @@ $$
 $$
 Solving the log part of the $\tilde l_j$ is very trivial and we have seen multiple instances of this case before where we turn it into the form of $L_k$.
 Now that we know how to solve for $\tilde l_j$ we can go about solving $L_{0j}^1$.
-For this to work we need a value for $L_{00}^1$ to get started with the forward substitution which I will describe in a different case.
+For this to work we need a value for $L_{00}^1$ to get started with the forward substitution which I will describe in \ref{case_l00}
 By computing $L_{01}^1=\frac{1}{\beta}(\tilde l_0-\alpha L_{00}^1)$, we can find the rest:
 $$L_{0j+1}^1 = \frac{1}{j_+\beta}(\tilde l_j-\alpha L_{0j}^1-j_-\beta L_{0j-1}^1)$$
 
@@ -1063,7 +1041,7 @@ $$C_\pm(s)=\begin{cases}
 \end{cases}$$
 Going back to our original expression we do the same trick as earlier where we define and solve:
 $$\tilde l_k^2=\int_{-1}^1(\beta(1+s)+i)P_k(s)L_0(\tilde z_s)ds$$
-Solving $l_k^2$ can be done by solving its individual components:
+Solving $\tilde l_k^2$ can be done by solving its individual components:
 $$\int_{-1}^1P_k(s)log(z-(\alpha\mp\beta)(1+s)\pm i)ds=2log(\alpha\mp\beta)\delta_{k0}
 +L_k(\frac{z}{\alpha\mp\beta}\pm i-1)$$
 The correction terms can be trivially attained by adjusting the bounds of the legendre polynomial integrals and multiplying by a constant factor e.g $\int_s^1P_k(s)ds$
@@ -1071,6 +1049,7 @@ We follow the same protocal as before to obtain all $L_{k0}^2$ by starting the f
 $$L_{k+10}^2=\frac{1}{k_+\beta}(\tilde l_k^2-(\beta+i)L_{k0}^2-k_-\beta L_{k-10}^2)$$
 
 \subsubsection{Case 7: $k,j=0,0$}
+\label{case_l00}
 In this section chosing between $L_{kj}^1$ and $L_{kj}^2$ is very arbritary so we simply pick the former:
 \begin{align}
     zL_{00}^1 &= \int_{-1}^1L_0(\tilde z_t)dt\\
