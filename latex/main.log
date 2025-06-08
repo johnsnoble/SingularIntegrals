@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  8 JUN 2025 17:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.1.30)  8 JUN 2025 22:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -314,46 +314,94 @@ Overfull \hbox (11.70839pt too wide) detected at line 1058
 []
  []
 
+<./images//quadtime.png, id=144, 1821.80624pt x 1144.275pt>
+File: ./images//quadtime.png Graphic file (type png)
+<use ./images//quadtime.png>
+Package pdftex.def Info: ./images//quadtime.png  used on input line 1073.
+(pdftex.def)             Requested size: 172.5pt x 108.34059pt.
+<./images//logtime.png, id=145, 1821.80624pt x 1144.275pt>
+File: ./images//logtime.png Graphic file (type png)
+<use ./images//logtime.png>
+Package pdftex.def Info: ./images//logtime.png  used on input line 1074.
+(pdftex.def)             Requested size: 172.5pt x 108.34059pt.
+
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 1071--1080
+[] []
+ []
+
 [37]
+<./images//potentialp5.png, id=150, 1743.51375pt x 1131.22626pt>
+File: ./images//potentialp5.png Graphic file (type png)
+<use ./images//potentialp5.png>
+Package pdftex.def Info: ./images//potentialp5.png  used on input line 1083.
+(pdftex.def)             Requested size: 172.5pt x 111.92097pt.
+<./images//potentialp10.png, id=151, 1743.51375pt x 1131.22626pt>
+File: ./images//potentialp10.png Graphic file (type png)
+<use ./images//potentialp10.png>
+Package pdftex.def Info: ./images//potentialp10.png  used on input line 1084.
+(pdftex.def)             Requested size: 172.5pt x 111.92097pt.
+
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 1083--1087
+[][] []
+ []
+
+[38 <./images//quadtime.png> <./images//logtime.png> <./images//potentialp5.png
+> <./images//potentialp10.png>]
 Missing character: There is no c in font msbm10!
-<./images//lscale.png, id=148, 847.165pt x 710.655pt>
+<./images//lscale.png, id=159, 847.165pt x 710.655pt>
 File: ./images//lscale.png Graphic file (type png)
 <use ./images//lscale.png>
-Package pdftex.def Info: ./images//lscale.png  used on input line 1098.
+Package pdftex.def Info: ./images//lscale.png  used on input line 1116.
 (pdftex.def)             Requested size: 345.0pt x 289.40771pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 1098--1099
+Overfull \hbox (15.0pt too wide) in paragraph at lines 1116--1117
 [][] 
  []
 
-[38] [39 <./images//lscale.png>] [40] [41] (./main.bbl) [42] (./main.aux) ) 
+[39] [40 <./images//lscale.png>] [41] [42]
+<./images//bemp10.png, id=173, 1774.63pt x 1137.24875pt>
+File: ./images//bemp10.png Graphic file (type png)
+<use ./images//bemp10.png>
+Package pdftex.def Info: ./images//bemp10.png  used on input line 1206.
+(pdftex.def)             Requested size: 172.5pt x 110.53857pt.
+<./images//bemp5.png, id=174, 1774.63pt x 1137.24875pt>
+File: ./images//bemp5.png Graphic file (type png)
+<use ./images//bemp5.png>
+Package pdftex.def Info: ./images//bemp5.png  used on input line 1207.
+(pdftex.def)             Requested size: 172.5pt x 110.53857pt.
+
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 1206--1208
+[][] [] 
+ []
+
+(./main.bbl [43 <./images//bemp10.png> <./images//bemp5.png>]) [44] (./main.aux
+) ) 
 Here is how much of TeX's memory you used:
- 2811 strings out of 478287
- 45284 string characters out of 5849289
- 356964 words of memory out of 5000000
- 20989 multiletter control sequences out of 15000+600000
+ 2877 strings out of 478287
+ 46825 string characters out of 5849289
+ 355964 words of memory out of 5000000
+ 21055 multiletter control sequences out of 15000+600000
  477741 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,17n,62p,320b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
-</us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (42 pages, 519383 bytes).
+ 55i,17n,62p,320b,227s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (44 pages, 890076 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 141 compressed objects within 2 object streams
+ 250 PDF objects out of 1000 (max. 8388607)
+ 146 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

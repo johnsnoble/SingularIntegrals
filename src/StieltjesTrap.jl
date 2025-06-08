@@ -56,3 +56,8 @@ function s_trap_matrix!(k,j,z,a,b,s₀₀=nothing)
     end
     S
 end
+
+function test_time(p,zs,a,b)
+    ts = [@elapsed z for z=zs]
+    return sum(ts)/length(zs)
+end

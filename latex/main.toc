@@ -39,11 +39,15 @@
 \contentsline {subsubsection}{\numberline {5.2.6}Case 5: $k=0$}{33}{}%
 \contentsline {subsubsection}{\numberline {5.2.7}Case 6: $j=0$}{34}{}%
 \contentsline {subsubsection}{\numberline {5.2.8}Case 7: $k,j=0,0$}{37}{}%
-\contentsline {section}{\numberline {6}Transformation}{38}{}%
-\contentsline {subsection}{\numberline {6.1}Translation}{38}{}%
-\contentsline {subsection}{\numberline {6.2}Scaling and Rotation}{38}{}%
-\contentsline {subsubsection}{\numberline {6.2.1}Stieltjes kernel}{38}{}%
-\contentsline {subsubsection}{\numberline {6.2.2}Log kernel}{38}{}%
-\contentsline {section}{\numberline {7}Boundary Conditions}{40}{}%
-\contentsline {subsection}{\numberline {7.1}Boundary element method}{40}{}%
-\contentsline {section}{\numberline {8}Larger Meshes}{42}{}%
+\contentsline {section}{\numberline {6}Performance}{38}{}%
+\contentsline {subsection}{\numberline {6.1}Efficiency}{38}{}%
+\contentsline {subsection}{\numberline {6.2}Accuracy}{38}{}%
+\contentsline {section}{\numberline {7}Transformation}{39}{}%
+\contentsline {subsection}{\numberline {7.1}Translation}{39}{}%
+\contentsline {subsection}{\numberline {7.2}Scaling and Rotation}{39}{}%
+\contentsline {subsubsection}{\numberline {7.2.1}Stieltjes kernel}{39}{}%
+\contentsline {subsubsection}{\numberline {7.2.2}Log kernel}{39}{}%
+\contentsline {section}{\numberline {8}Boundary Conditions}{41}{}%
+\contentsline {subsection}{\numberline {8.1}Boundary element method}{41}{}%
+\contentsline {subsection}{\numberline {8.2}Boundary Performance}{43}{}%
+\contentsline {section}{\numberline {9}Larger Meshes}{43}{}%

@@ -1045,7 +1045,7 @@ Solving $\tilde l_k^2$ can be done by solving its individual components:
 $$\int_{-1}^1P_k(s)log(z-(\alpha\mp\beta)(1+s)\pm i)ds=2log(\alpha\mp\beta)\delta_{k0}
 +L_k(\frac{z}{\alpha\mp\beta}\pm i-1)$$
 The correction terms can be trivially attained by adjusting the bounds of the legendre polynomial integrals and multiplying by a constant factor e.g $\int_s^1P_k(s)ds$
-We follow the same protocal as before to obtain all $L_{k0}^2$ by starting the forward substitution with $L_{00}^2$ and $L_{10}^2=\frac{1}{\beta}(\tilde l_0^2-(\beta+i)L_{00}^2)$:
+We follow the same protocol as before to obtain all $L_{k0}^2$ by starting the forward substitution with $L_{00}^2$ and $L_{10}^2=\frac{1}{\beta}(\tilde l_0^2-(\beta+i)L_{00}^2)$:
 $$L_{k+10}^2=\frac{1}{k_+\beta}(\tilde l_k^2-(\beta+i)L_{k0}^2-k_-\beta L_{k-10}^2)$$
 
 \subsubsection{Case 7: $k,j=0,0$}
@@ -1066,6 +1066,24 @@ Now all thats left to work out is to be able to solve the form of $t\frac{log(z-
     \int_{-1}^1\frac{tlog(z-it)}{\alpha+\beta t}dt&=\frac{1}{\beta}(M_0(z)-\int_{-1}^1\frac{\alpha log(z-it)}{\alpha+\beta t}dt)
 \end{align}
 
+\section{Performance}
+\subsection{Efficiency}
+Now we will compare the efficiency of these recurrence algorithms in practice.
+To test this we use trapezium with values $\alpha=1,\beta=0.5$ and see the speed difference in comparison with the traditional quadrature method.
+\includegraphics[width=.5\textwidth]{quadtime}
+\includegraphics[width=.5\textwidth]{logtime}
+As expected given a higher order $p$ the time it takes to compute the $L$ matrix increases.
+More specifically, we expect the time to increase quadratically.
+This is not exactly what we observe but we can account for this by claiming it is overhead.
+The quadrature seems to have a large overhead for lower values but seems to begin to increase again afterwards.
+In comparison to the quadrature method, the recursive method outlined seems to work orders of magnitudes faster.
+\subsection{Accuracy}
+We will now test the potential of function $f:(x,y)\rightarrow cos(xe^y)$ to see how the quadrature result differs from the recusrive results by plotting the difference on a $log_{10}$ scale:
+
+\includegraphics[width=.5\textwidth]{potentialp5}
+\includegraphics[width=.5\textwidth]{potentialp10}
+The value of the error changes only by a small amount from using p=5(left) to p=10(right).
+Although, the source of this error can come from many different sources including how well the function is approximated using our function space.
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
 In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
@@ -1179,6 +1197,15 @@ We can apply this to the problem of finding the integral of $u\partial_nw$ acros
 Let $\tilde z = \frac{z-\mu}{\lambda}$ be normalised $z$.
 Th other component of the greens identity was $w_y\partial_nu$.
 Given boundary conditions $\partial_nu$ on our $\partial\Omega$, we have a transformed log line kernel which we already know how to solve.
+\subsection{Boundary Performance}
+We can revist the square since we are simply integrating over lines and so any polygon will do.
+In order to test the boundary performance alogrithm, we can manually solve laplace equation $\Delta=0$ to get a ground truth and then compare our result to this truth.
+The ground truth I used for this test was $u(x,y) = cosh(\pi y)sin(\pi x)$.
+Plotting the error between our result and the ground result in p=5(left) and p=10(right) on a $log_{10}$ scale yeilds:
+
+\includegraphics[width=.5\textwidth]{bemp10}
+\includegraphics[width=.5\textwidth]{bemp5}
+
 \section{Larger Meshes}
 We can add together results from individual triangles to get the result of a convolution over more complicated regions.
 Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.

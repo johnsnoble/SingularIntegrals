@@ -125,3 +125,32 @@ function test_log_interval(n,a,b,zs,region=0,tol=1e-7,rtol=1e-3)
     end
     print("Tests passed!")
 end
+
+using LinearAlgebra
+
+P = Legendre()
+
+function test_p(p,a,b,f,zs,tol=1e-20)
+    # quad_val = [∫(t->∫(s->f(s,t)*log(z-im*t-(a+b*t)*(1+s)))) for z=zs]
+    x = ClassicalOrthogonalPolynomials.grid(P,p)
+    F = f.(x,x')
+    C = plan_transform(P,(p,p))*F
+    l_time = [@elapsed dot(C,lₖⱼ(p-1,p-1,z,a,b)) for z=zs]
+    return l_time
+end
+
+function test_ps(ps,a,b,f,zs,tol=1e-20)
+    # accuracy = fill(0, length(ps))
+    time = fill(0, length(ps))
+    # quad_val = [∫(t->∫(s->f(s,t)*log(z-im*t-(a+b*t)*(1+s)))) for z=zs]
+    for (ind, p)=enumerate(ps)
+        x = ClassicalOrthogonalPolynomials.grid(P,p)
+        F = f.(x,x')
+        C = plan_transform(P,(p,p))*F
+        l_val = [dot(C,lₖⱼ(p-1,p-1,z,a,b)) for z=zs]
+        ts = [@elapsed dot(C,lₖⱼ(p-1,p-1,z,a,b)) for z=zs]
+        time[ind] = sum(ts)/length(zs)
+        # accuracy[ind] = sum(abs.(l_val-quad_val))/length(zs)
+    end
+    return time
+end

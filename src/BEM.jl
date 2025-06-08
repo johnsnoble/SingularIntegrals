@@ -8,29 +8,8 @@ u_(z) = cosh(π*imag(z))*sin(π*real(z))
 du_(z) = pi*(cos(pi*real(z))*cosh(pi*imag(z))+sinh(pi*imag(z))*sin(pi*real(z))*im)
 dot_(z1,z2) = real(z1)*real(z2)+imag(z1)*imag(z2)
 
-function u_!(x,y)
-    if ((abs(x)==1) & (abs(y)<=1)) | ((abs(y)==1) & (abs(x)<=1))
-        return expected_u_(x,y)
-    end
-    z = x + im*y
-    # Computing I1=∫u∂ₙw, I2=∫w∂ₙu
-    # w=ln|x_+iy_-z|/2
-    I1, I2 = 0, 0
-    # First boundary: x=-1, u=0, ∂ₙu=-πcosh(πy)cos(-π)
-    I2 += pi*∫(y_->log(abs(-1+im*y_-z))*cosh(pi*y_))
-    # Second boundary: y=1, u=cosh(π)sin(πx), ∂ₙu=πsinh(π)sin(πx)
-    I1 += cosh(pi)*(1-y)*∫(x_->sin(pi*x_)/abs(z-(x_+im))^2)
-    I2 += pi*sinh(pi)*∫(x_->log(abs(x_+im-z))*sin(pi*x_))
-    # Third boundary: x=1, u=0, ∂ₙu=πcosh(πy)cos(π)
-    I2 += -pi*∫(y_->log(abs(1+im*y_-z))*cosh(pi*y_))
-    # Fourth boundary: y=-1, u=cosh(π)sin(πx), ∂ₙu=πsinh(π)sin(πx)
-    I1 += cosh(pi)*(1+y)*∫(x_->sin(pi*x_)/abs(z-(x_-im))^2)
-    I2 += pi*sinh(pi)*∫(x_->log(abs(x_-im-z))*sin(pi*x_))
-    return (I1-I2)/(2pi)
-end
-
-x_vals = -1:0.05:1
-y_vals = -1:0.05:1
+x_vals = -.98:0.05:.98
+y_vals = -.98:0.05:.98
 
 square_wrapper(k) = ((x,y)->square_boundary(x+im*y,u,k))
 
