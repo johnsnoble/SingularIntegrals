@@ -69,7 +69,7 @@ function trapezium_boundary(z,a,b,p,u,du,C)
     return res
 end
 
-function greens_interval_(z, z1, z2, u, du, k)
+function greens_interval(z, z1, z2, u, du, k)
     μ = (z1+z2)/2
     λ = z2-μ
     n = (z2-z1)*im/abs(z2-z1)

@@ -1,6 +1,7 @@
 module Intervals
 export simple_stieltjes_interval, log_interval
 include("../src/Common.jl")
+using .Common
 
 λ = 3+4im
 μ = 2im
