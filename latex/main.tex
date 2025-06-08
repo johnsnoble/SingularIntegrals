@@ -216,7 +216,6 @@ Checking \eqref{cauchy_conditions}.1 we get that $\underset{z\to\infty}{p_j^{-1}
 Checking \eqref{cauchy_conditions}.2 we need an expression for $\psi^+$ and $\psi^-$.
 Let us begin by saying that we are looking for cauchy transform of point $s$ which happens to lie on $\Gamma$.
 This means that there is a unique root of $t_k := p_k^{-1}(s) \in [-1,1]$.
-TODO: Show that $\underset{z\to s^+}{lim} p_k^{-1}(s) =\underset{z\to p^{-1}(s)^+}{lim}$.
 Taking limits of $\psi^+, \psi^-$ gives us:
 \begin{equation}\begin{split}
 \psi^+(s)&=\underset{z\to s}{lim}\:C_{[-1,1]}(f\circ p)(p_k^{-1}(z)) \\
@@ -230,8 +229,6 @@ We can do a similar thing with $\psi^-$ and putting everything together:
 &= (f\circ p)(p_k^{-1}(s)) = f(s)
 \end{split}\end{equation}
 In the case where $z \notin \psi, \psi^+=\psi^-$ which is expected since the area in between is analytic
-
-TODO show that condition \eqref{cauchy_conditions}.3 holds
 
 \section{Trapezium Region}
 We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral.
@@ -820,7 +817,6 @@ Therefore we cannot place our origin in this greyed out region.
 \end{align}
 
 \subsubsection{Case 2: $s^*>1$ and $Im(z)\in[-\frac{\alpha}{\beta},1]$}
-TODO: Can use proof similar to case 5.
 In this case we have the origin in the left green region.
 This means that no paths crosses the branch cut and if at all we cross in the positive real numbers, which trivially lets us infer there is no branch cut issues here
 
@@ -1206,10 +1202,16 @@ Plotting the error between our result and the ground result in p=5(left) and p=1
 \includegraphics[width=.5\textwidth]{bemp10}
 \includegraphics[width=.5\textwidth]{bemp5}
 
-\section{Larger Meshes}
 We can add together results from individual triangles to get the result of a convolution over more complicated regions.
 Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.
-If we naively add up all $n$ shapes, we have $O(np^2)$ and now it has started to increase in size.
+We have $O(np^2)$ and now it has started to increase in size.
+\section{Conclusion}
+We were able to successfully derive and implement recurrence relations which works over trapeziums and therefore triangles although much more complex.
+This algorithm is als shown to have performed orders of magnitude faster than the traditional quadrature methods.
+The added complexity interfered with the displacement property which we were hoping for.
+Although, no rigorous proof has been done to show that a recurrence over trapeziums which has the displacement property does not exist it seems fairly convincing that it doesn't exist.
+Future work could be to either be to find a form in which displacement property holds or a proof otherwise.
+Another direction would be to try and generalise even further in the direction of new dimensions to see if we can find this property there.
 \bibliographystyle{plain}
 \bibliography{refs}
 \end{document}
