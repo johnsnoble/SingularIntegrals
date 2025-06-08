@@ -284,6 +284,7 @@ end
 
 function O₁ⱼ²(j,z,a,b)
     t = imag(z)
+    O = fill(0.0im, j+1)
     if (abs(t)<1) & (2*(t*b+a)>real(z))
         s = real(z)/(a+b*t)-1
         O = -2pi*im*[legendreInt(j_,t) for j_=0:j]*legendreInt(1,s)

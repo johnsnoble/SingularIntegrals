@@ -21,16 +21,21 @@
 \newpage
 
 \section{Introduction}
-\subsection{Solving Inhomogenous PDEs}
 We will begin by considering an equation in the form of $\mathcal{D}u=f$.
 The green's function for a particular PDE is defined in a way such that for a green's function $G(x,x')$ given for some differential operator $\mathcal{D}$, we have that $\mathcal{D}G(x,x') = \delta(x,x')$
-My project will be to go through how we can quickly and efficiently by decomposing into orthogonal polynomials and then utilising the recurrence properties of these OPs to solve PDEs using a Dynamic Programming approach.
+My project will be to go through how we can quickly and efficiently by decomposing into orthogonal polynomials and then utilising the recurrence properties of these OPs to solve PDEs using a recursive approach.
+This paper is building on from the findings in\cite{logkernel} and generalising it to more complex shapes.
 \subsection{Cauchy Transform}
 \begin{equation} \label{cauchy transform}
 C_\Gamma f(z):=\frac{1}{2\pi i}\int_\Gamma \frac{f(t)}{t-z}dt
 \end{equation}
-This is analytic for $z \not\in \Gamma$. Define Hilbert Transform to be the limits from the right and the left.
+This is analytic for $z \not\in \Gamma$. Hilbert Transform are defined to be the limits from the right and the left.
 \subsection{Orthogonal Polynomials}
+In this project we will make use of plenty of OPs.
+OPs are such similarly to a set of orthogonal vectors, they span a function space whilst being orthogonal to each other.
+The inner product to make sense of orthogonality with respect to some weight function is:
+$$\langle f,g\rangle_w = \int f(s)g(s)w(s)ds$$
+In each family of OPs, orthogonality holds with respect to some interval we take the inner product over and some weight.
 \begin{center}
 \begin{tabular}{ |c|c|c|c| } 
  \hline
@@ -44,6 +49,10 @@ This is analytic for $z \not\in \Gamma$. Define Hilbert Transform to be the limi
  \hline
 \end{tabular}
 \end{center}
+In this project we will make use of mainly the Legendre polynomials as well as the Ultraspherical polynomials.
+The appeal with using these polynomials is that they all have a 3 term recurrence relation in the form of:
+$$xP_k(x) = \alpha(k) P_{k-1} + \beta(k) P_{k+1}$$
+We will try to take advantage of this to create our own recurrences.
 \section{Log and Stieltjes Transform}
 In this section we will consider approaches to compute these weakly singular integrals
 $$ \int_Alog||z-t||f(t)dt \qquad \int_A\mathbf{\nabla}log||z-t||f(t)dt $$
@@ -53,7 +62,17 @@ $$ \int_Alog||z-t||f(t)dt \qquad \int_A\mathbf{\nabla}log||z-t||f(t)dt $$
 \begin{equation}\label{log transform}
 	\mathcal{L}_Af(z):= \int_Alog(z-t)f(t)dt
 \end{equation}
+Historically, these integrals have been approached with the idea of using quadratures\cite{quadrature,poissonquad}.
 Depending on the type of area which $A$ is we can begin by approximating $f$ using orthogonal polynomials.
+
+\subsection{Previous work}
+When we have values of $z$ we are trying to evaluate far from $A$ the quadrature is very effective however, it has issues where they begin to become unstable as the values of $z$ approach $A$.
+A more extensive overview can be found in\cite{newtonianplanar} and a nice example of where quadratures do not work and its issues with artificial poles when taking $A$ to be an interval is shown in\cite{fastalgorithms}.
+In \cite{logkernel}, we see we can derive recursive relations relating transforms on OPs over squares.
+We look for ways of doing the same except over trapeziums, which allow us to take transforms over triangles and therefore any polygon.
+We also see in \cite{logkernel} that we were able to show that the relations follow the displacement structure.
+The displacement structure is a very useful numerical property as seen in\cite{displacement1,displacement2}.
+
 \subsection{Transforms across Intervals}
 We will try to formulate recurrence relations for these transforms across interval [-1, 1].
 We are looking for looking for $\mathcal{S}_{[-1,1]}f(z)$.
@@ -270,9 +289,9 @@ It is also very useful to define function $s_k, s_j$:
 	s_k(z) :&= \int_{-1}^1\frac{P_k(s)}{z-s}ds \\ 
 	s_j(z) :&= \int_{-1}^1\frac{P_j(t)}{z-t}dt \\ 
 \end{align}
-
-This can be motivated by the tricky recurrent forms for $\tilde{s_{k0}}$.
-TODO: Show why tricky?
+This can be motivated by the tricky recurrent forms for $s_{k0}$:
+$$s_{k0} = \int_{-1}^1S_k(\tilde z_t)dt\text{ or } s_{k0} = \int_{-1}^1\frac{1}{\beta(1+s)+i}\int_{-1}^1\frac{\alpha+\beta t}{\tilde z_s-t}dtds$$
+Both of which are hard to compute.
 
 We can recreate $s_{kj}$ using values of $\tilde{s_{kj}}$ by doing the following:
 \begin{align}
@@ -678,6 +697,43 @@ Now that we have all the individual elements we can simply plug everything back 
 Now we have a situation where we have all values of $\tilde{s}_kj$ but no values for $s_{kj}$.
 The basic idea to recover all $s_{kj}$ was by adding consecutive rows together:
 $$s_{kj}=\int_{-1}^1P_j(t)s_k(\tilde{z}_t)dt=\int_{-1}^1\frac{\alpha+\beta t}{\alpha+\beta t}P_j(t)s_k(\tilde{z}_t)dt=\alpha\tilde{s}_{kj}+\beta\tilde{s}_{kj+1}$$
+
+\subsection{Displacement structure}
+We must now see if there exists a displacement structure for this type of recurrences.
+As mentioned before displacement structure\cite{displacement1,displacement2} is a powerful property which can help us with things like compact representation and fast matrix operations.
+The displacement structure of the matrix $S$ we are interested in is in the form of:
+$$AS+SB^T=C$$
+Where $C$ has a rank of less than 3.
+In the case of a square as shown previously\cite{logkernel} we have that the rank was 1 and we had it in the form of:
+\begin{align}
+    zS&=BS+iSB^T+4\textbf{e}_0\textbf{e}_0^T\\
+    (zI-B)S&-iSB^T=4\textbf{e}_0\textbf{e}_0^T
+\end{align}
+Which is in the desired form.
+The form of trying to characterise the $zS$ matrix is the one we will try to express our recurrence in.
+We can try to derive this structure from our recurrences which we will summarise here:
+\begin{align}
+    (z-\alpha)\tilde s_{kj}&=\beta(k_-j_-\tilde{s}_{k-1j-1}+k_-j_+\tilde{s}_{k-1j+1}+k_+j_-\tilde{s}_{k+1j-1}+k_+j_+\tilde{s}_{k+1j+1})\\
+    &+\alpha(k_-\tilde{s}_{k-1j}+k_+\tilde{s}_{k+1j})\\
+    &+(\beta+i)(j_-\tilde{s}_{kj-1}+j_+\tilde{s}_{kj+1})\\
+    (z-\alpha)\tilde s_{0j}&=\alpha\tilde{s}_{1j}
+    +(\beta+i)(j_-(\tilde{s}_{0j-1}+\tilde{s}_{1j-1})+j_+(\tilde{s}_{0j+1}+\tilde{s}_{1j+1}))\\
+    (z-\alpha)\tilde s_{k0}&=(\beta+i)\tilde{s}_{k1}+\beta (k_-\tilde{s}_{k-11}+k_+\tilde{s}_{k+11})
+    +\alpha(k_-\tilde{s}_{k-10}+k_+\tilde{s}_{k+10})\\
+    \tilde z_{00}&=\int_{-1}^1\tilde z_tS_0(\tilde z_t)dt+\int_{-1}^1\frac{\alpha+(\beta+i)t}{\alpha+\beta t}S_0(\tilde z_t)dt\\
+    &=\int_{-1}^12+S_1(\tilde z_t)dt+\alpha\tilde s_{00}+(\beta+i)\tilde s_{01}\\
+    (z-\alpha)z_{00}&=4+\alpha\tilde s_{10}+\beta\tilde s_{11}+(\beta+i)\tilde s_{01}
+\end{align}
+From these it feels appropriate to use the form:
+\begin{align}
+    (z-\alpha)S&=AS+SB^T+C\\
+    (z-\alpha)S_{kj}&=\Sigma A_{kl}S_{lj}+\Sigma S_{kl}B_{jl}+C\\
+    (z-\alpha)S_{kj}&=A_{kk-1}S_{k-1j}+A_{kk+1}S_{k+1j}\\
+    &+S_{kj-1}B_{jj-1}+S_{kj+1}B{jj+1}+C\\
+\end{align}
+This implies that in order to fit this form we can only have recursive elements from $kj$ in the form of $k\pm 1,j$ or $k,j\pm 1$ (or even $\pm x$ for $x>1$).
+Since our recurrence relation has the "diagonal" elements we cannot have this for $S$.
+This prompts us to augment $S$ slightly so that we can let it obtain the displacement structure.
 
 \section{Log kernel}
 Now we move onto solving over the 2d log kernel.
@@ -1148,5 +1204,7 @@ Given boundary conditions $\partial_nu$ on our $\partial\Omega$, we have a trans
 We can add together results from individual triangles to get the result of a convolution over more complicated regions.
 Given that we are approximating functions to an order of $p$ which results in $p^2$ basis functions, we have that for a single value of $z$ we have $O(p^2)$ operation.
 If we naively add up all $n$ shapes, we have $O(np^2)$ and now it has started to increase in size.
+\bibliographystyle{plain}
+\bibliography{refs}
 \end{document}
 

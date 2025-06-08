@@ -1,0 +1,42 @@
+\begin{thebibliography}{1}
+
+\bibitem{quadrature}
+Ludvig af~Klinteberg and Anna-Karin Tornberg.
+\newblock Adaptive quadrature by expansion for layer potential evaluation in
+  two dimensions.
+\newblock 40, 2018.
+
+\bibitem{poissonquad}
+K.~E. ATKINSON.
+\newblock The numerical evaluation of particular solutions for poisson's
+  equation.
+\newblock 5, 1985.
+
+\bibitem{displacement1}
+A.Townsend B.Beckermann.
+\newblock On the singular values of matrices with displacement structure.
+\newblock 2016.
+
+\bibitem{displacement2}
+A.Townsend B.Beckermann.
+\newblock Bounds on the singular values of matrices with displacement
+  structure.
+\newblock 2019.
+
+\bibitem{newtonianplanar}
+Zewen Shen and Kirill Serkh.
+\newblock Rapid evaluation of newtonian potentials on planar domains.
+\newblock 2023.
+
+\bibitem{logkernel}
+S.Olver.
+\newblock Newtonian potentials of legendre polynomials on rectangles have
+  displacement structure.
+\newblock 2025.
+
+\bibitem{fastalgorithms}
+S.Olver, R.M.Slevnsiky, and A.Townsend.
+\newblock Fast algorithms using orthogonal polynomials.
+\newblock page 655, 2020.
+
+\end{thebibliography}
