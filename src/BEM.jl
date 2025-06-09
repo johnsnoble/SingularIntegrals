@@ -1,4 +1,3 @@
-include("../src/MultivariateSingularIntegrals.jl")
 include("../src/Intervals.jl")
 using .Intervals
 using LinearAlgebra, ClassicalOrthogonalPolynomials, QuadGK, Plots
@@ -8,10 +7,8 @@ u_(z) = cosh(π*imag(z))*sin(π*real(z))
 du_(z) = pi*(cos(pi*real(z))*cosh(pi*imag(z))+sinh(pi*imag(z))*sin(pi*real(z))*im)
 dot_(z1,z2) = real(z1)*real(z2)+imag(z1)*imag(z2)
 
-x_vals = -.98:0.05:.98
-y_vals = -.98:0.05:.98
-
-square_wrapper(k) = ((x,y)->square_boundary(x+im*y,u,k))
+x_vals = -.99:0.02:.99
+y_vals = -.99:0.02:.99
 
 function square_boundary(z,u,k)
     ns = [-1,im,1,-im]
@@ -29,13 +26,6 @@ function base_trap_sol(z,a,b,p,C)
     L = lₖⱼ(p-1,p-1,z,a,b)
     return dot(real(L),C)
 end
-
-# include("../src/MultivariateSingularIntegrals.jl")
-# using .MultivariateSingularIntegrals
-# function base_square_sol(z,p,C)
-#     L = logkernelsquare(z,p)
-#     return dot(real(L),C)
-# end
 
 function trapezium_boundary(z,a,b,p,u,du,C)
     ns = [-1,im,(b-im)/abs(b-im),-im,-1]
@@ -65,10 +55,13 @@ function greens_interval(z, z1, z2, u, du, k)
     return (I1-I2)/2pi
 end
 
+# Returns integrals in form ∫(x-y)/|x-y|^2
 function potential_interval(z,k)
     S = simple_stieltjes_interval(z,k)
     return conj(S)
 end
+
+# 1d C
 P = Legendre()
 function get_c(f,k)
     try
@@ -79,10 +72,23 @@ function get_c(f,k)
     end
 end
 
+# Get the 2d C for Squares
 function get_c2(f,p)
     try
         x = ClassicalOrthogonalPolynomials.grid(P,p)
         F = f.(x,x')
+        C = plan_transform(P,(p,p))*F
+        return C
+    catch
+        return fill(0.0,p,p)
+    end
+end
+
+# Get the 2d C for Trapeziums
+function get_c2(f,p,a,b)
+    try
+        x = ClassicalOrthogonalPolynomials.grid(P,p)
+        F = f.((x.+1)*(a.+b*x'),x')
         C = plan_transform(P,(p,p))*F
         return C
     catch

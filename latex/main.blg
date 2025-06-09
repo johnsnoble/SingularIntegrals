@@ -3,6 +3,10 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: refs.bib
+Warning--to sort, need author or key in bem
+Warning--empty author in bem
+Warning--empty journal in bem
+Warning--empty year in bem
 Warning--empty journal in quadrature
 Warning--empty journal in poissonquad
 Warning--empty journal in displacement1
@@ -10,45 +14,45 @@ Warning--empty journal in displacement2
 Warning--empty journal in newtonianplanar
 Warning--empty journal in logkernel
 Warning--empty journal in fastalgorithms
-You've used 7 entries,
+You've used 8 entries,
             2118 wiz_defined-function locations,
-            529 strings with 4800 characters,
-and the built_in function-call counts, 1675 in all, are:
-= -- 156
-> -- 72
+            533 strings with 4923 characters,
+and the built_in function-call counts, 1843 in all, are:
+= -- 171
+> -- 73
 < -- 1
-+ -- 30
++ -- 31
 - -- 22
-* -- 80
-:= -- 307
-add.period$ -- 21
-call.type$ -- 7
-change.case$ -- 32
+* -- 94
+:= -- 328
+add.period$ -- 23
+call.type$ -- 8
+change.case$ -- 35
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 78
-empty$ -- 126
+cite$ -- 19
+duplicate$ -- 88
+empty$ -- 144
 format.name$ -- 22
-if$ -- 335
+if$ -- 370
 int.to.chr$ -- 0
-int.to.str$ -- 7
-missing$ -- 7
-newline$ -- 38
+int.to.str$ -- 8
+missing$ -- 8
+newline$ -- 42
 num.names$ -- 14
-pop$ -- 43
+pop$ -- 49
 preamble$ -- 1
-purify$ -- 25
+purify$ -- 27
 quote$ -- 0
-skip$ -- 61
+skip$ -- 68
 stack$ -- 0
-substring$ -- 42
+substring$ -- 47
 swap$ -- 7
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 28
-warning$ -- 7
+type$ -- 32
+warning$ -- 11
 while$ -- 15
-width$ -- 8
-write$ -- 68
-(There were 7 warnings)
+width$ -- 9
+write$ -- 75
+(There were 11 warnings)

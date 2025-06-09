@@ -1,5 +1,9 @@
 \begin{thebibliography}{1}
 
+\bibitem{bem}
+Integral equation methods in potential theory. i.
+\newblock 275.
+
 \bibitem{quadrature}
 Ludvig af~Klinteberg and Anna-Karin Tornberg.
 \newblock Adaptive quadrature by expansion for layer potential evaluation in

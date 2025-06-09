@@ -8,9 +8,8 @@
 
 \mathtoolsset{showonlyrefs}
 
-\title{FYP}
-\author{Johns Noble}
-\date{January 2025}
+\title{M4R}
+\author{01857392}
 
 \begin{document}
 
@@ -62,6 +61,11 @@ $$ \int_Alog||z-t||f(t)dt \qquad \int_A\mathbf{\nabla}log||z-t||f(t)dt $$
 \begin{equation}\label{log transform}
 	\mathcal{L}_Af(z):= \int_Alog(z-t)f(t)dt
 \end{equation}
+As mentioned in\cite{logkernel}, we can take:
+$$\int_A log||z-t||f(t)dt=Re\mathcal{L}_A \text{ and }\int_A\nabla log||z-t||f(t)dt=\mathcal{S}_A^*$$
+The first one fairly intuitive given that we are interested in the distances which are given by the real component of the log function.
+The second one we will derive later in \ref{bem} in more detail.
+It is useful to be able to solve for the derivative of the kernel so that we can use it in the boundary element method\cite{bem} to compute a homogeneous version of the equation for some boundary conditions which we can add on to make the non-homogeneous version fit desired boundary conditions.
 Historically, these integrals have been approached with the idea of using quadratures\cite{quadrature,poissonquad}.
 Depending on the type of area which $A$ is we can begin by approximating $f$ using orthogonal polynomials.
 
@@ -84,6 +88,7 @@ Recall recurrence relation of Legendre Polynomials:
 \begin{equation}\label{legendre recurrence}
 	xP_k(x) = \frac{k}{2k+1}P_{k-1}(x) + \frac{k+1}{2k+1}P_{k+1}(x)
 \end{equation}
+Before moving to the more complex recursive relations in the case of the trapezium, it is useful to visit the Stieltjes transform recurrences on an intervel and a square as done in\cite{logkernel}.
 Formulate three-term recurrence for their Stieltjes transforms.
 \begin{equation}
 \begin{split}
@@ -94,7 +99,7 @@ Formulate three-term recurrence for their Stieltjes transforms.
 	S_0(z) &= \int_{-1}^{1}\frac{dt}{z-t} = log(z+1)-log(z-1)
 \end{split}
 \end{equation}
-We can extend this to work over a square using the recurrence over intervals:
+Extending this to work over a square using the recurrence over intervals:
 \begin{equation}
 \begin{split}
 zS_{k,j}(z) &= z\int_{-1}^1\int_{-1}^1\frac{P_k(s)P_j(t)}{z-(s+it)}dsdt \\
@@ -145,7 +150,7 @@ Following the process of introducing a multiple of $z$ and decomposing into $z-t
 
 \subsection{Log kernel interval linear transformations}
 Now that we have a recurrence relation of the log kernel on a simple interval, we will try and formulate a way to extend this to work on linearly transformed intervals.
-The motivation to do this will become clear later on when we attempt to use boundary element methods to help solve a poisson PDE.
+The motivation to do this will become clear later on when we attempt to use boundary element methods\cite{bem} to help solve a poisson PDE.
 Let us aim to be able to scale and rotate by some $\lambda$ and move by some $\mu$.
 \begin{align}
     L_k(z)=\int_{-1}^1P_k(s)&Log(z-s)ds\rightarrow\int_{-1}^1P_k(s)Log(z-(\mu+\lambda s))ds\\
@@ -193,7 +198,7 @@ We can begin to consider taking these transforms across different geometries.
 Currently we have a way to find these transforms across [-1,1] but we will be trying to use this to solve other geometries.
 The first type of geometry we should consider is one where we apply a degree $d$ polynomial transform to the interval:
 $$p:[-1,1]\rightarrow \Gamma$$
-We will show why the solution to a cauchy transform across this interval is as follows:
+We will show why the solution to a cauchy transform across this interval is as follows in\cite{fastalgorithms}:
 \begin{equation}
 C_\Gamma f(z) = \Sigma_{j=0}^dC_{[-1,1]}[f\circ p](p_j^{-1}(z))
 \end{equation}
@@ -232,7 +237,7 @@ In the case where $z \notin \psi, \psi^+=\psi^-$ which is expected since the are
 
 \section{Trapezium Region}
 We can attempt to generalise the method of stieltjes on a square to work for any given quadrilateral.
-This can easily be done by computing for a Trapezium,
+This can be done by computing for a Trapezium,
 We can use the parameterisation: $$Q\begin{pmatrix}x\\y\end{pmatrix}\rightarrow
 \begin{pmatrix}(1+x)(\alpha+\beta y)\\y\end{pmatrix}$$
 Since our $\alpha, \beta > 0$, our $Q$ is invertible:
@@ -243,7 +248,7 @@ The first approach that was attempted would be to take the function approximatio
 $$f(x,y)=\Sigma_{k,j}c_{k,j}P_k(x)P_j(y), c_{k,j}\in \mathbb{R}$$
 This method is simpler but it can be seen that we would have to be evaluating integrals of orthogonal polynomials outside the
 $[-1,1]$ domain in which they are well behaved.
-This would result in instable results
+This would result in unstable results even though the recurrences are more simpler.
 
 It is possible to think of the function space here as the bases of functions which we can add together to approximate the function.
 In the approach above we can represent the bases to be $\{b_{kj}\}_{kj}$ where $b_{kj}(\textbf{x})=P_k(x)P_j(y)$
@@ -705,10 +710,16 @@ From these it feels appropriate to use the form:
     (z-\alpha)S&=AS+SB^T+C\\
     (z-\alpha)S_{kj}&=\Sigma A_{kl}S_{lj}+\Sigma S_{kl}B_{jl}+C\\
     (z-\alpha)S_{kj}&=A_{kk-1}S_{k-1j}+A_{kk+1}S_{k+1j}\\
-    &+S_{kj-1}B_{jj-1}+S_{kj+1}B{jj+1}+C\\
+    &+S_{kj-1}B_{jj-1}+S_{kj+1}B_{jj+1}+C\\
 \end{align}
 This implies that in order to fit this form we can only have recursive elements from $kj$ in the form of $k\pm 1,j$ or $k,j\pm 1$ (or even $\pm x$ for $x>1$).
-Since our recurrence relation has the "diagonal" elements we cannot have displacement structure for $\tilde s_{kj}$.
+Since our recurrence relation has the "diagonal" elements we cannot use this form.
+This prompts us to use a slightly different form where we have access to diagonal elements by shifting.
+For example the matrix $A$ can currently only take values from the column of $S$ but needs to take from the neighbouring columns also.
+Therefore this motivates us to try and shift the matrix $S$ before accessing it
+$$(z-\alpha)S = AS + A_SP_- + A_+SP_+ + SB^T + Q_-SB_-^T + Q_+SB_+^T + C$$
+Where $P_-,P_+,Q_-,Q_+$ are shift matricies which shift matricies which move the columns, rows respectively.
+However, this not the correct form we may not be able to guarantee displacement structure.
 
 \section{Log kernel}
 Now we move onto solving over the 2d log kernel.
@@ -834,7 +845,7 @@ Going back to finding out correction term we have:
 \end{align}
 
 \subsubsection{Case 5: $s^*\in(-1,1)$ and $Im(z)>-\frac{\alpha}{\beta}$}
-TODO: Make sure earlier section explains this and link to it
+Splitting the trapezium into lines for all $s$, we have from \eqref{branch_correct}, that we only have to correct for branch crossing depending on the value of $x^*$ which it would cross the real axis at.
 Letting $x^*$ be where the line of the integral crosses the real axis:
 \begin{align}
     Im(z-(\alpha+\beta t)(1+s)-it)&=0\\
@@ -842,7 +853,7 @@ Letting $x^*$ be where the line of the integral crosses the real axis:
     x^*=Re(z)-(\alpha+\beta Im(z))(1+s)&=(\alpha+\beta Im(z))(s^*-s)\\
     Im(z)>-\frac{\alpha}{\beta}&\implies (x^*<0 \iff s^*<s)
 \end{align}
-Given the earlier theorem, we have that if $s>s^*$ we can say that the whole interval for that $s$ has crossed the branch cut and therefore, we compensate with the correction:$-2\pi i\mathbb{I}\{s>s^*\}$ for all $t$.
+Given \eqref{branch_correct}, we have that if $s>s^*$ we can say that the whole interval for that $s$ has crossed the branch cut and therefore, we compensate with the correction:$-2\pi i\mathbb{I}\{s>s^*\}$ for all $t$.
 Yields our final correction term:
 \begin{align}
     \int_{-1}^1\int_{-1}^1-2\pi i\mathbb{I}\{s>s^*\}P_k(s)P_j(t)dtds&=-2\pi i\int_{-1}^12\delta_{j0}\mathbb{I}\{s>s^*\}P_k(s)ds\\
@@ -1074,12 +1085,14 @@ This is not exactly what we observe but we can account for this by claiming it i
 The quadrature seems to have a large overhead for lower values but seems to begin to increase again afterwards.
 In comparison to the quadrature method, the recursive method outlined seems to work orders of magnitudes faster.
 \subsection{Accuracy}
-We will now test the potential of function $f:(x,y)\rightarrow cos(xe^y)$ to see how the quadrature result differs from the recusrive results by plotting the difference on a $log_{10}$ scale:
+Accuracy is difficult to try and quantify with this algorithm since it except from the initial function approximation onto our function space, we have exact results.
+In theory the results are exact however, we may have small errors due to rounding which can be further improved with the use of Double64 over Float64.
+To eliminate as a factor how well we do function approximation, we will now test the potential of function which is from the function space we are working with to see how the quadrature result differs from the recursive results by plotting the difference on a $log_{10}$ scale:
 
 \includegraphics[width=.5\textwidth]{potentialp5}
 \includegraphics[width=.5\textwidth]{potentialp10}
-The value of the error changes only by a small amount from using p=5(left) to p=10(right).
-Although, the source of this error can come from many different sources including how well the function is approximated using our function space.
+This was compared to a quadrature result which has a relatively high tolerance to speed up computation which means we do expect to see small differences.
+The value of the error changes only by a small amount from using p=5(left) to p=10(right), which further shows that the error is from the quadrature.
 \section{Transformation}
 Up until now, we have been working in very fixed regions using the least amount of degrees of freedom possible for parameterisation.
 In this section we will explore how to resize and move around our region so we can achieve more complex structures by computing over smaller regions.
@@ -1135,6 +1148,8 @@ The value of $t$ begin outside ($-1,1$) means that we have a case where the para
     &=\begin{bmatrix}-Re(z-\mu)\\-Im(z-\mu)\end{bmatrix}\\
     \text{non singular: }\lambda\neq 0\implies Re(\lambda)^2+Im(\lambda)^2&>0
 \end{align}
+Once we have the value of $t$ at which we have the branch crossing, we can add on the correction in the form of:
+$$\pm 2\pi\int_t^1\int_{-1}^1log(z-(\alpha + \beta)t-s)ds$$
 
 \section{Boundary Conditions}
 Now we have all the tools to be able to solve the poisson equation: $\Delta u=f$ for any arbritary function $f$ by convolving its green's function ($\frac{1}{2\pi}ln|x-y|$) over the target function $f$.
@@ -1154,7 +1169,10 @@ The idea here is to solve a homogeneous pde:
 \end{align}
 Therefore the solution $u(x)+u_p(x)$ will satisfy $\Delta(u+u_p)=f$ as well as the desired boundary conditions.
 Now all we need is to come up with a way to find solutions to the problem $\Delta u=0$ for any given boundary condition.
+We will be able to do this using the boundary element method \cite{bem}.
+
 \subsection{Boundary element method}
+\label{bem}
 We begin with our initial equation and multiply test function $w$ to get a weak solution:
 \begin{align}
     \Delta u=0&\implies \int_\Omega w\Delta u=0\\
@@ -1207,11 +1225,33 @@ Given that we are approximating functions to an order of $p$ which results in $p
 We have $O(np^2)$ and now it has started to increase in size.
 \section{Conclusion}
 We were able to successfully derive and implement recurrence relations which works over trapeziums and therefore triangles although much more complex.
-This algorithm is als shown to have performed orders of magnitude faster than the traditional quadrature methods.
+This algorithm is also shown to have performed orders of magnitude faster than the traditional quadrature methods.
 The added complexity interfered with the displacement property which we were hoping for.
 Although, no rigorous proof has been done to show that a recurrence over trapeziums which has the displacement property does not exist it seems fairly convincing that it doesn't exist.
 Future work could be to either be to find a form in which displacement property holds or a proof otherwise.
 Another direction would be to try and generalise even further in the direction of new dimensions to see if we can find this property there.
+
+\section{Appendix}
+Github link to repo: https://github.com/johnsnoble/SingularIntegrals
+
+BaseCases.jl: Basecases for stieltjes case
+
+BEM.jl: Boundary element method to find homogeneous solutions
+
+Common.jl: Useful function used throughout
+
+Intervals.jl: Recurrences on simple intervals (not all were used)
+
+LogTrap.jl: Functions that give L matrix for Log kernel on trapezium
+use function $l_{kj}$ to get the whole square
+
+MultivariateTesting.jl: A few test cases
+
+TestUtil.jl: Testing utility
+
+StieltjesTrap.jl: Stieltjes on trapezium
+Use function s\_trap\_matrix! to get the S matrix.
+
 \bibliographystyle{plain}
 \bibliography{refs}
 \end{document}
